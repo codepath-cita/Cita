@@ -33,6 +33,6 @@ The following **additional** features are implemented:
 - [ ] User ratings
 - [ ] direct messages
 
-## Wirframes
+## Wireframes
 Here's a link to the project wireframes:
 [Cita Wireframes](https://drive.google.com/open?id=0B807XrL6VWPla1ZnVU13WV9yME0)
