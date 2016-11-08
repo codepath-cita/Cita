@@ -1,0 +1,6 @@
+framework module Pods_CitaTests {
+  umbrella header "Pods-CitaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
