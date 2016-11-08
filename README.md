@@ -1,5 +1,5 @@
 # Cita
-An app to make casual meetups easy
+An app to make casual one off meetups easy.  Meet with people for an activity.  As a meetup creator you can set a limit on the number of people attending, and set the time and place.  As a meetup attendee you can browse for activities around you and attend whatever sounds interesting.
 
 ## User Stories
 The following **required** functionality is completed:
