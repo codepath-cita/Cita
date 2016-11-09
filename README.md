@@ -30,8 +30,10 @@ The following **optional** features are implemented:
   - [ ] User receives a notification when their event is canceled, or someone withdraws from the event
 
 The following **additional** features are implemented:
+- [ ] Localization - for meetups for specific language in US
+- [ ] Localization - for non-US app store
 - [ ] User ratings
-- [ ] direct messages
+- [ ] Direct messages
 
 ## Wireframes
 Here's a link to the project wireframes:
