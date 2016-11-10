@@ -6,6 +6,7 @@ target 'Cita' do
   use_frameworks!
 
   # Pods for Cita
+  pod 'Firebase/Core'
 
   target 'CitaTests' do
     inherit! :search_paths

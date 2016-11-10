@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB9BA551DD41DA5003600AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */; };
 		7E5B85E667380FDDF0E202B7 /* Pods_Cita.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */; };
 		9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E291DD194E90079F5AA /* AppDelegate.swift */; };
 		9E7F5E2C1DD194E90079F5AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E2B1DD194E90079F5AA /* ViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		05399CB04E8929C540AC5E3D /* Pods-CitaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CitaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CitaTests/Pods-CitaTests.release.xcconfig"; sourceTree = "<group>"; };
+		1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2548405413F9201256610D29 /* Pods-CitaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CitaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CitaTests/Pods-CitaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3831904E07C70402FE9580BF /* Pods-Cita.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cita.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cita/Pods-Cita.debug.xcconfig"; sourceTree = "<group>"; };
 		3C0BE1C1B407050ED251E7AE /* Pods-CitaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CitaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CitaUITests/Pods-CitaUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				9E7F5E2D1DD194E90079F5AA /* Main.storyboard */,
 				9E7F5E331DD194E90079F5AA /* Assets.xcassets */,
 				9E7F5E351DD194E90079F5AA /* LaunchScreen.storyboard */,
+				1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */,
 				9E7F5E381DD194E90079F5AA /* Info.plist */,
 				9E7F5E301DD194E90079F5AA /* Cita.xcdatamodeld */,
 			);
@@ -245,6 +248,7 @@
 				TargetAttributes = {
 					9E7F5E251DD194E90079F5AA = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = BXSQWA9MVY;
 						ProvisioningStyle = Automatic;
 					};
 					9E7F5E3C1DD194E90079F5AA = {
@@ -285,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E7F5E371DD194E90079F5AA /* LaunchScreen.storyboard in Resources */,
+				1AB9BA551DD41DA5003600AA /* GoogleService-Info.plist in Resources */,
 				9E7F5E341DD194E90079F5AA /* Assets.xcassets in Resources */,
 				9E7F5E2F1DD194E90079F5AA /* Main.storyboard in Resources */,
 			);
@@ -319,7 +324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		0F9AA4485C48597528DA0776 /* [CP] Embed Pods Frameworks */ = {
@@ -364,7 +369,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6F0FCEF40E51FBBC0BE7E6A1 /* [CP] Check Pods Manifest.lock */ = {
@@ -379,7 +384,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		87047683EEF3F7E2B609E151 /* [CP] Copy Pods Resources */ = {
@@ -604,6 +609,7 @@
 			baseConfigurationReference = 3831904E07C70402FE9580BF /* Pods-Cita.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BXSQWA9MVY;
 				INFOPLIST_FILE = Cita/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Cita;
@@ -617,6 +623,7 @@
 			baseConfigurationReference = 4432BA125FE116E147E88370 /* Pods-Cita.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BXSQWA9MVY;
 				INFOPLIST_FILE = Cita/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Cita;
