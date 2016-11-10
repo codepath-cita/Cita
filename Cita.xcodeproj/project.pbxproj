@@ -19,6 +19,7 @@
 		9E7F5E4D1DD194E90079F5AA /* CitaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E4C1DD194E90079F5AA /* CitaUITests.swift */; };
 		CBF8EBAA05A7507A4565FBE0 /* Pods_CitaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE705F642871065B4D322A67 /* Pods_CitaUITests.framework */; };
 		E2526BF90261A4E4A8172834 /* Pods_CitaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */; };
+		FE59DB571DD4299B00FB4932 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE59DB561DD4299B00FB4932 /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CitaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE705F642871065B4D322A67 /* Pods_CitaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CitaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cita.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE59DB561DD4299B00FB4932 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.17.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE59DB571DD4299B00FB4932 /* FBSDKLoginKit.framework in Frameworks */,
 				7E5B85E667380FDDF0E202B7 /* Pods_Cita.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +99,7 @@
 		2D6EEAD4D59580E08179BACC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE59DB561DD4299B00FB4932 /* FBSDKLoginKit.framework */,
 				F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */,
 				A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */,
 				CE705F642871065B4D322A67 /* Pods_CitaUITests.framework */,
@@ -248,7 +252,7 @@
 				TargetAttributes = {
 					9E7F5E251DD194E90079F5AA = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = BXSQWA9MVY;
+						DevelopmentTeam = VWPTHC52L3;
 						ProvisioningStyle = Automatic;
 					};
 					9E7F5E3C1DD194E90079F5AA = {
@@ -609,7 +613,7 @@
 			baseConfigurationReference = 3831904E07C70402FE9580BF /* Pods-Cita.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BXSQWA9MVY;
+				DEVELOPMENT_TEAM = VWPTHC52L3;
 				INFOPLIST_FILE = Cita/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Cita;
@@ -623,7 +627,7 @@
 			baseConfigurationReference = 4432BA125FE116E147E88370 /* Pods-Cita.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = BXSQWA9MVY;
+				DEVELOPMENT_TEAM = VWPTHC52L3;
 				INFOPLIST_FILE = Cita/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Cita;
