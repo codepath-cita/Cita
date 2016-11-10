@@ -7,21 +7,19 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>718309357579-qtjauotb0tqbhsev4plt0afdhis9lm31.apps.googleusercontent.com</string>
+	<string>743594810688-3qmijd4rjgjaindor9kfip8bna3ttjs7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.718309357579-qtjauotb0tqbhsev4plt0afdhis9lm31</string>
-	<key>API_KEY</key>
-	<string>AIzaSyA9KIedC44xzABFymQdODs83ncQlPZ7xAs</string>
+	<string>com.googleusercontent.apps.743594810688-3qmijd4rjgjaindor9kfip8bna3ttjs7</string>
 	<key>GCM_SENDER_ID</key>
-	<string>718309357579</string>
+	<string>743594810688</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.codepath.cita.ios</string>
+	<string>com.codepath.cita</string>
 	<key>PROJECT_ID</key>
-	<string>idleloops-83cf6</string>
+	<string>cita-9200e</string>
 	<key>STORAGE_BUCKET</key>
-	<string>idleloops-83cf6.appspot.com</string>
+	<string>cita-9200e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:718309357579:ios:21835a326c764398</string>
+	<string>1:743594810688:ios:c98ca524db53e3e1</string>
 	<key>DATABASE_URL</key>
-	<string>https://idleloops-83cf6.firebaseio.com</string>
+	<string>https://cita-9200e.firebaseio.com</string>
 </dict>
 </plist>
