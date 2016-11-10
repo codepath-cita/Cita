@@ -7,6 +7,9 @@ target 'Cita' do
 
   # Pods for Cita
   pod 'Firebase/Core'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKCoreKit'
+
 
   target 'CitaTests' do
     inherit! :search_paths
