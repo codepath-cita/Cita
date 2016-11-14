@@ -10,7 +10,7 @@
 		1AB9BA551DD41DA5003600AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */; };
 		7E5B85E667380FDDF0E202B7 /* Pods_Cita.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */; };
 		9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E291DD194E90079F5AA /* AppDelegate.swift */; };
-		9E7F5E2C1DD194E90079F5AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E2B1DD194E90079F5AA /* ViewController.swift */; };
+		9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */; };
 		9E7F5E2F1DD194E90079F5AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7F5E2D1DD194E90079F5AA /* Main.storyboard */; };
 		9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E301DD194E90079F5AA /* Cita.xcdatamodeld */; };
 		9E7F5E341DD194E90079F5AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E7F5E331DD194E90079F5AA /* Assets.xcassets */; };
@@ -19,7 +19,9 @@
 		9E7F5E4D1DD194E90079F5AA /* CitaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E4C1DD194E90079F5AA /* CitaUITests.swift */; };
 		CBF8EBAA05A7507A4565FBE0 /* Pods_CitaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE705F642871065B4D322A67 /* Pods_CitaUITests.framework */; };
 		E2526BF90261A4E4A8172834 /* Pods_CitaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */; };
-		FE59DB571DD4299B00FB4932 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE59DB561DD4299B00FB4932 /* FBSDKLoginKit.framework */; };
+		FE6496741DD99FE20025DAEC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */; };
+		FE6496761DD9E6F10025DAEC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */; };
+		FE64967A1DD9F1540025DAEC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6496791DD9F1540025DAEC /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +50,7 @@
 		4432BA125FE116E147E88370 /* Pods-Cita.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cita.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cita/Pods-Cita.release.xcconfig"; sourceTree = "<group>"; };
 		9E7F5E261DD194E90079F5AA /* Cita.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cita.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7F5E291DD194E90079F5AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E7F5E2B1DD194E90079F5AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E7F5E2E1DD194E90079F5AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E7F5E311DD194E90079F5AA /* Cita.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cita.xcdatamodel; sourceTree = "<group>"; };
 		9E7F5E331DD194E90079F5AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,7 +66,10 @@
 		A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CitaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE705F642871065B4D322A67 /* Pods_CitaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CitaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cita.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE59DB561DD4299B00FB4932 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.17.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		FE6496771DD9EAD10025DAEC /* Cita.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cita.entitlements; sourceTree = "<group>"; };
+		FE6496791DD9F1540025DAEC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE59DB571DD4299B00FB4932 /* FBSDKLoginKit.framework in Frameworks */,
+				FE6496741DD99FE20025DAEC /* FBSDKLoginKit.framework in Frameworks */,
+				FE6496761DD9E6F10025DAEC /* FBSDKCoreKit.framework in Frameworks */,
 				7E5B85E667380FDDF0E202B7 /* Pods_Cita.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,7 +105,8 @@
 		2D6EEAD4D59580E08179BACC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FE59DB561DD4299B00FB4932 /* FBSDKLoginKit.framework */,
+				FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */,
+				FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */,
 				F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */,
 				A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */,
 				CE705F642871065B4D322A67 /* Pods_CitaUITests.framework */,
@@ -145,8 +152,9 @@
 		9E7F5E281DD194E90079F5AA /* Cita */ = {
 			isa = PBXGroup;
 			children = (
+				FE6496781DD9F12E0025DAEC /* View Controllers */,
+				FE6496771DD9EAD10025DAEC /* Cita.entitlements */,
 				9E7F5E291DD194E90079F5AA /* AppDelegate.swift */,
-				9E7F5E2B1DD194E90079F5AA /* ViewController.swift */,
 				9E7F5E2D1DD194E90079F5AA /* Main.storyboard */,
 				9E7F5E331DD194E90079F5AA /* Assets.xcassets */,
 				9E7F5E351DD194E90079F5AA /* LaunchScreen.storyboard */,
@@ -173,6 +181,15 @@
 				9E7F5E4E1DD194E90079F5AA /* Info.plist */,
 			);
 			path = CitaUITests;
+			sourceTree = "<group>";
+		};
+		FE6496781DD9F12E0025DAEC /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */,
+				FE6496791DD9F1540025DAEC /* HomeViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +270,11 @@
 					9E7F5E251DD194E90079F5AA = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					9E7F5E3C1DD194E90079F5AA = {
 						CreatedOnToolsVersion = 8.1;
@@ -457,9 +479,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E7F5E2C1DD194E90079F5AA /* ViewController.swift in Sources */,
+				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
 				9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */,
 				9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */,
+				FE64967A1DD9F1540025DAEC /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +635,12 @@
 			baseConfigurationReference = 3831904E07C70402FE9580BF /* Pods-Cita.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = Cita/Cita.entitlements;
+				DEVELOPMENT_TEAM = VWPTHC52L3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Cita/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Cita;
@@ -626,7 +654,12 @@
 			baseConfigurationReference = 4432BA125FE116E147E88370 /* Pods-Cita.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = Cita/Cita.entitlements;
+				DEVELOPMENT_TEAM = VWPTHC52L3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Cita/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.Cita;

@@ -7,15 +7,17 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>743594810688-3qmijd4rjgjaindor9kfip8bna3ttjs7.apps.googleusercontent.com</string>
+	<string>743594810688-iighetol9hdhug1vca9r8cd5dh2m62mo.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.743594810688-3qmijd4rjgjaindor9kfip8bna3ttjs7</string>
+	<string>com.googleusercontent.apps.743594810688-iighetol9hdhug1vca9r8cd5dh2m62mo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCF_VBlmxr5WyO3I4O7zt-GqsFhGfwj7Ic</string>
 	<key>GCM_SENDER_ID</key>
 	<string>743594810688</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.codepath.cita</string>
+	<string>com.codepath.Cita</string>
 	<key>PROJECT_ID</key>
 	<string>cita-9200e</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:743594810688:ios:c98ca524db53e3e1</string>
+	<string>1:743594810688:ios:e1eeb88631292e5c</string>
 	<key>DATABASE_URL</key>
 	<string>https://cita-9200e.firebaseio.com</string>
 </dict>
