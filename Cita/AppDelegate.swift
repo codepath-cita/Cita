@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var rootNavController: UIViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -27,6 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyDAMvPjmoWiADSIyzkH1TqL62In0kN8qTc")
         GMSPlacesClient.provideAPIKey("AIzaSyDAMvPjmoWiADSIyzkH1TqL62In0kN8qTc")
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        rootNavController = storyboard.instantiateViewController(withIdentifier: "MapNavigationController")
+        if (User.currentUser != nil) {
+            window?.rootViewController = rootNavController
+        }
+        
+        self.registerNotificationObservers()
         
         return true
     }
@@ -101,6 +110,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    private func registerNotificationObservers() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: User.userDidLogoutNotification),
+            object: nil, queue: OperationQueue.main) {
+                (notification: Notification) in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateInitialViewController() as! LoginViewController
+                vc.view.layoutIfNeeded()
+                vc.setLoginState(false, error: nil)
+                self.window?.rootViewController = vc
+        }
+        
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: User.userDidLoginNotification),
+            object: nil, queue: OperationQueue.main) {
+                (notification: Notification) in
+                self.window?.rootViewController = self.rootNavController
+        }
+        
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(rawValue: User.userDidLoginNotification),
+                    object: nil)
+            } else {
+                NotificationCenter.default.post(
+                    name: NSNotification.Name(rawValue: User.userDidLogoutNotification),
+                    object: nil)
             }
         }
     }

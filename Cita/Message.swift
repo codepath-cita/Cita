@@ -26,6 +26,6 @@ class Message: NSObject {
     
     init(dictionary: NSDictionary) {
         id = dictionary["id"] as? String
-        text = dictionary["text"] as? String
+        text = dictionary["text"] as? String    
     }
 }
