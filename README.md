@@ -1,40 +1,63 @@
-# Cita
-An app to make casual one off meetups easy.  Meet with people for an activity.  As a meetup creator you can set a limit on the number of people attending, and set the time and place.  As a meetup attendee you can browse for activities around you and attend whatever sounds interesting.
+# Project 4 - *Cita App - Sprint 1*
+
+Time spent: **20** hours spent in total
 
 ## User Stories
+
+SH -> Sara Hender
+SG -> Santiago Gomez
+SC -> Stephen Chudleigh
+
 The following **required** functionality is completed:
-- [ ] When a user opens the app for the first they will see the home screen with a map of their surrounding area.
-- [ ] The user can switch to a list view of the events that are happening, sorted by distance
-- [ ] The user can search for events with a search bar
-- [ ] The user can create a new activity from the map or list view
-- [ ] Anonymous user can view some activity info but it’s limited
-- [ ] Anonymous user will have to login to create events or see full event details
-- [ ] User can login with Facebook
-- [ ] User can click on an activity on the map and see a brief summary of that activity with a “See more…” link to view the Activity Details screen
-- [ ] Activity creator can manage the event and cancel the event
-- [ ] User viewing the activity details can register for that activity
-- [ ] User registered for an activity can click on a chat window to see the conversation about that activity
-- [ ] User attendee viewing activity details can withdraw from the activity
-- [ ] User creating an activity can enter the details on the activity creation screen
-- [ ] User creating an activity can enter tags for the activity to enhance search
-- [ ] User can update their profile information with avatar/profile pic, activities of interest
-- [ ] User viewing their profile can see activities they have hosted, attended, and upcoming activities they are scheduled to attend
-- [ ] User can invite other people to view an activity they are interested in
-- [ ] User can view a settings page with Log Out, Delete My Account, Invite My Friends
 
-The following **optional** features are implemented:
-- [ ] Push Notifications
-  - [ ] Activity creator receives a notification when someone joins their activity
-  - [ ] User can receive notifications when there is a new chat message
-  - [ ] User receives a reminder notification when the event is getting close
-  - [ ] User receives a notification when their event is canceled, or someone withdraws from the event
+- [X] App flow definition (SH, SG, SC)
+- [X] Schema definition (SH, SG, SC)
+- [X] Backend Integration
+   - [X] Firebase setup (SH, SG, SC)
+   - [X] Data models definition (SC)
+   - [X] Write and read from database (SC)
+- [X] User Authentication
+   - [X] Facebook app setup (SG)
+   - [X] Integration of Fb login with Firebase (SG)
+   - [X] Create login view controller and fb login button (SG)
+   - [X] Make a user persistent in the app after authenticated (SG)
+   - [X] Created a template user profile page (SG)
+   - [X] Add spinner into authentication transition (SG)
+- [X] Google Maps Integration
+   - [X] App setup (SH)
+   - [X] Integrated framework (SH)
+   - [X] Added map into custom view and set long and lat (SH)
+- [X] View Controllers Basic Flow
+   - [X] Create different view controllers and classes (SH)
+   - [X] Designed the flow between screens (SH)
 
-The following **additional** features are implemented:
-- [ ] Localization - for meetups for specific language in US
-- [ ] Localization - for non-US app store
-- [ ] User ratings
-- [ ] Direct messages
+No **optional** features were implemented on this sprint.
 
-## Wireframes
-Here's a link to the project wireframes:
-[Cita Wireframes](https://drive.google.com/open?id=0B807XrL6VWPla1ZnVU13WV9yME0)
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+## Notes
+
+Describe any challenges encountered while building the app.
+
+## License
+
+    Copyright [2016] [Codepath Cita]
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
