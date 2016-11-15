@@ -15,11 +15,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBOutlet weak var loginButton: FBSDKLoginButton!
     @IBOutlet weak var loadingSpinnerAIV: UIActivityIndicatorView!
+    @IBOutlet weak var logoImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.loginButton.isHidden = true
+        logoImageView.layer.cornerRadius = 8
+        logoImageView.clipsToBounds = true
+        logoImageView.isHidden = true
         
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
             if let user = user {
@@ -28,10 +32,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                 self.present(homeViewController, animated: true, completion: nil)
                
             } else { 
-                self.loginButton.center = self.view.center
+//                self.loginButton.center = self.view.center
                 self.loginButton.readPermissions = ["public_profile", "email", "user_friends"]
                 self.loginButton.delegate = self
                 self.loginButton.isHidden = false
+                self.logoImageView.isHidden = false
             }
         }
     }
@@ -40,12 +45,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         loadingSpinnerAIV.startAnimating()
         self.loginButton.isHidden = true
+        self.logoImageView.isHidden = true
         
         if error != nil {
             self.loginButton.isHidden = true
+            self.logoImageView.isHidden = true
             loadingSpinnerAIV.stopAnimating()
         } else if result.isCancelled  {  //handle cancel event
             self.loginButton.isHidden = false
+            self.logoImageView.isHidden = false
             loadingSpinnerAIV.stopAnimating()
         } else {
             let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
