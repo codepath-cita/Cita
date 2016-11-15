@@ -20,6 +20,6 @@ class Tag: NSObject {
     
     init(text: String, autocomplete: Bool = false) {
         self.text = text
-        self.autocomplete = complete
+        self.autocomplete = autocomplete
     }
 }

@@ -26,7 +26,7 @@ import UIKit
 class Activity: NSObject {
     var id: String?
     var name: String?
-    var description: String?
+    var descriptionString: String?
     var imageURL: URL?
     var location: CLLocation?
     var startTime: Date?
@@ -38,16 +38,16 @@ class Activity: NSObject {
     init(dictionary: NSDictionary) {
         id = dictionary["id"] as? String
         name = dictionary["name"] as? String
-        description = dictionary["description"] as? String
+        descriptionString = dictionary["description"] as? String
         if let url = dictionary["imag_url"] as? String {
             imageURL = URL(string: url)
         }
-        location = CLLocation(latitude: dictionary["latitude"] as? CLLocationDegrees, longitude: dictionary["longitude"] as? CLLocationDegrees)
-        startTime = Date(timeIntervalSinceReferenceDate: dictionary["start_time"] as? Int)
-        endTime = Date(timeIntervalSinceReferenceDate: dictionary["end_time"] as? Int)
+        location = CLLocation(latitude: dictionary["latitude"] as! CLLocationDegrees, longitude: dictionary["longitude"] as! CLLocationDegrees)
+        startTime = Date(timeIntervalSinceReferenceDate: dictionary["start_time"] as! Double)
+        endTime = Date(timeIntervalSinceReferenceDate: dictionary["end_time"] as! Double)
         // TODO: init address
         if let addressDictionary = dictionary["address"] as? NSDictionary {
-            address = Address(addressDictionary)
+            address = Address(dictionary: addressDictionary)
         }
     }
 }
