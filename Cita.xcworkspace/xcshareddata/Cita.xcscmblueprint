@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "429E84047C63706D63E7E928384BC3104C7A4EE9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "429E84047C63706D63E7E928384BC3104C7A4EE9" : 9223372036854775807,
+    "151ED711BCA7D109E76906C47C284466C9BF2BD2" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "ACF05068-5B8A-4676-B56B-C09033C2E35A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "429E84047C63706D63E7E928384BC3104C7A4EE9" : "Cita\/",
+    "151ED711BCA7D109E76906C47C284466C9BF2BD2" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Cita",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Cita.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/h3nd3r\/loop.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "151ED711BCA7D109E76906C47C284466C9BF2BD2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/codepath-cita\/Cita.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "429E84047C63706D63E7E928384BC3104C7A4EE9"
+    }
+  ]
+}
