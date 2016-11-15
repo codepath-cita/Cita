@@ -4,9 +4,15 @@ Time spent: **20** hours spent in total
 
 ## User Stories
 
+<<<<<<< HEAD
 SH -> Sara Hender
 SG -> Santiago Gomez
 SC -> Stephen Chudleigh
+=======
+SH -> Sara Hender  
+SG -> Santiago Gomez  
+SC -> Stephen Chudleigh  
+>>>>>>> b44fbeebc2c51a004f266a49766c4ae3dc0fc989
 
 The following **required** functionality is completed:
 
