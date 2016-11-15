@@ -22,6 +22,13 @@
 		FE6496741DD99FE20025DAEC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */; };
 		FE6496761DD9E6F10025DAEC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */; };
 		FE64967A1DD9F1540025DAEC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6496791DD9F1540025DAEC /* HomeViewController.swift */; };
+		FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */; };
+		FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */; };
+		FE6AD2BD1DDABA0F00E18086 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BC1DDABA0F00E18086 /* SettingsViewController.swift */; };
+		FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */; };
+		FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */; };
+		FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */; };
+		FE6AD2C51DDABA6D00E18086 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C41DDABA6D00E18086 /* ActivityViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +77,13 @@
 		FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		FE6496771DD9EAD10025DAEC /* Cita.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cita.entitlements; sourceTree = "<group>"; };
 		FE6496791DD9F1540025DAEC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FE6AD2BC1DDABA0F00E18086 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
+		FE6AD2C41DDABA6D00E18086 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +202,13 @@
 			children = (
 				9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */,
 				FE6496791DD9F1540025DAEC /* HomeViewController.swift */,
+				FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */,
+				FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */,
+				FE6AD2BC1DDABA0F00E18086 /* SettingsViewController.swift */,
+				FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */,
+				FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */,
+				FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */,
+				FE6AD2C41DDABA6D00E18086 /* ActivityViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -479,10 +500,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */,
+				FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */,
 				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
+				FE6AD2BD1DDABA0F00E18086 /* SettingsViewController.swift in Sources */,
+				FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */,
 				9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */,
 				9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */,
+				FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */,
+				FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */,
 				FE64967A1DD9F1540025DAEC /* HomeViewController.swift in Sources */,
+				FE6AD2C51DDABA6D00E18086 /* ActivityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
