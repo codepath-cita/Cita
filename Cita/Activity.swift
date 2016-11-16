@@ -43,8 +43,10 @@ class Activity: NSObject {
 //            imageURL = URL(string: url)
 //        }
         location = CLLocation(latitude: dictionary["latitude"] as! CLLocationDegrees, longitude: dictionary["longitude"] as! CLLocationDegrees)
-        startTime = Date(timeIntervalSinceReferenceDate: dictionary["start_time"] as! Double)
-        endTime = Date(timeIntervalSinceReferenceDate: dictionary["end_time"] as! Double)
+        let startString = dictionary["start_time"] as! String
+        let endString = dictionary["end_time"] as! String
+        startTime = startString.dateFromISO8601
+        endTime = endString.dateFromISO8601
         // TODO: init address
 //        if let addressDictionary = dictionary["address"] as? NSDictionary {
 //            address = Address(dictionary: addressDictionary)
