@@ -1,6 +1,6 @@
 # User Stories
 
-## *Auth Screen:*
+## **Auth Screen:**
 - [X]  Create view controller (logo and fb button)
 - [X] Add click event to authenticate
 - [X] Authenticate with Facebook
@@ -8,7 +8,7 @@
 - [ ] Store user in database
 - [X] Segue to the map view
 
-Map Screen:
+## **Map Screen:**
 - [ ] Create view controller (map, search bar, navigation controller, tab bar)
 - [X] Allow location services
 - [X] Display map on your current location
