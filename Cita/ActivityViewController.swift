@@ -10,6 +10,15 @@ import UIKit
 
 class ActivityViewController: UIViewController {
     
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var numberOfAttendeesField: UITextField!
+    @IBOutlet weak var startTimePicker: UIDatePicker!
+    @IBOutlet weak var endTimePicker: UIDatePicker!
+    @IBOutlet weak var newTagField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

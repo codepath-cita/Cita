@@ -39,10 +39,11 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return Activity.testActivities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let activites = Activity.testActivities
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         return cell
