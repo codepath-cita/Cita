@@ -1,6 +1,6 @@
 # User Stories
 
-## Auth Screen:
+## *Auth Screen:*
 - [X]  Create view controller (logo and fb button)
 - [X] Add click event to authenticate
 - [X] Authenticate with Facebook
