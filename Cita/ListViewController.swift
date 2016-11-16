@@ -43,9 +43,10 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let activites = Activity.testActivities
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
+        let activities = Activity.testActivities
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityTableViewCell", for: indexPath) as! ActivityTableViewCell
+        cell.nameLabel.text = activities[indexPath.row].name
+        cell.descriptionLabel.text = activities[indexPath.row].descriptionString
         return cell
     }
     
