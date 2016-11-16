@@ -14,6 +14,11 @@ import FBSDKLoginKit
 import GoogleMaps
 import GooglePlaces
 
+var myLocationManager: CLLocationManager!
+var seenError : Bool = false
+var locationFixAchieved : Bool = false
+var locationStatus : NSString = "Not Started"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
