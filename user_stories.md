@@ -34,7 +34,7 @@
   - [ ] Open activity details screen when tapping on an activity on the map
   - [ ] Open activity details screen when tapping on an activity on the list view
 
-Filter Screen:
+## **Filter Screen:**
 - [ ] Add view controller
 - [ ] Add cancel button which closes filter modal screen
 - [ ] Add search button which closes filter modal screen and passes back filtered parameters
@@ -49,7 +49,7 @@ Filter Screen:
   - [ ] Add "Clear All" button to clear all filters   
 - [ ] Pass filters object back to map screen through segue
 
-New Activity Screen:
+## **New Activity Screen:**
 - [ ] Add view controller
 - [ ] Add cancel button that closes modal
 - [ ] Add save button that closes modal and saves activity to DB
@@ -71,7 +71,7 @@ New Activity Screen:
 - [ ] Bonus: Validate form so required activity fields can't be empty
 - [ ] Optional: Add ability to invite friends to event
 
-Actity Details Screen:
+## **Actity Details Screen:**
 - [ ] Create view controller
 - [ ] Load activity from db using activity_id passed from segue
 - [ ] Display event image
@@ -98,7 +98,7 @@ Actity Details Screen:
   - [ ] After saving it should show updated activity details page 
   - [ ] Events that already happened shouldn't give you the option to edit
 
-Profile Screen:
+## **Profile Screen:**
 - [ ] Create view controller
 - [ ] First section: user info
   - [ ] Display user avatar
@@ -114,7 +114,7 @@ Profile Screen:
   - [ ] Show table view list of past events sorted by date
   - [ ] If tap on event should segue to event details page
 
-Settings Screen:
+## **Settings Screen:**
   - [ ] Create view controller
   - [ ] Turn on, turn off notifications
   - [ ] Default activity length
@@ -122,7 +122,7 @@ Settings Screen:
   - [ ] Log Out
   - [ ] Delete account
 
-Bonus:
+## **Bonus:**
 Implement chat section in tab bar menu
   - [ ] Screen should show a table view list of all your active chats
   - [ ] Tapping into a chat should segue you into a chat window with the activity attendees
