@@ -64,7 +64,7 @@ class Activity: NSObject {
                 let endDate = Date(timeIntervalSinceNow: 5*60*60).iso8601
                 let dictionaries = [
                     ["id": 1, "name": "Get drinks", "description": "get drinks with me", "latitude": sf_lat, "longitude": sf_long, "start_time": startDate, "end_time": endDate],
-                    ["id": 2, "name": "Eat chocolate", "description": "eat chocolate with me", "latitude": sf_lat+0.09, "longitude": sf_long+0.06, "start_time": startDate, "end_time": endDate],
+                    ["id": 2, "name": "Eat chocolate", "description": "eat chocolate with me and do more stuff that makes this description pretty long.\n\n new lines blah blah\n\n hey guys.", "latitude": sf_lat+0.09, "longitude": sf_long+0.06, "start_time": startDate, "end_time": endDate],
                     ["id": 3, "name": "Play tennis", "description": "play tennis with me", "latitude": sf_lat+0.02, "longitude": sf_long-0.04, "start_time": startDate, "end_time": endDate]
                 ]
                 for dictionary in dictionaries {
