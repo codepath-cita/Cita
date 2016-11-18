@@ -12,4 +12,9 @@ extension String {
     var dateFromISO8601: Date? {
         return Date.Formatter.iso8601.date(from: self)
     }
+    
+    func cita_substring(nchars: Int) -> String {
+        let index = self.index(self.startIndex, offsetBy: nchars)
+        return substring(to: index)
+    }
 }

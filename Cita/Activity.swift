@@ -24,25 +24,31 @@ import UIKit
  updated_at
  */
 class Activity: NSObject {
+    static let dataRoot = "activities"
+    static let activitiesUpdated = "activities:updated"
+    
     var id: String?
     var name: String?
     var descriptionString: String?
     var imageURL: URL?
-    var location: CLLocation?
+    var location: Location?
     var startTime: Date?
     var endTime: Date?
     var address: Address?
     var createdAt: Date?
     var updatedAt: Date?
     
+    static var currentActivities: [Activity]? = []
+    
     init(dictionary: NSDictionary) {
-        id = dictionary["id"] as? String
         name = dictionary["name"] as? String
         descriptionString = dictionary["description"] as? String
 //        if let url = dictionary["image_url"] as? String {
 //            imageURL = URL(string: url)
 //        }
-        location = CLLocation(latitude: dictionary["latitude"] as! CLLocationDegrees, longitude: dictionary["longitude"] as! CLLocationDegrees)
+        if let locationString = dictionary["location"] as? String {
+            location = Location(string: locationString)
+        }
         let startString = dictionary["start_time"] as! String
         let endString = dictionary["end_time"] as! String
         startTime = startString.dateFromISO8601
@@ -53,6 +59,36 @@ class Activity: NSObject {
 //        }
     }
     
+    // store activities rooted by their start date
+    func dataKey() -> String {
+        let dateString = startTime!.iso8601.cita_substring(nchars: 10)
+        return "\(Activity.dataRoot)/\(dateString)"
+    }
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "name": name,
+            "location": location?.toString(),
+            "latitude": location?.latitude,
+            "longitude": location?.longitude,
+            "start_time": startTime?.iso8601,
+            "end_time": endTime?.iso8601
+        ]
+    }
+    
+    func save() {
+        let myRef = FirebaseClient.sharedInstance.ref.child(self.dataKey())
+        myRef.childByAutoId().setValue(self.toDictionary())
+    }
+    
+    class func fromArray(_ array: [NSDictionary]) -> [Activity] {
+        var activities: [Activity] = []
+        for dictionary in array {
+            let activity = Activity(dictionary: dictionary)
+            activities.append(activity)
+        }
+        return activities
+    }
     static var _testActivities: [Activity] = []
     
     class var testActivities: [Activity] {
@@ -75,5 +111,7 @@ class Activity: NSObject {
             return _testActivities
         }
     }
+    
+    
     
 }

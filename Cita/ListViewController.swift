@@ -12,11 +12,20 @@ class ListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var activities: [Activity]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: Activity.activitiesUpdated),
+            object: nil, queue: OperationQueue.main) {
+                (notification: Notification) in
+                self.activities = Activity.currentActivities
+                self.tableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,14 +48,13 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Activity.testActivities.count
+        return activities?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let activities = Activity.testActivities
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityTableViewCell", for: indexPath) as! ActivityTableViewCell
-        cell.nameLabel.text = activities[indexPath.row].name
-        cell.descriptionLabel.text = activities[indexPath.row].descriptionString
+        cell.nameLabel.text = activities?[indexPath.row].name
+        cell.descriptionLabel.text = activities?[indexPath.row].descriptionString
         return cell
     }
     

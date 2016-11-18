@@ -21,6 +21,8 @@
 		DC23D96F1DDC118B00D314D1 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D96E1DDC118B00D314D1 /* Date.swift */; };
 		DC23D9711DDC119C00D314D1 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D9701DDC119C00D314D1 /* String.swift */; };
 		DC23D9751DDC1BB100D314D1 /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D9741DDC1BB100D314D1 /* ActivityTableViewCell.swift */; };
+		DC23D9781DDE184B00D314D1 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D9771DDE184B00D314D1 /* FirebaseClient.swift */; };
+		DC23D97A1DDE772800D314D1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D9791DDE772800D314D1 /* Location.swift */; };
 		DC2C55561DDAD75A00482FF7 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55511DDAD75A00482FF7 /* Activity.swift */; };
 		DC2C55571DDAD75A00482FF7 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55521DDAD75A00482FF7 /* Address.swift */; };
 		DC2C55581DDAD75A00482FF7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55531DDAD75A00482FF7 /* Message.swift */; };
@@ -82,6 +84,8 @@
 		DC23D96E1DDC118B00D314D1 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		DC23D9701DDC119C00D314D1 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DC23D9741DDC1BB100D314D1 /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
+		DC23D9771DDE184B00D314D1 /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		DC23D9791DDE772800D314D1 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		DC2C55511DDAD75A00482FF7 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		DC2C55521DDAD75A00482FF7 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		DC2C55531DDAD75A00482FF7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 		9E7F5E281DD194E90079F5AA /* Cita */ = {
 			isa = PBXGroup;
 			children = (
+				DC23D9761DDE183000D314D1 /* API */,
 				DC23D9731DDC1B9200D314D1 /* Views */,
 				DC23D96B1DDC116900D314D1 /* Extensions */,
 				DC2C555B1DDAE6B300482FF7 /* Delegates */,
@@ -232,6 +237,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		DC23D9761DDE183000D314D1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DC23D9771DDE184B00D314D1 /* FirebaseClient.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		DC2C55501DDAD74500482FF7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +253,7 @@
 				DC2C55531DDAD75A00482FF7 /* Message.swift */,
 				DC2C55541DDAD75A00482FF7 /* Tag.swift */,
 				DC2C55551DDAD75A00482FF7 /* User.swift */,
+				DC23D9791DDE772800D314D1 /* Location.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -555,6 +569,7 @@
 			files = (
 				FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */,
 				FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */,
+				DC23D97A1DDE772800D314D1 /* Location.swift in Sources */,
 				DC2C55571DDAD75A00482FF7 /* Address.swift in Sources */,
 				DC23D96F1DDC118B00D314D1 /* Date.swift in Sources */,
 				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
@@ -563,6 +578,7 @@
 				FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */,
 				DC23D9751DDC1BB100D314D1 /* ActivityTableViewCell.swift in Sources */,
 				9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */,
+				DC23D9781DDE184B00D314D1 /* FirebaseClient.swift in Sources */,
 				DC2C55561DDAD75A00482FF7 /* Activity.swift in Sources */,
 				9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */,
 				FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */,
