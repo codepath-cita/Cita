@@ -27,11 +27,14 @@ class Activity: NSObject {
     static let dataRoot = "activities"
     static let activitiesUpdated = "activities:updated"
     
+    var dictionary: NSDictionary?
     var id: String?
     var name: String?
-    var descriptionString: String?
+    var fullDescription: String?
     var imageURL: URL?
     var location: Location?
+    var startISO8601: String?
+    var endISO8601: String?
     var startTime: Date?
     var endTime: Date?
     var address: Address?
@@ -41,18 +44,20 @@ class Activity: NSObject {
     static var currentActivities: [Activity]? = []
     
     init(dictionary: NSDictionary) {
+        self.dictionary = dictionary
+        
         name = dictionary["name"] as? String
-        descriptionString = dictionary["description"] as? String
+        fullDescription = dictionary["full_description"] as? String
 //        if let url = dictionary["image_url"] as? String {
 //            imageURL = URL(string: url)
 //        }
         if let locationString = dictionary["location"] as? String {
             location = Location(string: locationString)
         }
-        let startString = dictionary["start_time"] as! String
-        let endString = dictionary["end_time"] as! String
-        startTime = startString.dateFromISO8601
-        endTime = endString.dateFromISO8601
+        startISO8601 = dictionary["start_time"] as! String
+        endISO8601 = dictionary["end_time"] as! String
+        startTime = startISO8601?.dateFromISO8601
+        endTime = endISO8601?.dateFromISO8601
         // TODO: init address
 //        if let addressDictionary = dictionary["address"] as? NSDictionary {
 //            address = Address(dictionary: addressDictionary)
@@ -61,13 +66,17 @@ class Activity: NSObject {
     
     // store activities rooted by their start date
     func dataKey() -> String {
-        let dateString = startTime!.iso8601.cita_substring(nchars: 10)
-        return "\(Activity.dataRoot)/\(dateString)"
+        if let dateString = startTime?.iso8601.cita_substring(nchars: 10) {
+            return "\(Activity.dataRoot)/\(dateString)"
+        } else {
+            return "unknown-date"
+        }
     }
     
     func toDictionary() -> [String: Any] {
         return [
             "name": name,
+            "full_description": fullDescription,
             "location": location?.toString(),
             "latitude": location?.latitude,
             "longitude": location?.longitude,

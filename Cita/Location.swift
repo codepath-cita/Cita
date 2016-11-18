@@ -12,6 +12,11 @@ struct Location {
     let latitude: Double
     let longitude: Double
     
+    init(lat: Double, long: Double) {
+        latitude = lat
+        longitude = long
+    }
+    
     init(string: String) {
         let latLong = string.characters.split(separator:",")
         let lat = String(latLong[0])

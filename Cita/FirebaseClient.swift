@@ -22,11 +22,15 @@ class FirebaseClient: NSObject {
     
     func observeActivities(within: LocationFrame?, searchTerm: String?) {
         let activityRef = ref.child(Activity.dataRoot)
+        var activities: [NSDictionary] = []
         activityRef.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? [NSDictionary] {
-                Activity.currentActivities = Activity.fromArray(value)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: Activity.activitiesUpdated), object: nil)
+            print(snapshot.childSnapshot(forPath: "2016-11-19").childrenCount)
+            for child in snapshot.childSnapshot(forPath: "2016-11-19").children {
+                dump((child as! FIRDataSnapshot).value)
+                activities.append((child as! FIRDataSnapshot).value as! NSDictionary)
             }
+            Activity.currentActivities = Activity.fromArray(activities)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: Activity.activitiesUpdated), object: nil)
         })
     }
 }

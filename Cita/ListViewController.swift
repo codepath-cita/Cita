@@ -19,6 +19,10 @@ class ListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        if Activity.currentActivities != nil {
+            activities = Activity.currentActivities
+            tableView.reloadData()
+        }
         NotificationCenter.default.addObserver(
             forName: NSNotification.Name(rawValue: Activity.activitiesUpdated),
             object: nil, queue: OperationQueue.main) {
@@ -54,7 +58,7 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityTableViewCell", for: indexPath) as! ActivityTableViewCell
         cell.nameLabel.text = activities?[indexPath.row].name
-        cell.descriptionLabel.text = activities?[indexPath.row].descriptionString
+        cell.descriptionLabel.text = activities?[indexPath.row].fullDescription
         return cell
     }
     

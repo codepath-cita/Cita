@@ -37,7 +37,7 @@
 		FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */; };
 		FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */; };
 		FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */; };
-		FE6AD2C51DDABA6D00E18086 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C41DDABA6D00E18086 /* ActivityViewController.swift */; };
+		FE6AD2C51DDABA6D00E18086 /* ActivityEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +101,7 @@
 		FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
-		FE6AD2C41DDABA6D00E18086 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityEditController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,7 +275,7 @@
 				FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */,
 				FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */,
 				FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */,
-				FE6AD2C41DDABA6D00E18086 /* ActivityViewController.swift */,
+				FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -585,7 +585,7 @@
 				FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */,
 				DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */,
 				DC23D9711DDC119C00D314D1 /* String.swift in Sources */,
-				FE6AD2C51DDABA6D00E18086 /* ActivityViewController.swift in Sources */,
+				FE6AD2C51DDABA6D00E18086 /* ActivityEditController.swift in Sources */,
 				DC2C55581DDAD75A00482FF7 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

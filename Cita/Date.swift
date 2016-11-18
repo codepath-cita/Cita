@@ -15,7 +15,7 @@ extension Date {
             formatter.calendar = Calendar(identifier: .iso8601)
             formatter.locale = Locale(identifier: "en_US_POSIX")
             formatter.timeZone = TimeZone(secondsFromGMT: 0)
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ" // "2016-11-19T02:35:41+00:00"
             return formatter
         }()
     }

@@ -1,5 +1,5 @@
 //
-//  ActivityViewController.swift
+//  ActivityEditController.swift
 //  Cita
 //
 //  Created by Sara Hender on 11/9/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivityViewController: UIViewController {
+class ActivityEditController: UIViewController {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var numberOfAttendeesField: UITextField!
@@ -30,7 +30,18 @@ class ActivityViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    @IBAction func didClickSave(_ sender: UIButton) {
+        let location = Location(string: "37.77,-122.42")
+        let activity = Activity(dictionary: [
+            "name": nameTextField.text ?? "Fun at \(location.toString())",
+            "description": descriptionTextView.text ?? "Join me!",
+            "attendees_count": Int(numberOfAttendeesField.text!) ?? 2,
+            "start_time": "2016-11-19T02:35:41+00:00",
+            "end_time": "2016-11-19T06:35:41+00:00",
+            "location": location.toString()
+        ])
+        activity.save()
+    }
     /*
      // MARK: - Navigation
      
