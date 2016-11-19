@@ -22,9 +22,9 @@ class FirebaseClient: NSObject {
     
     func observeActivities(within: LocationFrame?, searchTerm: String?) {
         let activityRef = ref.child(Activity.dataRoot)
-        var activities: [NSDictionary] = []
         activityRef.observe(.value, with: { snapshot in
-            print(snapshot.childSnapshot(forPath: "2016-11-19").childrenCount)
+            print("activities for \(snapshot.childrenCount) dates")
+            var activities: [NSDictionary] = []
             for child in snapshot.childSnapshot(forPath: "2016-11-19").children {
                 dump((child as! FIRDataSnapshot).value)
                 activities.append((child as! FIRDataSnapshot).value as! NSDictionary)
