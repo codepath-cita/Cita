@@ -28,6 +28,13 @@ struct Location {
     func toString() -> String {
         return "\(latitude),\(longitude)"
     }
+    
+    func inFrame(frame: LocationFrame) -> Bool {
+        return (
+            (frame.upperLeft.latitude...frame.lowerRight.latitude ~= latitude) &&
+            (frame.upperLeft.longitude...frame.lowerRight.longitude ~= longitude)
+        )
+    }
 }
 
 struct LocationFrame {
