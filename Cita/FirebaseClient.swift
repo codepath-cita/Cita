@@ -25,9 +25,12 @@ class FirebaseClient: NSObject {
         activityRef.observe(.value, with: { snapshot in
             print("activities for \(snapshot.childrenCount) dates")
             var activities: [NSDictionary] = []
-            for child in snapshot.childSnapshot(forPath: "2016-11-19").children {
-                dump((child as! FIRDataSnapshot).value)
-                activities.append((child as! FIRDataSnapshot).value as! NSDictionary)
+            print(snapshot.key)
+            for child in snapshot.children {
+                let activityDateDictionary = (child as! FIRDataSnapshot).value as! NSDictionary
+                activityDateDictionary.forEach({ (key: Any, value: Any) in
+                    activities.append(value as! NSDictionary)
+                })
             }
             Activity.currentActivities = Activity.fromArray(activities)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Activity.activitiesUpdated), object: nil)

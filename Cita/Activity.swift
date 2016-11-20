@@ -31,6 +31,7 @@ class Activity: NSObject {
     var id: String?
     var name: String?
     var fullDescription: String?
+    var groupSize: Int?
     var imageURL: URL?
     var location: Location?
     var startISO8601: String?
@@ -48,16 +49,16 @@ class Activity: NSObject {
         
         name = dictionary["name"] as? String
         fullDescription = dictionary["full_description"] as? String
-//        if let url = dictionary["image_url"] as? String {
-//            imageURL = URL(string: url)
-//        }
+
         if let locationString = dictionary["location"] as? String {
             location = Location(string: locationString)
         }
-        startISO8601 = dictionary["start_time"] as! String
-        endISO8601 = dictionary["end_time"] as! String
+        startISO8601 = dictionary["start_time"] as? String
+        endISO8601 = dictionary["end_time"] as? String
         startTime = startISO8601?.dateFromISO8601
         endTime = endISO8601?.dateFromISO8601
+        
+        groupSize = dictionary["group_size"] as? Int
         // TODO: init address
 //        if let addressDictionary = dictionary["address"] as? NSDictionary {
 //            address = Address(dictionary: addressDictionary)
@@ -77,6 +78,7 @@ class Activity: NSObject {
         return [
             "name": name,
             "full_description": fullDescription,
+            "group_size": groupSize,
             "location": location?.toString(),
             "latitude": location?.latitude,
             "longitude": location?.longitude,
@@ -98,29 +100,4 @@ class Activity: NSObject {
         }
         return activities
     }
-    static var _testActivities: [Activity] = []
-    
-    class var testActivities: [Activity] {
-        get {
-            if _testActivities.isEmpty {
-                let sf_lat = 37.77
-                let sf_long = -122.42
-                let startDate = Date(timeIntervalSinceNow: 3*60*60).iso8601
-                let endDate = Date(timeIntervalSinceNow: 5*60*60).iso8601
-                let dictionaries = [
-                    ["id": 1, "name": "Get drinks", "description": "get drinks with me", "latitude": sf_lat, "longitude": sf_long, "start_time": startDate, "end_time": endDate],
-                    ["id": 2, "name": "Eat chocolate", "description": "eat chocolate with me and do more stuff that makes this description pretty long.\n\n new lines blah blah\n\n hey guys.", "latitude": sf_lat+0.09, "longitude": sf_long+0.06, "start_time": startDate, "end_time": endDate],
-                    ["id": 3, "name": "Play tennis", "description": "play tennis with me", "latitude": sf_lat+0.02, "longitude": sf_long-0.04, "start_time": startDate, "end_time": endDate]
-                ]
-                for dictionary in dictionaries {
-                    _testActivities.append(Activity(dictionary: dictionary as NSDictionary))
-                }
-            }
-            
-            return _testActivities
-        }
-    }
-    
-    
-    
 }
