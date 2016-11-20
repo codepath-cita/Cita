@@ -22,6 +22,29 @@ extension Date {
     var iso8601: String {
         return Formatter.iso8601.string(from: self)
     }
+    var iso8601DatePart: String {
+        return Formatter.iso8601.string(from: self).cita_substring(nchars: 10)
+    }
+    
+    func cita_withinRange(dates: DateRange) -> Bool {
+        return self.compare(dates.earliest) == .orderedAscending && self.compare(dates.latest) == .orderedDescending
+    }
+}
+
+struct DateRange {
+    static let secondsInDay = 24*60*60
+    let earliest: Date
+    let latest: Date
+    
+    static func today() -> DateRange {
+        let latest = Date(timeIntervalSinceNow: TimeInterval(secondsInDay)) // 24 hrs
+        return DateRange(earliest: Date(), latest: latest)
+    }
+    
+    static func thisWeek() -> DateRange {
+        let latest = Date(timeIntervalSinceNow: TimeInterval(7*secondsInDay)) // 24 hrs
+        return DateRange(earliest: Date(), latest: latest)
+    }
 }
 
 

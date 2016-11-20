@@ -92,7 +92,7 @@ class Activity: NSObject {
         myRef.childByAutoId().setValue(self.toDictionary())
     }
     
-    class func fromArray(_ array: [NSDictionary]) -> [Activity] {
+    class func fromDictionaryArray(_ array: [NSDictionary]) -> [Activity] {
         var activities: [Activity] = []
         for dictionary in array {
             let activity = Activity(dictionary: dictionary)

@@ -46,30 +46,30 @@
     - [ ] Text field with autocomplete
     - [ ] View showing tags that have been added
     - [ ] Add delete x next to tag name to be able to remove it
-  - [ ] Add "Clear All" button to clear all filters   
+  - [ ] Add "Clear All" button to clear all filters
 - [ ] Pass filters object back to map screen through segue
 
 ## **New Activity Screen:**
-- [ ] Add view controller
-- [ ] Add cancel button that closes modal
-- [ ] Add save button that closes modal and saves activity to DB
+- [x] Add view controller
+- [x] Add Back button that closes modal
+- [x] Add save button that closes modal and saves activity to DB
 - [ ] Search for location in Google places search bar
   - [ ] Implement google places search bar
   - [ ] When typing address it should start autocompleting addresses
   - [ ] After selecting address, field should display address
-  - [ ] If you click field again you can start typing again  
+  - [ ] If you click field again you can start typing again
 - [ ] Optional: Add event image through camera roll
-- [ ] Add text field for event title
-- [ ] Add text field for event description
-- [ ] Add number of allowed participants
-- [ ] Add start datetime
-- [ ] Add end datetime
+- [x] Add text field for event name
+- [x] Add text field for event description
+- [x] Add number of allowed participants
+- [x] Add start datetime
+- [x] Add end datetime
 - [ ] Add tags
   - [ ] Text field with autocomplete
   - [ ] View showing tags that have been added
   - [ ] Add delete x next to tag name to be able to remove it
-- [ ] Bonus: Validate form so required activity fields can't be empty
-- [ ] Optional: Add ability to invite friends to event
+- [x] Validate form so required activity fields can not be empty
+- [ ] Bonus: Add ability to invite friends to event
 
 ## **Actity Details Screen:**
 - [ ] Create view controller
@@ -80,11 +80,11 @@
 - [ ] Display written address
   - [ ] Optional: if you click on the address it should segue into a map view of the address
 - [ ] Display start and end time
-- [ ] Display list of tags associated to the activity  
+- [ ] Display list of tags associated to the activity
 - [ ] Display the organizer small profile image and name
   - [ ] Click on organizer should take you to his or her profile screen
 - [ ] Display "attendee" section with the picture and name of any other attendees
-  - [ ] Ability to see that users profile by tapping on the users name  
+  - [ ] Ability to see that users profile by tapping on the users name
 - [ ] Add button to "enroll" in the activity
   - [ ] click event should add user to the activity in the db
   - [ ] should add users image and name to the attendee list
@@ -95,7 +95,7 @@
 - [ ] If user is the organizer of the activity form should show an edit button
   - [ ] When tapping on edit button it should convert screen into the "create activity screen"
   - [ ] It should allow user to change activity details
-  - [ ] After saving it should show updated activity details page 
+  - [ ] After saving it should show updated activity details page
   - [ ] Events that already happened shouldn't give you the option to edit
 
 ## **Profile Screen:**
