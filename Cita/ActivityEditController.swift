@@ -15,7 +15,7 @@ class ActivityEditController: UIViewController {
     @IBOutlet weak var groupSizeField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionInvalidLabel: UILabel!
-    
+    @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var endTimeTextField: UITextField!
     
@@ -25,11 +25,13 @@ class ActivityEditController: UIViewController {
     let timeFormatter = DateFormatter()
     var startDate: Date?
     var endDate: Date?
-    var initialY: CGFloat!
+    var initialDescriptionViewY: CGFloat!
     var offset: CGFloat!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "New Activity"
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
@@ -37,11 +39,12 @@ class ActivityEditController: UIViewController {
         view.addGestureRecognizer(tap)
         
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { (notification: Notification) in
-            // Any code you put in here will be called when the keyboard is about to display
+            self.descriptionView.frame.origin.y = self.initialDescriptionViewY + self.offset
+            self.descriptionView.backgroundColor = UIColor.white.withAlphaComponent(1.0)
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { (notification: Notification) in
-            // Any code you put in here will be called when the keyboard is about to hide
+            self.descriptionView.frame.origin.y = self.initialDescriptionViewY
         }
         
         timeFormatter.dateStyle = .medium
@@ -59,6 +62,9 @@ class ActivityEditController: UIViewController {
         endTimePicker = UIDatePicker()
         endTimeTextField.inputView = endTimePicker
         endTimePicker.addTarget(self, action: #selector(setEndTime), for: .valueChanged)
+        
+        initialDescriptionViewY = descriptionView.frame.origin.y
+        offset = -68
     }
     
     //Calls this function when the tap is recognized.
@@ -99,6 +105,7 @@ class ActivityEditController: UIViewController {
                 "location": location.toString()
             ])
             activity.save()
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -140,7 +147,7 @@ class ActivityEditController: UIViewController {
             endTimeTextField.layer.borderWidth = 0
         }
         
-        if groupSizeField.text == nil {
+        if groupSizeField.text == nil || (Int(groupSizeField.text!) == nil) {
             groupSizeField.layer.borderWidth = 1.0
             groupSizeField.layer.cornerRadius = 5
             groupSizeField.layer.borderColor = UIColor.red.cgColor
