@@ -18,6 +18,8 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 160
         
         if Activity.currentActivities != nil {
             activities = Activity.currentActivities
