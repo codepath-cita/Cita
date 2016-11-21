@@ -19,6 +19,8 @@ class ActivityEditController: UIViewController {
     @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var endTimeTextField: UITextField!
     
+    var markerLocation: Location!
+    
     var startTimePicker: UIDatePicker!
     var endTimePicker: UIDatePicker!
     
@@ -94,7 +96,7 @@ class ActivityEditController: UIViewController {
     
     @IBAction func didClickSave(_ sender: UIButton) {
         if validateFields() {
-            let location = Location(string: "37.77,-122.42")
+            let location = self.markerLocation
             let activity = Activity(dictionary: [
                 "name": nameTextField.text!,
                 "full_description": descriptionTextView.text!,
@@ -102,7 +104,7 @@ class ActivityEditController: UIViewController {
                 "start_time": startDate!.iso8601,
                 "end_time": endDate!.iso8601,
                 "group_size": Int(groupSizeField.text!)!,
-                "location": location.toString()
+                "location": location!.toString()
             ])
             activity.creator = User.currentUser
             activity.save()

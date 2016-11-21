@@ -8,8 +8,9 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
@@ -17,23 +18,30 @@ class MapViewController: UIViewController {
     var activities: [Activity]?
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
-    let coordinatesArray = [
-        CLLocationCoordinate2D(latitude: 37.79127729694, longitude: -122.4045503139537),
-        CLLocationCoordinate2D(latitude: 37.7868853321233, longitude: -122.401074171066),
-        CLLocationCoordinate2D(latitude: 37.7884115270977, longitude: -122.40972161293),
-        CLLocationCoordinate2D(latitude: 37.785206481246, longitude: -122.412039041519),
-        CLLocationCoordinate2D(latitude: 37.7813907692344, longitude: -122.41042971611),
-        CLLocationCoordinate2D(latitude: 37.7821030504304, longitude: -122.406545877457),
-        CLLocationCoordinate2D(latitude: 37.7798813887785, longitude: -122.404271364212),
-        CLLocationCoordinate2D(latitude: 37.7833580053606, longitude: -122.401095628738),
-        CLLocationCoordinate2D(latitude: 37.7784737365338, longitude: -122.411395311356)
-    ]
+    var newActivityMarker: GMSMarker! = nil
+    var resultsViewController: GMSAutocompleteResultsViewController?
+    var searchController: UISearchController?
+    var resultView: UITextView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let camera = GMSCameraPosition.camera(withLatitude: 37.77, longitude: -122.42, zoom: 15.0)
-        mapView.camera = camera        
+        mapView.camera = camera
+        
+//        searchBar.delegate = self
+//        searchBar.placeholder = "Enter address or drop pin on map"
+//        self.navigationItem.titleView = self.searchBar
+        
+        resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.delegate = self
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController?.searchResultsUpdater = resultsViewController
+        // Put the search bar in the navigation bar.
+        searchController?.searchBar.sizeToFit()
+        self.navigationItem.titleView = searchController?.searchBar
+        self.definesPresentationContext = true
+        searchController?.hidesNavigationBarDuringPresentation = false
         
         mapView.delegate = self
         locationManager.delegate = self
@@ -44,7 +52,6 @@ class MapViewController: UIViewController {
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
                 self.activities = Activity.currentActivities
-                dump(self.activities)
                 self.populateMarkers()
         }
     }
@@ -53,13 +60,39 @@ class MapViewController: UIViewController {
         for activity in self.activities! {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: (activity.location?.latitude)!, longitude: (activity.location?.longitude)!)
-            marker.title = "Here"
-            marker.snippet = "you wish you were"
+            marker.title = activity.name
+            
+            let dataFormatter = DateFormatter()
+            dataFormatter.dateFormat = "MMM d h:ma"
+            let startDateString = dataFormatter.string(from: activity.startTime!)
+            let endDateString = dataFormatter.string(from: activity.endTime!)
+            marker.snippet = "\(startDateString) - \(endDateString) \n(Tap for details)"
+            
             marker.icon = UIImage(named: "marker_red.png")
             marker.appearAnimation = kGMSMarkerAnimationPop
             marker.map = self.mapView
         }
     }
+    
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        self.filteredBusinesses = searchText.isEmpty ? businesses : businesses.filter({(dataString: Business) -> Bool in
+//            return dataString.name?.range(of: searchText, options: .caseInsensitive) != nil
+//        })
+//        
+//        tableView.reloadData()
+//    }
+    
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        self.searchBar.showsCancelButton = true
+//    }
+    
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        searchBar.showsCancelButton = false
+//        searchBar.text = ""
+//        searchBar.resignFirstResponder()
+//        self.filteredBusinesses = businesses
+//        tableView.reloadData()
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -73,8 +106,16 @@ class MapViewController: UIViewController {
             if let address = response?.firstResult() {
                 let lines = address.lines! as [String]
                 let addressString = lines.joined(separator: "\n")
-                print(addressString)
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "NewActivitySegue" {
+            let marker = sender as! GMSMarker
+            let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
+            let activityEditViewController = segue.destination as! ActivityEditController
+            activityEditViewController.markerLocation = location
         }
     }
 }
@@ -110,16 +151,54 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
+//        print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
+        
+        if (self.newActivityMarker != nil) {
+            self.newActivityMarker.map = nil
+        }
+        
         let marker = GMSMarker()
         marker.position = coordinate
-        marker.title = "Here"
-        marker.snippet = "you wish you were"
-        marker.icon = UIImage(named: "marker_blue.png")
+        marker.snippet = "Tap here to create new activity"
+        marker.icon = UIImage(named: "marker_green.png")
+        marker.tracksInfoWindowChanges = true
+        marker.isDraggable = true
         marker.map = self.mapView
+        mapView.selectedMarker = marker
+        self.newActivityMarker = marker
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        self.performSegue(withIdentifier: "NewActivitySegue", sender: marker)
+        marker.map = nil
     }
 }
 
+extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+                           didAutocompleteWith place: GMSPlace) {
+        searchController?.isActive = false
+        // Do something with the selected place.
+        print("Place name: ", place.name)
+        print("Place address: ", place.formattedAddress!)
+        print("Place attributions: ", place.attributions!)
+    }
+    
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+                           didFailAutocompleteWithError error: Error){
+        // TODO: handle the error.
+        print("Error: \(error.localizedDescription)")
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
 
 
 
