@@ -150,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        FirebaseClient.sharedInstance.observeActivities(within: nil, searchTerm: nil)
+//        FirebaseClient.sharedInstance.observeActivities(within: nil, searchTerm: nil)
     }
 
 }

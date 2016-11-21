@@ -29,15 +29,15 @@ struct Location {
         return "\(latitude),\(longitude)"
     }
     
-    func inFrame(frame: LocationFrame) -> Bool {
+    func inFrame(frame: LocationFrame) -> Bool {       
         return (
-            (frame.upperLeft.latitude...frame.lowerRight.latitude ~= latitude) &&
-            (frame.upperLeft.longitude...frame.lowerRight.longitude ~= longitude)
+            (frame.lowerLeft.latitude...frame.upperRight.latitude ~= latitude) &&
+            (frame.lowerLeft.longitude...frame.upperRight.longitude ~= longitude)
         )
     }
 }
 
 struct LocationFrame {
-    let upperLeft: Location
-    let lowerRight: Location
+    let lowerLeft: Location
+    let upperRight: Location
 }

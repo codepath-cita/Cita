@@ -14,6 +14,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
     
+    var activities: [Activity]?
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     let coordinatesArray = [
@@ -30,16 +31,34 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-//        let frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.width, height: view.frame.height)
-//        let camera = GMSCameraPosition.camera(withLatitude: 37.77, longitude: -122.42, zoom: 15.0)
-//        let googleMapView = GMSMapView.map(withFrame: frame, camera: camera)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 37.77, longitude: -122.42, zoom: 15.0)
+        mapView.camera = camera        
         
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        populateMarkers()
         
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: Activity.activitiesUpdated),
+            object: nil, queue: OperationQueue.main) {
+                (notification: Notification) in
+                self.activities = Activity.currentActivities
+                dump(self.activities)
+                self.populateMarkers()
+        }
+    }
+    
+    func populateMarkers() {
+        for activity in self.activities! {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: (activity.location?.latitude)!, longitude: (activity.location?.longitude)!)
+            marker.title = "Here"
+            marker.snippet = "you wish you were"
+            marker.icon = UIImage(named: "marker_red.png")
+            marker.appearAnimation = kGMSMarkerAnimationPop
+            marker.map = self.mapView
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,20 +77,6 @@ class MapViewController: UIViewController {
             }
         }
     }
-    
-    func populateMarkers() {
-        for coordinate in coordinatesArray {
-            let marker = GMSMarker()
-            marker.position = coordinate
-            marker.title = "Here"
-            marker.snippet = "you wish you were"
-            marker.icon = UIImage(named: "marker_red.png")
-            marker.map = self.mapView
-//            let isContained = GMSCoordinateBounds.contains(coordinate)
-//            print(isContained)
-        }
-    }
-    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -94,7 +99,14 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        reverseGeocodeCoordinate(coordinate: position.target)
+        //reverseGeocodeCoordinate(coordinate: position.target)
+        
+        let visibleRegion = mapView.projection.visibleRegion()
+        let bounds = GMSCoordinateBounds.init(region: visibleRegion)
+        let upperRight = Location(lat: bounds.northEast.latitude, long: bounds.northEast.longitude)
+        let lowerLeft = Location(lat: bounds.southWest.latitude, long: bounds.southWest.longitude)
+        let locationFrame = LocationFrame(lowerLeft: lowerLeft, upperRight: upperRight)
+        FirebaseClient.sharedInstance.observeActivities(within: locationFrame, searchTerm: nil)
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
