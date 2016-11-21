@@ -40,15 +40,13 @@ class ListViewController: UIViewController {
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! ActivityTableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let activity = activities?[(indexPath?.row)!]
+        let activityDetailViewController = segue.destination as! ActivityDetailViewController
+        activityDetailViewController.activity = activity
+    }
     
 }
 
@@ -61,6 +59,10 @@ extension ListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityTableViewCell", for: indexPath) as! ActivityTableViewCell
         cell.activity = activities?[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
 }
