@@ -15,17 +15,30 @@ class FirebaseClient: NSObject {
 
     let ref: FIRDatabaseReference!
     var currentFilter: ActivityFilter!
+    var currentQuery: FIRDatabaseHandle?
     
     override init() {
         ref = FIRDatabase.database().reference()
         super.init()
     }
     
+    func fetchUserByID(userID: String, success: @escaping (User) -> ()) {
+        ref.child("\(User.dataRoot)/\(userID)").observeSingleEvent(of: .value, with: { snapshot in
+            dump(snapshot.value)
+            if let userData = snapshot.value as? [String: AnyObject] {
+                print("got user \(userData)")
+                let user = User(dictionary: userData)
+                success(user)
+            }
+        })
+    }
+    
     func observeActivities(within: LocationFrame?, searchTerm: String?, withinDates dateRange: DateRange = DateRange.thisWeek()) {
         currentFilter = ActivityFilter(dateRange: dateRange, searchTerm: searchTerm, locationFrame: within)
-        let activityRef = ref.child(Activity.dataRoot)
-        let search = searchTerm ?? "tennis" // FAKE SEARCH TEST
-        activityRef.queryStarting(atValue: nil, childKey: dateRange.earliest.iso8601DatePart).queryEnding(atValue: nil, childKey: dateRange.latest.iso8601DatePart).observe(.value, with: { snapshot in
+        if let query = currentQuery {
+            ref.removeObserver(withHandle: query)
+        }
+        currentQuery = ref.child(Activity.dataRoot).queryStarting(atValue: nil, childKey: dateRange.earliest.iso8601DatePart).queryEnding(atValue: nil, childKey: dateRange.latest.iso8601DatePart).observe(.value, with: { snapshot in
             print("activities for \(snapshot.childrenCount) dates")
             var activities: [NSDictionary] = []
             for child in snapshot.children {
@@ -41,7 +54,8 @@ class FirebaseClient: NSObject {
                                 return
                             }
                         }
-                        if let name = activityData.value(forKey: "name") as? String {
+                        if let search = searchTerm,
+                           let name = activityData.value(forKey: "name") as? String {
                             // filter on name
                             var match = name.range(of: search)
                             if match == nil,

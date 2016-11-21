@@ -104,6 +104,7 @@ class ActivityEditController: UIViewController {
                 "group_size": Int(groupSizeField.text!)!,
                 "location": location.toString()
             ])
+            activity.creator = User.currentUser
             activity.save()
             self.navigationController?.popViewController(animated: true)
         }
