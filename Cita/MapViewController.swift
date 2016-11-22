@@ -114,7 +114,9 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         if segue.identifier == "NewActivitySegue" {
             let marker = sender as! GMSMarker
             let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
-            let activityEditViewController = segue.destination as! ActivityEditController
+            
+            let navigationController = segue.destination as! UINavigationController
+            let activityEditViewController = navigationController.topViewController as! ActivityEditController
             activityEditViewController.markerLocation = location
         }
     }

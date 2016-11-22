@@ -27,7 +27,7 @@ class ActivityEditController: UIViewController {
     let timeFormatter = DateFormatter()
     var startDate: Date?
     var endDate: Date?
-    var initialDescriptionViewY: CGFloat!
+//    var initialDescriptionViewY: CGFloat!
     var offset: CGFloat!
     
     override func viewDidLoad() {
@@ -41,12 +41,12 @@ class ActivityEditController: UIViewController {
         view.addGestureRecognizer(tap)
         
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { (notification: Notification) in
-            self.descriptionView.frame.origin.y = self.initialDescriptionViewY + self.offset
+//            self.descriptionView.frame.origin.y = self.initialDescriptionViewY + self.offset
             self.descriptionView.backgroundColor = UIColor.white.withAlphaComponent(1.0)
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { (notification: Notification) in
-            self.descriptionView.frame.origin.y = self.initialDescriptionViewY
+//            self.descriptionView.frame.origin.y = self.initialDescriptionViewY
         }
         
         timeFormatter.dateStyle = .medium
@@ -65,7 +65,7 @@ class ActivityEditController: UIViewController {
         endTimeTextField.inputView = endTimePicker
         endTimePicker.addTarget(self, action: #selector(setEndTime), for: .valueChanged)
         
-        initialDescriptionViewY = descriptionView.frame.origin.y
+//        initialDescriptionViewY = descriptionView.frame.origin.y
         offset = -68
     }
     
@@ -94,7 +94,12 @@ class ActivityEditController: UIViewController {
         endTimeTextField.text = timeText
     }
     
-    @IBAction func didClickSave(_ sender: UIButton) {
+    @IBAction func didCancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func didClickSave(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
         if validateFields() {
             let location = self.markerLocation
             let activity = Activity(dictionary: [
@@ -105,14 +110,14 @@ class ActivityEditController: UIViewController {
                 "end_time": endDate!.iso8601,
                 "group_size": Int(groupSizeField.text!)!,
                 "location": location!.toString()
-            ])
+                ])
             activity.creator = User.currentUser
             activity.attendees = []
             activity.attendeeIDs = []
             activity.save()
-            self.navigationController?.popViewController(animated: true)
         }
     }
+
     
     func validateFields() -> Bool {
         var valid = true
