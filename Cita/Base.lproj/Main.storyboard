@@ -104,10 +104,10 @@
             </objects>
             <point key="canvasLocation" x="35.625" y="36.971830985915496"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="KMt-2R-An3">
             <objects>
-                <viewController id="RVB-Lw-N0T" sceneMemberID="viewController">
+                <viewController id="RVB-Lw-N0T" customClass="SettingsViewController" customModule="Cita" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pcg-E5-LpZ"/>
                         <viewControllerLayoutGuide type="bottom" id="QCG-9l-bbO"/>
@@ -115,12 +115,37 @@
                     <view key="view" contentMode="scaleToFill" id="7s7-2M-egz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FHd-Ec-tQG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="wn8-Kb-kmp">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wn8-Kb-kmp" id="LRA-Hj-HRw">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FHd-Ec-tQG" firstAttribute="width" secondItem="7s7-2M-egz" secondAttribute="width" id="Kcy-4B-yIE"/>
+                            <constraint firstItem="FHd-Ec-tQG" firstAttribute="height" secondItem="7s7-2M-egz" secondAttribute="height" id="iIT-p1-6Ek"/>
+                            <constraint firstItem="FHd-Ec-tQG" firstAttribute="centerX" secondItem="7s7-2M-egz" secondAttribute="centerX" id="ozU-in-zW0"/>
+                            <constraint firstItem="FHd-Ec-tQG" firstAttribute="centerY" secondItem="7s7-2M-egz" secondAttribute="centerY" id="u3v-Hi-kvM"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="FHd-Ec-tQG" id="D9A-7c-24w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nf2-N6-0Ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1098" y="783"/>
+            <point key="canvasLocation" x="1096.875" y="782.74647887323943"/>
         </scene>
         <!--Activity Edit Controller-->
         <scene sceneID="8FP-Jz-ZRZ">
@@ -400,8 +425,8 @@
                                 <rect key="frame" x="-1" y="474" width="321" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tah-9c-Hcb">
-                                        <rect key="frame" x="17" y="10" width="55" height="30"/>
-                                        <state key="normal" title="settings"/>
+                                        <rect key="frame" x="17" y="10" width="33" height="30"/>
+                                        <state key="normal" title="citas"/>
                                         <connections>
                                             <segue destination="RVB-Lw-N0T" kind="show" id="RHm-jR-k43"/>
                                         </connections>
@@ -640,7 +665,7 @@
                                 <rect key="frame" x="0.0" y="330" width="320" height="238"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1wY-hO-ttj">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ActivityDetailCell" id="1wY-hO-ttj" customClass="ActivityDetailCell" customModule="Cita" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1wY-hO-ttj" id="Vvg-Ck-qNs">
@@ -660,6 +685,10 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="gravatarImage" destination="f8i-53-p7j" id="icB-ff-hE9"/>
+                                            <outlet property="nameLabel" destination="Qc6-ag-9Sj" id="hld-tN-Akc"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

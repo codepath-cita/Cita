@@ -49,7 +49,7 @@ class Activity: NSObject {
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-        
+        id = dictionary["id"] as? String
         name = dictionary["name"] as? String
         fullDescription = dictionary["full_description"] as? String
 
@@ -63,6 +63,10 @@ class Activity: NSObject {
         
         groupSize = dictionary["group_size"] as? Int
         attendeeIDs = dictionary["attendee_ids"] as? [String]
+        if attendeeIDs == nil {
+            attendeeIDs = []
+        }
+        
         // TODO: init address
 //        if let addressDictionary = dictionary["address"] as? NSDictionary {
 //            address = Address(dictionary: addressDictionary)
@@ -75,9 +79,16 @@ class Activity: NSObject {
             attendeeIDs?.forEach({ (userID) in
                 FirebaseClient.sharedInstance.fetchUserByID(userID: userID, success: { (user) in
                     self.attendees?.append(user)
-                })
+                }, failure: {_ in })
             })
         }
+        
+        FirebaseClient.sharedInstance.fetchUserByID(userID: dictionary?.value(forKey: "creator_id") as! String, success: { (user) in
+            // attach creator here
+            self.creator = user
+        }, failure: { (error) in
+            print("failed to fetch activity creator")
+        })
     }
     
     // 1. add user to attendee list

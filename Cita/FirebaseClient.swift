@@ -22,13 +22,15 @@ class FirebaseClient: NSObject {
         super.init()
     }
     
-    func fetchUserByID(userID: String, success: @escaping (User) -> ()) {
+    func fetchUserByID(userID: String, success: @escaping (User) -> (), failure: @escaping () -> ()) {
         ref.child("\(User.dataRoot)/\(userID)").observeSingleEvent(of: .value, with: { snapshot in
             dump(snapshot.value)
             if let userData = snapshot.value as? [String: AnyObject] {
                 print("got user \(userData)")
                 let user = User(dictionary: userData)
                 success(user)
+            } else {
+                failure()
             }
         })
     }

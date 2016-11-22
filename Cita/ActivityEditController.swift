@@ -107,6 +107,8 @@ class ActivityEditController: UIViewController {
                 "location": location!.toString()
             ])
             activity.creator = User.currentUser
+            activity.attendees = []
+            activity.attendeeIDs = []
             activity.save()
             self.navigationController?.popViewController(animated: true)
         }
