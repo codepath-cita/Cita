@@ -1,4 +1,4 @@
-# Project 4 - *Cita App - Sprint 1*
+# Final Project - *Cita App - Sprint 2*
 
 Time spent: **20** hours spent in total
 
@@ -8,31 +8,69 @@ SH -> Sara Hender
 SG -> Santiago Gomez  
 SC -> Stephen Chudleigh  
 
-The following **required** functionality is completed:
+The following functionality is completed:
 
-- [X] App flow definition (SH, SG, SC)
-- [X] Schema definition (SH, SG, SC)
-- [X] Backend Integration
-   - [X] Firebase setup (SH, SG, SC)
-   - [X] Data models definition (SC)
-   - [X] Write and read from database (SC)
-- [X] User Authentication
-   - [X] Facebook app setup (SG)
-   - [X] Integration of Fb login with Firebase (SG)
-   - [X] Create login view controller and fb login button (SG)
-   - [X] Make a user persistent in the app after authenticated (SG)
-   - [X] Created a template user profile page (SG)
-   - [X] Add spinner into authentication transition (SG)
-- [X] Google Maps Integration
-   - [X] App setup (SH)
-   - [X] Integrated framework (SH)
-   - [X] Added map into custom view and set long and lat (SH)
-- [X] View Controllers Basic Flow
-   - [X] Create different view controllers and classes (SH)
-   - [X] Designed the flow between screens (SH)
+## **Map Screen:** (SG)
+- [X] Create view controller (map, search bar, navigation controller, tab bar)
+- [X] Allow location services
+- [X] Display map on your current location
+- [X] Show the markers for any activities close to you on the map
+- [X] Open "create new activity" window modally when clicking on the map
+- [X] Add segmented control to switch between map view and list view
+  - [X] Clicking on map segment should show map
+  - [X] Clicking on list segment should show list
+    - [X] Order list by proximity
+- [X] Add search bar
+- [X] Add filter button
+  - [X] Place filter button left of the search bar
+  - [X] Link onClick event modally to the filter screen view controller
+- [X] Add tab bar
+  - [X] Create three sections: settings, create activity, profile
+  - [X] Display settings screen when clicking settings
+  - [X] Display profile screen when clicking profile
+  - [X] Display new activity screen modally when clicking the new activity button
+- [X] Link to activity details page
+  - [X] Open activity details screen when tapping on an activity on the map
+  - [X] Open activity details screen when tapping on an activity on the list view
+### Bonus
+- [ ] Filter activity list by name of activity
+- [ ] Filter activity dots in map by name of activity
 
-No **optional** features were implemented on this sprint.
+## **New Activity Screen:** (SC)
+- [X] Add view controller
+- [X] Add Back button that closes modal
+- [X] Add save button that closes modal and saves activity to DB
+- [X] Add text field for event name
+- [X] Add text field for event description
+- [X] Add number of allowed participants
+- [X] Add start datetime
+- [X] Add end datetime
+- [X] Validate form so required activity fields can not be empty
+### Bonus
+- [ ] Add ability to invite friends to event
+- [ ] Add event image through camera roll
 
+## **Back End Realtime Integration** (SC)
+- [X] Create activity observer to update the list of activities
+- [X] Create search functionatlity to filter db activities by query params
+
+## **Actity Details Screen:** (SH)
+- [X] Create view controller
+- [X] Load activity from db using activity_id passed from segue
+- [X] Display event title
+- [X] Display event description
+- [X] Display written address
+  - [ ] Optional: if you click on the address it should segue into a map view of the address
+- [X] Display start and end time
+- [X] Display the organizer small profile image and name
+- [X] Display "attendee" section with the picture and name of any other attendees
+- [X] Add button to "enroll" in the activity
+  - [X] click event should add user to the activity in the db
+  - [X] should add users image and name to the attendee list
+  - [X] If clicked unenroll it should remove user from attendee list and database
+### Bonus
+- [ ] When clicking on enroll, it should create new chat between attendees in the chat section of the app
+  - [ ] Display little icon that will segue you to the chat of that activity
 
 ## Video Walkthrough
 

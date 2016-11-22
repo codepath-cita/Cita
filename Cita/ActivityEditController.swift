@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivityEditController: UIViewController {
+class ActivityEditController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameInvalidLabel: UILabel!
@@ -34,6 +34,8 @@ class ActivityEditController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "New Activity"
+        
+        startTimeTextField.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
@@ -61,6 +63,7 @@ class ActivityEditController: UIViewController {
         startTimePicker.datePickerMode = .dateAndTime
         startTimeTextField.inputView = startTimePicker
         startTimePicker.addTarget(self, action: #selector(setStartTime), for: .valueChanged)
+        
         endTimePicker = UIDatePicker()
         endTimeTextField.inputView = endTimePicker
         endTimePicker.addTarget(self, action: #selector(setEndTime), for: .valueChanged)
@@ -79,12 +82,33 @@ class ActivityEditController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print(#function)
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print(#function)
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(#function)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print(#function)
+    }
     
     func setStartTime() {
         let timeText = timeFormatter.string(from: startTimePicker.date)
         print("chose start time \(timeText)")
         startDate = startTimePicker.date
         startTimeTextField.text = timeText
+        
+        // yay our event can't end before it started
+        endTimePicker.date = startTimePicker.date
     }
     
     func setEndTime() {

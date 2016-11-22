@@ -104,10 +104,10 @@
             </objects>
             <point key="canvasLocation" x="35.625" y="36.971830985915496"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Citas View Controller-->
         <scene sceneID="KMt-2R-An3">
             <objects>
-                <viewController id="RVB-Lw-N0T" customClass="SettingsViewController" customModule="Cita" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RVB-Lw-N0T" customClass="CitasViewController" customModule="Cita" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pcg-E5-LpZ"/>
                         <viewControllerLayoutGuide type="bottom" id="QCG-9l-bbO"/>
@@ -124,7 +124,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wn8-Kb-kmp" id="LRA-Hj-HRw">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -488,6 +488,7 @@
                         <outlet property="mapView" destination="yK9-3E-iR6" id="bTF-YC-muy"/>
                         <outlet property="tabBarView" destination="aBn-4Z-WLL" id="74k-G2-bfW"/>
                         <segue destination="MXl-eo-rIr" kind="presentation" identifier="NewActivitySegue" id="fa4-gH-VPO"/>
+                        <segue destination="Kcx-B5-0BL" kind="show" identifier="ActivityDetailSegue" id="sU0-IC-0Ym"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P19-8a-BXF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -514,7 +515,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="161"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9kl-q5-UZx" id="fub-hP-Ouh">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="160.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ChA-yD-fyK">
@@ -594,7 +595,7 @@
                 <tapGestureRecognizer id="Rch-Ok-exq"/>
                 <tapGestureRecognizer id="KKO-vT-mU9"/>
             </objects>
-            <point key="canvasLocation" x="2651.25" y="32.74647887323944"/>
+            <point key="canvasLocation" x="2649" y="-302"/>
         </scene>
         <!--Activity Detail View Controller-->
         <scene sceneID="W9K-fJ-CJn">
@@ -664,7 +665,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1wY-hO-ttj" id="Vvg-Ck-qNs">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc6-ag-9Sj">
@@ -752,7 +753,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FFE-Nq-hbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3390" y="36.971830985915496"/>
+            <point key="canvasLocation" x="3461" y="37"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wPH-9o-oLM">
@@ -783,7 +784,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MXl-eo-rIr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uKw-re-p48">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uKw-re-p48">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -807,4 +808,7 @@
         <image name="logo" width="512" height="512"/>
         <image name="logo_transparent" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="sU0-IC-0Ym"/>
+    </inferredMetricsTieBreakers>
 </document>
