@@ -26,7 +26,7 @@ class ActivityDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        activity.fetchAtendees()
+        //activity.fetchAtendees()
     }
     
     override func viewDidLoad() {
@@ -113,12 +113,19 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
             
         } else if indexPath.section == 1 {
             print("indexPath.row: \(indexPath.row)")
-            /*let user = activity.attendees?[indexPath.row]
-            cell.nameLabel.text = user?.displayName
-            
-            if let photoUrl = user?.photoURL,
-                let data = try? Data(contentsOf: photoUrl) {
-                cell.gravatarImage.image = UIImage(data: data)
+            /*
+            if nil != activity.attendees {
+                let user = activity.attendees?[indexPath.row]
+                
+                //let user = activity.attendees?["attendees"]//.val
+                //indexPath.row]
+                
+                cell.nameLabel.text = user?.displayName
+                
+                if let photoUrl = user?.photoURL,
+                    let data = try? Data(contentsOf: photoUrl) {
+                    cell.gravatarImage.image = UIImage(data: data)
+                }
             }*/
         }
         
