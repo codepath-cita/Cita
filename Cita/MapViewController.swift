@@ -151,8 +151,6 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//        print("You tapped at \(coordinate.latitude), \(coordinate.longitude)")
-        
         if (self.newActivityMarker != nil) {
             self.newActivityMarker.map = nil
         }
@@ -178,10 +176,23 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {
         searchController?.isActive = false
-        // Do something with the selected place.
-        print("Place name: ", place.name)
-        print("Place address: ", place.formattedAddress!)
-        print("Place attributions: ", place.attributions!)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 15.0)
+        self.mapView.camera = camera
+        
+        if (self.newActivityMarker != nil) {
+            self.newActivityMarker.map = nil
+        }
+        
+        let marker = GMSMarker()
+        marker.position = place.coordinate
+        marker.snippet = "Tap here to create new activity"
+        marker.icon = UIImage(named: "marker_green.png")
+        marker.tracksInfoWindowChanges = true
+        marker.isDraggable = true
+        marker.map = self.mapView
+        mapView.selectedMarker = marker
+        self.newActivityMarker = marker
     }
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,

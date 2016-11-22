@@ -399,13 +399,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBn-4Z-WLL" userLabel="tabView">
                                 <rect key="frame" x="-1" y="474" width="321" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsi-xX-4Le">
-                                        <rect key="frame" x="120" y="10" width="82" height="30"/>
-                                        <state key="normal" title="new activity"/>
-                                        <connections>
-                                            <segue destination="PCA-gk-Drs" kind="show" identifier="NewActivitySegue" id="G8H-8J-YND"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tah-9c-Hcb">
                                         <rect key="frame" x="17" y="10" width="55" height="30"/>
                                         <state key="normal" title="settings"/>
@@ -425,12 +418,11 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0VE-KW-y7G"/>
-                                    <constraint firstItem="xsi-xX-4Le" firstAttribute="centerY" secondItem="aBn-4Z-WLL" secondAttribute="centerY" id="8wn-5d-gZi"/>
+                                    <constraint firstItem="Yn5-vz-ibc" firstAttribute="centerY" secondItem="aBn-4Z-WLL" secondAttribute="centerY" id="3mi-8n-dLk"/>
                                     <constraint firstItem="tah-9c-Hcb" firstAttribute="leading" secondItem="aBn-4Z-WLL" secondAttribute="leading" constant="17" id="CkL-cP-nKT"/>
-                                    <constraint firstItem="xsi-xX-4Le" firstAttribute="centerX" secondItem="aBn-4Z-WLL" secondAttribute="centerX" id="O0V-M6-wpC"/>
+                                    <constraint firstItem="tah-9c-Hcb" firstAttribute="centerY" secondItem="aBn-4Z-WLL" secondAttribute="centerY" id="PlI-At-GK7"/>
                                     <constraint firstItem="Yn5-vz-ibc" firstAttribute="top" secondItem="tah-9c-Hcb" secondAttribute="top" id="RQe-xx-gfO"/>
                                     <constraint firstAttribute="trailing" secondItem="Yn5-vz-ibc" secondAttribute="trailing" constant="16" id="YBP-Fu-BA4"/>
-                                    <constraint firstItem="tah-9c-Hcb" firstAttribute="top" secondItem="xsi-xX-4Le" secondAttribute="top" id="c65-BT-n42"/>
                                 </constraints>
                             </view>
                         </subviews>
