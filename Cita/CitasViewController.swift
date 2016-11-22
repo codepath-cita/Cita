@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  CitasViewController.swift
 //  Cita
 //
 //  Created by Sara Hender on 11/9/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class CitasViewController: UIViewController {
     
     let HeaderViewIdentifier = "TableViewHeaderView"
     var pastActivities: [Activity] = []
@@ -60,7 +60,7 @@ class SettingsViewController: UIViewController {
     
 }
 
-extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
+extension CitasViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return section == 0 ? upcomingActivities.count : pastActivities.count
