@@ -82,6 +82,7 @@ class User: NSObject {
     }
     
     static var _currentUser: User?
+    static var userCache: [String: User] = [:]
     
     class var currentUser: User? {
         get {

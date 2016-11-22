@@ -9,7 +9,7 @@
 import UIKit
 
 class ActivityDetailViewController: UIViewController {
-    var activity: Activity!
+    
     let HeaderViewIdentifier = "TableViewHeaderView"
     
     @IBOutlet weak var activityNameLabel: UILabel!
@@ -23,16 +23,17 @@ class ActivityDetailViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var joinButton: UIButton!
     
+    var activity: Activity!
+    var currentUserAttending = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //activity.fetchAtendees()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityNameLabel.text = activity.name
         
+        activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
         
         let timeFormatter = DateFormatter()
@@ -49,6 +50,20 @@ class ActivityDetailViewController: UIViewController {
         cityLabel.text = activity.address?.city
         zipcodeLabel.text = activity.address?.zip
         
+        if activity.attendeeIDs != nil {
+            activity.attendees = []
+            for attendeeID in activity.attendeeIDs! {
+                if attendeeID == User.currentUser?.uid {
+                    currentUserAttending = true
+                }
+                if let user = User.userCache[attendeeID] {
+                    activity.attendees?.append(user)
+                } else {
+                    print("user missing! \(attendeeID)")
+                }
+            }
+        }
+        
         joinButton.layer.cornerRadius = 7
         joinButton.clipsToBounds = true
         
@@ -59,17 +74,32 @@ class ActivityDetailViewController: UIViewController {
         tableView.delegate = self
         
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
+        
+        setJoinButton(attending: currentUserAttending)
     }
     
     @IBAction func joinActivityButtonPress(_ sender: Any) {
-        let alertController = UIAlertController(title: "Congratulations!!!!", message: "Thank you for joining this event, we  hope you have a lot of fun!!", preferredStyle: .alert)
+        var alertTitle = "Get Ready!"
+        if currentUserAttending {
+            alertTitle = "Awww :("
+        }
+        var alertMessage = "Thank you for joining this event, we  hope you have a lot of fun!!"
+        if currentUserAttending {
+            alertMessage = "Sorry to see you go. Press Cancel if you are still interested."
+        }
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            // handle response here.
-            self.activity.attendeeIDs!.append((User.currentUser?.uid)!)
-            //self.activity.attendees!.append(User.currentUser!)
-            print((User.currentUser?.uid)!)
-            self.activity.save()
+            self.currentUserAttending = !self.currentUserAttending
+            self.setJoinButton(attending: self.currentUserAttending)
+            if self.currentUserAttending {
+                self.activity.attendeeIDs!.append((User.currentUser?.uid)!)
+                //self.activity.attendees!.append(User.currentUser!)
+                print((User.currentUser?.uid)!)
+                self.activity.save()
+            } else {
+                self.activity.removeUser(user: User.currentUser!)
+            }
             self.navigationController?.popViewController(animated: true)
         }
 
@@ -86,6 +116,17 @@ class ActivityDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    func setJoinButton(attending: Bool) {
+        if attending {
+            joinButton.backgroundColor = .red
+            joinButton.setTitle("Leave Activity", for: .normal)
+        } else {
+            joinButton.backgroundColor = UIColor(red:0.20, green:0.62, blue:0.06, alpha:1.0)
+            joinButton.setTitle("Join Activity", for: .normal)
+        }
+
+    }
+    
      /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
@@ -96,7 +137,7 @@ class ActivityDetailViewController: UIViewController {
 extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return section == 0 ? 1 : (activity.attendeeIDs?.count)!
+        return section == 0 ? 1 : (activity.attendees?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -113,7 +154,6 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
             
         } else if indexPath.section == 1 {
             print("indexPath.row: \(indexPath.row)")
-            /*
             if nil != activity.attendees {
                 let user = activity.attendees?[indexPath.row]
                 
@@ -126,7 +166,7 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
                     let data = try? Data(contentsOf: photoUrl) {
                     cell.gravatarImage.image = UIImage(data: data)
                 }
-            }*/
+            }
         }
         
         return cell

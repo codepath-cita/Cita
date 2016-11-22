@@ -81,4 +81,17 @@ class FirebaseClient: NSObject {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Activity.activitiesUpdated), object: nil)
         })
     }
+    
+    func observeUsers() {
+        ref.child(User.dataRoot).observe(.value, with: { snapshot in
+            print("\(snapshot.childrenCount) users found!")
+            for child in snapshot.children {
+                if let userDictionary = (child as! FIRDataSnapshot).value as? [String : AnyObject] {
+                    print("user data=\(userDictionary)")
+                    let uid = userDictionary["uid"] as! String
+                    User.userCache[uid] =  User(dictionary: userDictionary)
+                }
+            }
+        })
+    }
 }

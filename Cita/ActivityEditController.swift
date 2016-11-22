@@ -99,7 +99,6 @@ class ActivityEditController: UIViewController {
     }
     
     @IBAction func didClickSave(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
         if validateFields() {
             let location = self.markerLocation
             let activity = Activity(dictionary: [
@@ -115,6 +114,7 @@ class ActivityEditController: UIViewController {
             activity.attendees = []
             activity.attendeeIDs = []
             activity.save()
+            dismiss(animated: true, completion: nil)
         }
     }
 

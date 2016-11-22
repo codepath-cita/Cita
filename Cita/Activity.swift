@@ -73,22 +73,20 @@ class Activity: NSObject {
 //        }
     }
     
-    func fetchAtendees() {
+    func fetchAttendees() {
         if attendeeIDs != nil {
             if self.attendees == nil {
                 self.attendees = []
             }
             
             for attendeeID in attendeeIDs! {
-            
-            //attendeeIDs?.forEach({ (userID) in
                 FirebaseClient.sharedInstance.fetchUserByID(userID: attendeeID, success: { (user) in
                     print("EPIC SUCCESS, appending user to activity")
                     self.attendees!.append(user)
                 }, failure: {_ in
                     print("EPIC FAIL, I REPEAT EPIC FAILURE to fetch user")
                 })
-            }//)
+            }
         }
         
         FirebaseClient.sharedInstance.fetchUserByID(userID: dictionary?.value(forKey: "creator_id") as! String, success: { (user) in
@@ -113,6 +111,13 @@ class Activity: NSObject {
             }
         } else {
             print("Error: can't registerUser with nil ID!")
+        }
+    }
+    
+    func removeUser(user: User) {
+        if let index = attendeeIDs?.index(of: user.uid!) {
+            attendeeIDs?.remove(at: index)
+            save()
         }
     }
     

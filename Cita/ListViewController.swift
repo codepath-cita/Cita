@@ -46,7 +46,6 @@ class ListViewController: UIViewController {
         let activity = activities?[(indexPath?.row)!]
         let activityDetailViewController = segue.destination as! ActivityDetailViewController
         activityDetailViewController.activity = activity
-        activity?.fetchAtendees()
     }
     
 }

@@ -27,7 +27,7 @@ class ActivityTableViewCell: UITableViewCell {
             descriptionLabel.text = activity.fullDescription
             startTimeLabel.text = "From \(starts)"
             endTimeLabel.text = "To \(ends)"
-            groupSizeLabel.text = "Party of \(activity.groupSize ?? 2)"
+            groupSizeLabel.text = "\(activity.attendeeIDs?.count ?? 1) of \(activity.groupSize ?? 2) spots taken"
         }
     }
     override func awakeFromNib() {
