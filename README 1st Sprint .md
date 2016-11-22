@@ -1,4 +1,4 @@
-# Project 4 - *Cita App - Sprint 1*
+# Final Project - *Cita App - Sprint 1*
 
 Time spent: **20** hours spent in total
 
