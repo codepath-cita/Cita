@@ -49,7 +49,7 @@ class Activity: NSObject {
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
-        
+        id = dictionary["id"] as? String
         name = dictionary["name"] as? String
         fullDescription = dictionary["full_description"] as? String
 

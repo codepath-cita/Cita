@@ -113,13 +113,13 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
             
         } else if indexPath.section == 1 {
             print("indexPath.row: \(indexPath.row)")
-            let user = activity.attendees?[indexPath.row]
+            /*let user = activity.attendees?[indexPath.row]
             cell.nameLabel.text = user?.displayName
             
             if let photoUrl = user?.photoURL,
                 let data = try? Data(contentsOf: photoUrl) {
                 cell.gravatarImage.image = UIImage(data: data)
-            }
+            }*/
         }
         
         return cell
