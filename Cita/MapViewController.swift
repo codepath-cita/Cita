@@ -22,6 +22,7 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
+    var isNewMarker: Bool! = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         searchController?.searchResultsUpdater = resultsViewController
         // Put the search bar in the navigation bar.
         searchController?.searchBar.sizeToFit()
+        searchController?.searchBar.placeholder = "Enter address to create activity"
         self.navigationItem.titleView = searchController?.searchBar
         self.definesPresentationContext = true
         searchController?.hidesNavigationBarDuringPresentation = false
@@ -71,6 +73,7 @@ class MapViewController: UIViewController, UISearchBarDelegate {
             marker.icon = UIImage(named: "marker_red.png")
             marker.appearAnimation = kGMSMarkerAnimationPop
             marker.map = self.mapView
+            self.isNewMarker = false
         }
     }
     
@@ -118,6 +121,21 @@ class MapViewController: UIViewController, UISearchBarDelegate {
             let navigationController = segue.destination as! UINavigationController
             let activityEditViewController = navigationController.topViewController as! ActivityEditController
             activityEditViewController.markerLocation = location
+        } else if segue.identifier == "ActivityDetailSegue" {
+            let marker = sender as! GMSMarker
+            var selectedIndex = Int()
+            var counter = 0
+            for activity in self.activities! {
+                if (activity.name == marker.title) {
+                    selectedIndex = counter
+                }
+                counter += 1
+            }
+            
+            let activity = self.activities?[selectedIndex]
+            let activityDetailViewController = segue.destination as! ActivityDetailViewController
+            activityDetailViewController.activity = activity
+//            activity?.fetchAtendees()
         }
     }
 }
@@ -166,11 +184,22 @@ extension MapViewController: GMSMapViewDelegate {
         marker.map = self.mapView
         mapView.selectedMarker = marker
         self.newActivityMarker = marker
+        self.isNewMarker = true
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        self.performSegue(withIdentifier: "NewActivitySegue", sender: marker)
-        marker.map = nil
+        if (self.isNewMarker == true) {
+            self.performSegue(withIdentifier: "NewActivitySegue", sender: marker)
+            marker.map = nil
+        } else {
+            self.performSegue(withIdentifier: "ActivityDetailSegue", sender: marker)
+        }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        self.isNewMarker = false
+        
+        return false
     }
 }
 
