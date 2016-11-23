@@ -90,21 +90,18 @@ class ActivityDetailViewController: UIViewController {
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            if self.currentUserAttending {
+                self.activity.removeUser(user: User.currentUser!)
+            } else {
+                self.activity.registerUser(user: User.currentUser!)
+            }
             self.currentUserAttending = !self.currentUserAttending
             self.setJoinButton(attending: self.currentUserAttending)
-            if self.currentUserAttending {
-                self.activity.attendeeIDs!.append((User.currentUser?.uid)!)
-                //self.activity.attendees!.append(User.currentUser!)
-                print((User.currentUser?.uid)!)
-                self.activity.save()
-            } else {
-                self.activity.removeUser(user: User.currentUser!)
-            }
             self.navigationController?.popViewController(animated: true)
         }
 
         let CANCELAction = UIAlertAction(title: "CANCEL", style: .default) { (action) in
-            // handle response here. => DO NOTHING
+            // => DO NOTHING
         }
         
         alertController.addAction(CANCELAction)

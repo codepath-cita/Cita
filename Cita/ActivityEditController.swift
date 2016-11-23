@@ -126,7 +126,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
         if validateFields() {
             let location = self.markerLocation
             let activity = Activity(dictionary: [
-                "name": nameTextField.text!,
+                "name": nameTextField.text! as AnyObject,
                 "full_description": descriptionTextView.text!,
                 "attendees_count": Int(groupSizeField.text!)!,
                 "start_time": startDate!.iso8601,

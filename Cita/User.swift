@@ -20,7 +20,7 @@ import FirebaseAuth
  updated_at
 */
 class User: NSObject {
-    static let dataRoot = "users"
+    static let dbRoot = "users"
     static let currentUserKey = "currentUserData"
     static let userDidLoginNotification = "UserDidLogin"
     static let userDidLogoutNotification = "UserDidLogout"
@@ -32,13 +32,10 @@ class User: NSObject {
     var email: String?
     var photoURL: URL?
     var interests: [Tag]?
-    var activityIDs: [String]?
+    var activityKeys: [String]?
     var activities: [Activity]?
     
-    var dictionary: [String: AnyObject]
-    
     init(dictionary: [String: AnyObject]) {
-        self.dictionary = dictionary
         uid = dictionary["uid"] as? String
         providerID = dictionary["provider_id"] as? String
         displayName = dictionary["display_name"] as? String
@@ -46,6 +43,7 @@ class User: NSObject {
         if let url = dictionary["photo_url"] as? String {
             photoURL = URL(string: url)
         }
+        activityKeys = dictionary["activity_keys"] as? [String]
     }
     
     convenience init(user: FIRUser) {
@@ -60,7 +58,7 @@ class User: NSObject {
     
     // store users as a large list
     func dataKey() -> String {
-        return "\(User.dataRoot)/\(uid!)"
+        return "\(User.dbRoot)/\(uid!)"
     }
     
     func toDictionary() -> [String: Any] {
@@ -69,7 +67,8 @@ class User: NSObject {
             "provider_id": providerID,
             "display_name": displayName,
             "email": email,
-            "photo_url": photoURL?.absoluteString
+            "photo_url": photoURL?.absoluteString,
+            "activity_keys": activityKeys
         ]
     }
     
@@ -102,7 +101,7 @@ class User: NSObject {
             
             let defaults = UserDefaults.standard
             if let user = user {
-                let data = try! JSONSerialization.data(withJSONObject: user.dictionary, options: [])
+                let data = try! JSONSerialization.data(withJSONObject: user.toDictionary(), options: [])
                 defaults.set(data, forKey: User.currentUserKey)
                 user.save()
             } else {

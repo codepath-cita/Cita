@@ -14,7 +14,6 @@ class FirebaseClient: NSObject {
     static var sharedInstance = FirebaseClient()
 
     let ref: FIRDatabaseReference!
-    var currentFilter: ActivityFilter!
     var currentQuery: FIRDatabaseHandle?
     
     override init() {
@@ -22,68 +21,55 @@ class FirebaseClient: NSObject {
         super.init()
     }
     
-    func fetchUserByID(userID: String, success: @escaping (User) -> (), failure: @escaping () -> ()) {
-        ref.child("\(User.dataRoot)/\(userID)").observeSingleEvent(of: .value, with: { snapshot in
-            dump(snapshot.value)
-            if let userData = snapshot.value as? [String: AnyObject] {
-                print("got user \(userData)")
-                let user = User(dictionary: userData)
-                success(user)
-            } else {
-                failure()
-            }
-        })
-    }
-    
     func observeActivities(within: LocationFrame?, searchTerm: String?, withinDates dateRange: DateRange = DateRange.thisWeek()) {
-        currentFilter = ActivityFilter(dateRange: dateRange, searchTerm: searchTerm, locationFrame: within)
         if let query = currentQuery {
             ref.removeObserver(withHandle: query)
         }
-        currentQuery = ref.child(Activity.dataRoot).queryStarting(atValue: nil, childKey: dateRange.earliest.iso8601DatePart).queryEnding(atValue: nil, childKey: dateRange.latest.iso8601DatePart).observe(.value, with: { snapshot in
-            print("activities for \(snapshot.childrenCount) dates")
-            var activities: [NSDictionary] = []
+        
+        // this query filters by start date of activity
+        // get all activities that start within date dateRange.earliest...latest
+        currentQuery = ref.child(Activity.dbRoot).queryStarting(atValue: nil, childKey: dateRange.earliest.iso8601DatePart).queryEnding(atValue: nil, childKey: dateRange.latest.iso8601DatePart).observe(.value, with: { snapshot in
+            print("observing activities for \(snapshot.childrenCount) dates")
+            var activities: [Activity] = []
             for child in snapshot.children {
-                let activityDateDictionary = (child as! FIRDataSnapshot).value as! NSDictionary
-                activityDateDictionary.forEach({ (key: Any, value: Any) in
-                    if let activityData = value as? NSDictionary {
-                        if within != nil,
-                           let locationString = activityData.value(forKey: "location") as? String {
-                            // filter on location
-                            let location = Location(string: locationString)
+                let date = child as! FIRDataSnapshot
+                print("adding \(date.childrenCount) activities on \(date.key)")
+                for dateChild in date.children {
+                    let activity = Activity(snapshot: dateChild as! FIRDataSnapshot)
+                    
+                    if within != nil { // filter on location
+                        if let location = activity.location {
                             if !location.inFrame(frame: within!) {
-                                print("location not in frame: \(locationString)")
-                                return
+                                print("location not in frame: \(location.toString())")
+                                continue
                             }
+                        } else {
+                            print("no location for activity \(activity.key)")
+                            continue
                         }
-                        if let search = searchTerm,
-                           let name = activityData.value(forKey: "name") as? String {
-                            // filter on name
-                            var match = name.range(of: search)
-                            if match == nil,
-                               let description = activityData.value(forKey: "full_description") as? String {
-                                // filter on description
-                                match = description.range(of: search)
-
-                            }
-                            if match == nil {
-                                print("no search match for name(\(name)) or description(\(activityData.value(forKey: "full_description") as? String))")
-                                return
-                            }
-                        }
-                        activityData.setValue(key, forKey: "id")
-                        print("activityData=\(activityData)")
-                        activities.append(activityData)
                     }
-                })
+                    if let search = searchTerm { // filter on search term
+                        let matchName = activity.name?.range(of: search)
+                        let matchDescription = activity.fullDescription?.range(of: search)
+
+                        if matchName==nil && matchDescription==nil {
+                            print("no search match for name(\(activity.name)) or description(\(activity.fullDescription))")
+                            continue
+                        }
+                    }
+                    
+                    activities.append(activity)
+                }
             }
-            Activity.currentActivities = Activity.fromDictionaryArray(activities)
+            Activity.currentActivities = activities
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: Activity.activitiesUpdated), object: nil)
         })
     }
     
+    
+    // get data for every user
     func observeUsers() {
-        ref.child(User.dataRoot).observe(.value, with: { snapshot in
+        ref.child(User.dbRoot).observe(.value, with: { snapshot in
             print("\(snapshot.childrenCount) users found!")
             for child in snapshot.children {
                 if let userDictionary = (child as! FIRDataSnapshot).value as? [String : AnyObject] {

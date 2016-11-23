@@ -29,7 +29,7 @@
 		DC2C55581DDAD75A00482FF7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55531DDAD75A00482FF7 /* Message.swift */; };
 		DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55541DDAD75A00482FF7 /* Tag.swift */; };
 		DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55551DDAD75A00482FF7 /* User.swift */; };
-		DC78DDAE1DE23BEC006234EC /* ActivityFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC78DDAD1DE23BEC006234EC /* ActivityFilter.swift */; };
+		DCA24E611DE5AEAA004DD8AD /* CitasTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA24E601DE5AEAA004DD8AD /* CitasTableViewCell.swift */; };
 		E2526BF90261A4E4A8172834 /* Pods_CitaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */; };
 		FE6496741DD99FE20025DAEC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */; };
 		FE6496761DD9E6F10025DAEC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */; };
@@ -94,7 +94,7 @@
 		DC2C55531DDAD75A00482FF7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DC2C55541DDAD75A00482FF7 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		DC2C55551DDAD75A00482FF7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		DC78DDAD1DE23BEC006234EC /* ActivityFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityFilter.swift; sourceTree = "<group>"; };
+		DCA24E601DE5AEAA004DD8AD /* CitasTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitasTableViewCell.swift; sourceTree = "<group>"; };
 		F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cita.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -237,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				DC23D9741DDC1BB100D314D1 /* ActivityTableViewCell.swift */,
+				DCA24E601DE5AEAA004DD8AD /* CitasTableViewCell.swift */,
 				1A09DC851DE3B7B2003B3CD1 /* ActivityDetailCell.swift */,
 			);
 			name = Views;
@@ -259,7 +260,6 @@
 				DC2C55541DDAD75A00482FF7 /* Tag.swift */,
 				DC2C55551DDAD75A00482FF7 /* User.swift */,
 				DC23D9791DDE772800D314D1 /* Location.swift */,
-				DC78DDAD1DE23BEC006234EC /* ActivityFilter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -581,13 +581,13 @@
 				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
 				DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */,
 				FE6AD2BD1DDABA0F00E18086 /* CitasViewController.swift in Sources */,
+				DCA24E611DE5AEAA004DD8AD /* CitasTableViewCell.swift in Sources */,
 				FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */,
 				DC23D9751DDC1BB100D314D1 /* ActivityTableViewCell.swift in Sources */,
 				9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */,
 				DC23D9781DDE184B00D314D1 /* FirebaseClient.swift in Sources */,
 				DC2C55561DDAD75A00482FF7 /* Activity.swift in Sources */,
 				9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */,
-				DC78DDAE1DE23BEC006234EC /* ActivityFilter.swift in Sources */,
 				FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */,
 				FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */,
 				DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */,

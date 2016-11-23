@@ -8,6 +8,7 @@
 
 import CoreLocation
 import UIKit
+import FirebaseDatabase
 
 /*
  id
@@ -24,11 +25,13 @@ import UIKit
  updated_at
  */
 class Activity: NSObject {
-    static let dataRoot = "activities"
     static let activitiesUpdated = "activities:updated"
+    static let dbRoot = "activities"
     
-    var dictionary: NSDictionary?
-    var id: String?
+    let dbRef = FIRDatabase.database().reference(withPath: Activity.dbRoot)
+    
+    var ref: FIRDatabaseReference?
+    var key: String?
     var name: String?
     var fullDescription: String?
     var groupSize: Int?
@@ -48,11 +51,9 @@ class Activity: NSObject {
     static var currentActivities: [Activity]? = []
     
     init(dictionary: NSDictionary) {
-        self.dictionary = dictionary
-        id = dictionary["id"] as? String
         name = dictionary["name"] as? String
         fullDescription = dictionary["full_description"] as? String
-
+        
         if let locationString = dictionary["location"] as? String {
             location = Location(string: locationString)
         }
@@ -68,45 +69,32 @@ class Activity: NSObject {
         }
         
         // TODO: init address
-//        if let addressDictionary = dictionary["address"] as? NSDictionary {
-//            address = Address(dictionary: addressDictionary)
-//        }
+        //        if let addressDictionary = dictionary["address"] as? NSDictionary {
+        //            address = Address(dictionary: addressDictionary)
+        //        }
     }
     
-    func fetchAttendees() {
-        if attendeeIDs != nil {
-            if self.attendees == nil {
-                self.attendees = []
-            }
-            
-            for attendeeID in attendeeIDs! {
-                FirebaseClient.sharedInstance.fetchUserByID(userID: attendeeID, success: { (user) in
-                    print("EPIC SUCCESS, appending user to activity")
-                    self.attendees!.append(user)
-                }, failure: {_ in
-                    print("EPIC FAIL, I REPEAT EPIC FAILURE to fetch user")
-                })
-            }
-        }
-        
-        FirebaseClient.sharedInstance.fetchUserByID(userID: dictionary?.value(forKey: "creator_id") as! String, success: { (user) in
-            // attach creator here
-            self.creator = user
-        }, failure: { (error) in
-            print("failed to fetch activity creator")
-        })
+    convenience init(snapshot: FIRDataSnapshot) {
+        let dictionary = snapshot.value as! NSDictionary
+        self.init(dictionary: dictionary)
+        key = snapshot.key
+        ref = snapshot.ref
     }
     
     // 1. add user to attendee list
     // 2. add activity to user's activity list
     func registerUser(user: User) {
         if let userID = user.uid {
+            if user.activityKeys == nil {
+                user.activityKeys = []
+            }
             if attendeeIDs?.index(of: userID) == nil {
                 attendeeIDs?.append(userID)
                 save()
             }
-            if user.activityIDs?.index(of: userID) == nil {
-                user.activities?.append(self)
+            if user.activityKeys?.index(of: userID) == nil {
+                let startDate = startTime!.iso8601DatePart
+                user.activityKeys?.append("\(startDate)/\(key!)")
                 user.save()
             }
         } else {
@@ -118,20 +106,6 @@ class Activity: NSObject {
         if let index = attendeeIDs?.index(of: user.uid!) {
             attendeeIDs?.remove(at: index)
             save()
-        }
-    }
-    
-    // store activities rooted by their start date
-    func dataKey() -> String {
-        if let dateString = startTime?.iso8601.cita_substring(nchars: 10) {
-            if let key = id {
-                return "\(Activity.dataRoot)/\(dateString)/\(key)"
-            } else {
-                return "\(Activity.dataRoot)/\(dateString)"
-            }
-            
-        } else {
-            return "unknown-date/\(self.id)"
         }
     }
     
@@ -151,18 +125,19 @@ class Activity: NSObject {
     }
     
     func save() {
-        let myRef = FirebaseClient.sharedInstance.ref.child(self.dataKey())
-        if id == nil { // create
-            myRef.childByAutoId().setValue(self.toDictionary())
+        if ref == nil { // create
+            let dateString = startTime!.iso8601.cita_substring(nchars: 10)
+            dbRef.child(dateString).childByAutoId().setValue(self.toDictionary())
         } else { // update
-            myRef.setValue(self.toDictionary())
+            ref!.setValue(self.toDictionary())
         }
     }
     
-    class func fromDictionaryArray(_ array: [NSDictionary]) -> [Activity] {
+    class func fromSnapshotArray(_ snapshot: FIRDataSnapshot) -> [Activity] {
         var activities: [Activity] = []
-        for dictionary in array {
-            let activity = Activity(dictionary: dictionary)
+        for child in snapshot.children {
+            let dictionary = child as! FIRDataSnapshot
+            let activity = Activity(snapshot: dictionary)
             activities.append(activity)
         }
         return activities
