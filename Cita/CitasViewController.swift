@@ -31,6 +31,8 @@ class CitasViewController: UIViewController {
         
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
         
+        tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
+        
         observeUserActivities()
     }
     
@@ -68,16 +70,17 @@ class CitasViewController: UIViewController {
     
 }
 
-extension CitasViewController: UITableViewDelegate, UITableViewDataSource {
+extension CitasViewController: UITableViewDelegate, UITableViewDataSource,  UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CitasTableViewCell", for: indexPath) as! CitasTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
         let activitiesByStartTime = activities.values.sorted { (a1, a2) -> Bool in
             return a1.startTime! > a2.startTime!
         }
+        cell.delegate = self
         cell.activity = activitiesByStartTime[indexPath.row]
         return cell
     }
@@ -98,6 +101,14 @@ extension CitasViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
+    }
+    
+    func tableDelegate(activity: Activity) {
+        print("tapped")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let activityDetailViewController = storyboard.instantiateViewController(withIdentifier: "ActivityDetailViewController") as! ActivityDetailViewController
+        activityDetailViewController.activity = activity
+        self.navigationController?.pushViewController(activityDetailViewController, animated: true)
     }
 }
 
