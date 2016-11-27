@@ -14,8 +14,12 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
+    @IBOutlet weak var toggleViewButton: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
     
     var activities: [Activity]?
+    var filteredActivities: [Activity]?
+    var searchBar = UISearchBar()
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var newActivityMarker: GMSMarker! = nil
@@ -27,24 +31,39 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 160
+        
+        tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
+        
+        if Activity.currentActivities != nil {
+            activities = Activity.currentActivities
+            filteredActivities = activities
+            tableView.reloadData()
+            populateMarkers()
+        }
+        
+        toggleViewButton.title = "List"
         let camera = GMSCameraPosition.camera(withLatitude: 37.77, longitude: -122.42, zoom: 15.0)
         mapView.camera = camera
         
-//        searchBar.delegate = self
-//        searchBar.placeholder = "Enter address or drop pin on map"
-//        self.navigationItem.titleView = self.searchBar
+        searchBar.delegate = self
+        searchBar.placeholder = "Search for an activity"
+        self.navigationItem.titleView = self.searchBar
         
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.delegate = self
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
-        // Put the search bar in the navigation bar.
-        searchController?.searchBar.sizeToFit()
-        searchController?.searchBar.placeholder = "Enter address to create activity"
-        self.navigationItem.titleView = searchController?.searchBar
-        self.definesPresentationContext = true
-        searchController?.hidesNavigationBarDuringPresentation = false
-        
+//        resultsViewController = GMSAutocompleteResultsViewController()
+//        resultsViewController?.delegate = self
+//        searchController = UISearchController(searchResultsController: resultsViewController)
+//        searchController?.searchResultsUpdater = resultsViewController
+//        // Put the search bar in the navigation bar.
+//        searchController?.searchBar.sizeToFit()
+//        searchController?.searchBar.placeholder = "Enter address to create activity"
+//        self.navigationItem.titleView = searchController?.searchBar
+//        self.definesPresentationContext = true
+//        searchController?.hidesNavigationBarDuringPresentation = false
+//        
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -54,12 +73,15 @@ class MapViewController: UIViewController, UISearchBarDelegate {
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
                 self.activities = Activity.currentActivities
+                self.filteredActivities = self.activities
+                self.tableView.reloadData()
                 self.populateMarkers()
         }
     }
     
     func populateMarkers() {
-        for activity in self.activities! {
+        mapView.clear()
+        for activity in self.filteredActivities! {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: (activity.location?.latitude)!, longitude: (activity.location?.longitude)!)
             marker.title = activity.name
@@ -71,31 +93,45 @@ class MapViewController: UIViewController, UISearchBarDelegate {
             marker.snippet = "\(startDateString) - \(endDateString) \n(Tap for details)"
             
             marker.icon = UIImage(named: "marker_red.png")
-            marker.appearAnimation = kGMSMarkerAnimationPop
+//            marker.appearAnimation = kGMSMarkerAnimationPop
             marker.map = self.mapView
             self.isNewMarker = false
         }
     }
     
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        self.filteredBusinesses = searchText.isEmpty ? businesses : businesses.filter({(dataString: Business) -> Bool in
-//            return dataString.name?.range(of: searchText, options: .caseInsensitive) != nil
-//        })
-//        
-//        tableView.reloadData()
-//    }
+    @IBAction func toggleMapListView(_ sender: Any) {
+        if (toggleViewButton.title == "List") {
+            toggleViewButton.title = "Map"
+            mapView.isHidden = true
+            tableView.isHidden = false
+        } else {
+            toggleViewButton.title = "List"
+            tableView.isHidden = true
+            mapView.isHidden = false
+        }
+    }
     
-//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        self.searchBar.showsCancelButton = true
-//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredActivities = searchText.isEmpty ? activities : activities?.filter({(dataString: Activity) -> Bool in
+            return dataString.name?.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        
+        tableView.reloadData()
+        populateMarkers()
+    }
     
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searchBar.showsCancelButton = false
-//        searchBar.text = ""
-//        searchBar.resignFirstResponder()
-//        self.filteredBusinesses = businesses
-//        tableView.reloadData()
-//    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        self.filteredActivities = activities
+        tableView.reloadData()
+        populateMarkers()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -239,6 +275,30 @@ extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
     
     func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
+
+extension MapViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return filteredActivities?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
+        cell.activity = filteredActivities?[indexPath.row]
+        cell.delegate = self
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableDelegate(activity: Activity) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let activityDetailViewController = storyboard.instantiateViewController(withIdentifier: "ActivityDetailViewController") as! ActivityDetailViewController
+        activityDetailViewController.activity = activity
+        self.navigationController?.pushViewController(activityDetailViewController, animated: true)
     }
 }
 
