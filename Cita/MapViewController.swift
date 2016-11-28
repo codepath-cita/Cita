@@ -32,10 +32,10 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var newActivityMarker: GMSMarker! = nil
-    var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
     var isNewMarker: Bool! = false
+    var reversedAddress: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,17 +76,6 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         searchBar.placeholder = "Search for an activity"
         self.navigationItem.titleView = self.searchBar
         
-//        resultsViewController = GMSAutocompleteResultsViewController()
-//        resultsViewController?.delegate = self
-//        searchController = UISearchController(searchResultsController: resultsViewController)
-//        searchController?.searchResultsUpdater = resultsViewController
-//        // Put the search bar in the navigation bar.
-//        searchController?.searchBar.sizeToFit()
-//        searchController?.searchBar.placeholder = "Enter address to create activity"
-//        self.navigationItem.titleView = searchController?.searchBar
-//        self.definesPresentationContext = true
-//        searchController?.hidesNavigationBarDuringPresentation = false
-//        
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -173,13 +162,14 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
+    func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D){
         let geocoder = GMSGeocoder()
         
         geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
             if let address = response?.firstResult() {
                 let lines = address.lines! as [String]
-                let addressString = lines.joined(separator: "\n")
+                let addressString = lines.joined(separator: ",")
+                self.reversedAddress = addressString
             }
         }
     }
@@ -192,7 +182,9 @@ class MapViewController: UIViewController, UISearchBarDelegate {
                 
                 let navigationController = segue.destination as! UINavigationController
                 let activityEditViewController = navigationController.topViewController as! ActivityEditController
-                activityEditViewController.markerLocation = location
+                activityEditViewController.location = location
+                print(self.reversedAddress)
+                activityEditViewController.locationAddress = self.reversedAddress
             }
         } else if segue.identifier == "ActivityDetailSegue" {
             let marker = sender as! GMSMarker
@@ -232,9 +224,7 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        //reverseGeocodeCoordinate(coordinate: position.target)
-        
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {        
         let visibleRegion = mapView.projection.visibleRegion()
         let bounds = GMSCoordinateBounds.init(region: visibleRegion)
         let upperRight = Location(lat: bounds.northEast.latitude, long: bounds.northEast.longitude)
@@ -258,6 +248,7 @@ extension MapViewController: GMSMapViewDelegate {
         mapView.selectedMarker = marker
         self.newActivityMarker = marker
         self.isNewMarker = true
+        reverseGeocodeCoordinate(coordinate: marker.position)
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
@@ -273,45 +264,6 @@ extension MapViewController: GMSMapViewDelegate {
         self.isNewMarker = false
         
         return false
-    }
-}
-
-extension MapViewController: GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-                           didAutocompleteWith place: GMSPlace) {
-        searchController?.isActive = false
-        
-        let camera = GMSCameraPosition.camera(withLatitude: place.coordinate.latitude, longitude: place.coordinate.longitude, zoom: 15.0)
-        self.mapView.camera = camera
-        
-        if (self.newActivityMarker != nil) {
-            self.newActivityMarker.map = nil
-        }
-        
-        let marker = GMSMarker()
-        marker.position = place.coordinate
-        marker.snippet = "Tap here to create new activity"
-        marker.icon = UIImage(named: "marker_green.png")
-        marker.tracksInfoWindowChanges = true
-        marker.isDraggable = true
-        marker.map = self.mapView
-        mapView.selectedMarker = marker
-        self.newActivityMarker = marker
-    }
-    
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-                           didFailAutocompleteWithError error: Error){
-        // TODO: handle the error.
-        print("Error: \(error.localizedDescription)")
-    }
-    
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 

@@ -7,23 +7,30 @@
 //
 
 import UIKit
+import GooglePlaces
 
-class ActivityEditController: UIViewController, UITextFieldDelegate {
+class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameInvalidLabel: UILabel!
     @IBOutlet weak var groupSizeField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionInvalidLabel: UILabel!
-    @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var endTimeTextField: UITextField!
+    @IBOutlet weak var locationTextField: UITextField!
     
-    var markerLocation: Location!
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var locationView: UIView!
+    @IBOutlet weak var startView: UIView!
+    @IBOutlet weak var endView: UIView!
+    @IBOutlet weak var peopleView: UIView!
+    @IBOutlet weak var descriptionView: UIView!
     
+    var location: Location!
+    var locationAddress: String!
     var startTimePicker: UIDatePicker!
     var endTimePicker: UIDatePicker!
-    
     let timeFormatter = DateFormatter()
     var startDate: Date?
     var endDate: Date?
@@ -34,8 +41,28 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         navigationItem.title = "New Activity"
+        if (locationAddress != nil) {
+            locationTextField.text = locationAddress
+        }
+        
+        // Styling
+        titleView.layer.borderWidth = 1
+        titleView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
+        locationView.layer.borderWidth = 1
+        locationView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
+        startView.layer.borderWidth = 1
+        startView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
+        endView.layer.borderWidth = 1
+        endView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
+        peopleView.layer.borderWidth = 1
+        peopleView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
+        descriptionView.layer.borderWidth = 1
+        descriptionView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
+        descriptionTextView.text = "Description"
+        descriptionTextView.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.0)
         
         startTimeTextField.delegate = self
+        descriptionTextView.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
@@ -53,11 +80,6 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
         
         timeFormatter.dateStyle = .medium
         timeFormatter.timeStyle = .short
-
-        // make UITextView style match UITextField
-        descriptionTextView.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-        descriptionTextView.layer.borderWidth = 1.0
-        descriptionTextView.layer.cornerRadius = 5
         
         startTimePicker = UIDatePicker()
         startTimePicker.datePickerMode = .dateAndTime
@@ -70,6 +92,24 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
         
 //        initialDescriptionViewY = descriptionView.frame.origin.y
         offset = -68
+        
+        // Google Places
+//        resultsViewController = GMSAutocompleteResultsViewController()
+//        resultsViewController?.delegate = self
+//        searchController = UISearchController(searchResultsController: resultsViewController)
+//        searchController?.searchResultsUpdater = resultsViewController
+//        // Put the search bar in the navigation bar.
+//        searchController?.searchBar.sizeToFit()
+//        searchController?.searchBar.placeholder = "Enter address to create activity"
+//        self.navigationItem.titleView = searchController?.searchBar
+//        self.definesPresentationContext = true
+//        searchController?.hidesNavigationBarDuringPresentation = false
+    }
+    
+    @IBAction func onLocationTap(_ sender: Any) {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        self.present(autocompleteController, animated: true, completion: nil)
     }
     
     //Calls this function when the tap is recognized.
@@ -82,7 +122,21 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.0) {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Description"
+            textView.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.0)
+        }
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         print(#function)
     }
@@ -124,7 +178,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
     
     @IBAction func didClickSave(_ sender: Any) {
         if validateFields() {
-            let location = self.markerLocation
+            let location = self.location
             let activity = Activity(dictionary: [
                 "name": nameTextField.text! as AnyObject,
                 "full_description": descriptionTextView.text!,
@@ -201,5 +255,35 @@ class ActivityEditController: UIViewController, UITextFieldDelegate {
      // Pass the selected object to the new view controller.
      }
      */
+}
+
+extension ActivityEditController: GMSAutocompleteViewControllerDelegate {
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        self.locationAddress = place.formattedAddress
+        self.locationTextField.text = self.locationAddress
+        self.location = Location(lat: place.coordinate.latitude, long: place.coordinate.longitude)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
     
 }
