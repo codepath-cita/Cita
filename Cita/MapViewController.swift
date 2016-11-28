@@ -16,10 +16,15 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var tabBarView: UIView!
     @IBOutlet weak var toggleViewButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var newActivityTabView: UIView!
+    
+    @IBOutlet weak var newActivityView: UIView!
+    @IBOutlet weak var myActivitiesView: UIView!
+    @IBOutlet weak var profileView: UIView!
+    
     @IBOutlet weak var myActivitiesImageView: UIImageView!
     @IBOutlet weak var newActivityImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
+    
     
     var activities: [Activity]?
     var filteredActivities: [Activity]?
@@ -37,16 +42,16 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
-        myActivitiesImageView.tintColor = UIColor.white
+        myActivitiesImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
         newActivityImageView.image = newActivityImageView.image!.withRenderingMode(.alwaysTemplate)
-        newActivityImageView.tintColor = UIColor.white
+        newActivityImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
         profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
-        profileImageView.tintColor = UIColor.white
+        profileImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
         
-        newActivityTabView.layer.cornerRadius = 10
-        newActivityTabView.clipsToBounds = true
-        newActivityTabView.layer.borderWidth = 1
-        newActivityTabView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
+        newActivityView.layer.cornerRadius = 10
+        newActivityView.clipsToBounds = true
+        newActivityView.layer.borderWidth = 1
+        newActivityView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
         tabBarView.layer.borderWidth = 1
         tabBarView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
         
@@ -151,6 +156,18 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         populateMarkers()
     }
     
+    @IBAction func myActivitiesTap(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "MyActivitiesSegue", sender: nil)
+    }
+    
+    @IBAction func profileTap(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "ProfileSegue", sender: nil)
+    }
+    
+    @IBAction func newActivityTap(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "NewActivitySegue", sender: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -169,12 +186,14 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "NewActivitySegue" {
-            let marker = sender as! GMSMarker
-            let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
-            
-            let navigationController = segue.destination as! UINavigationController
-            let activityEditViewController = navigationController.topViewController as! ActivityEditController
-            activityEditViewController.markerLocation = location
+            if (sender != nil) {
+                let marker = sender as! GMSMarker
+                let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
+                
+                let navigationController = segue.destination as! UINavigationController
+                let activityEditViewController = navigationController.topViewController as! ActivityEditController
+                activityEditViewController.markerLocation = location
+            }
         } else if segue.identifier == "ActivityDetailSegue" {
             let marker = sender as! GMSMarker
             var selectedIndex = Int()
