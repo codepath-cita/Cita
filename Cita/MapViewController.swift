@@ -16,6 +16,10 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var tabBarView: UIView!
     @IBOutlet weak var toggleViewButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var newActivityTabView: UIView!
+    @IBOutlet weak var myActivitiesImageView: UIImageView!
+    @IBOutlet weak var newActivityImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     
     var activities: [Activity]?
     var filteredActivities: [Activity]?
@@ -31,11 +35,25 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UI Styling
+        myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
+        myActivitiesImageView.tintColor = UIColor.white
+        newActivityImageView.image = newActivityImageView.image!.withRenderingMode(.alwaysTemplate)
+        newActivityImageView.tintColor = UIColor.white
+        profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
+        profileImageView.tintColor = UIColor.white
+        
+        newActivityTabView.layer.cornerRadius = 10
+        newActivityTabView.clipsToBounds = true
+        newActivityTabView.layer.borderWidth = 1
+        newActivityTabView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
+        tabBarView.layer.borderWidth = 1
+        tabBarView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 160
-        
         tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
         
         if Activity.currentActivities != nil {
