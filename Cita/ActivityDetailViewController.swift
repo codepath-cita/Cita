@@ -15,10 +15,7 @@ class ActivityDetailViewController: UIViewController {
     @IBOutlet weak var activityNameLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
-    @IBOutlet weak var addressLabel1: UILabel!
-    @IBOutlet weak var addressLabel2: UILabel!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var zipcodeLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var joinButton: UIButton!
@@ -45,10 +42,7 @@ class ActivityDetailViewController: UIViewController {
         startTimeLabel.text = "From \(starts)"
         endTimeLabel.text = "To \(ends)"
         
-        addressLabel1.text = activity.address?.street1
-        addressLabel2.text = activity.address?.street2
-        cityLabel.text = activity.address?.city
-        zipcodeLabel.text = activity.address?.zip
+        addressLabel.text = activity.address
         
         if let creatorID = activity.creatorID {
             activity.creator = User.userCache[creatorID]

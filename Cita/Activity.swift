@@ -41,7 +41,7 @@ class Activity: NSObject {
     var endISO8601: String?
     var startTime: Date?
     var endTime: Date?
-    var address: Address?
+    var address: String?
     var createdAt: Date?
     var updatedAt: Date?
     var creatorID: String?
@@ -63,7 +63,7 @@ class Activity: NSObject {
         startTime = startISO8601?.dateFromISO8601
         endTime = endISO8601?.dateFromISO8601
         
-        
+        address = dictionary["address"] as? String
         groupSize = dictionary["group_size"] as? Int
         creatorID = dictionary["creator_id"] as? String
         attendeeIDs = dictionary["attendee_ids"] as? [String]
@@ -150,7 +150,8 @@ class Activity: NSObject {
             "start_time": startTime?.iso8601,
             "end_time": endTime?.iso8601,
             "creator_id": creator?.uid,
-            "attendee_ids": attendeeIDs
+            "attendee_ids": attendeeIDs,
+            "address" : address
         ]
     }
     

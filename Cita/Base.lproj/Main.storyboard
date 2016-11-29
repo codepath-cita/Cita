@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -102,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35.625" y="36.971830985915496"/>
+            <point key="canvasLocation" x="1097" y="26"/>
         </scene>
         <!--Citas View Controller-->
         <scene sceneID="KMt-2R-An3">
@@ -294,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUT-A2-oNu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2773.5999999999999" y="787.55622188905556"/>
+            <point key="canvasLocation" x="2646" y="788"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="FsQ-8H-6cM">
@@ -354,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QK6-3m-zMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4586.3999999999996" y="777.66116941529242"/>
+            <point key="canvasLocation" x="3460" y="782"/>
         </scene>
         <!--Filter View Controller-->
         <scene sceneID="vuq-Tq-nUD">
@@ -384,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Kp-KR-sBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2647" y="-702"/>
+            <point key="canvasLocation" x="2646" y="-672"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="p3E-lh-bYs">
@@ -577,7 +576,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1861.5999999999999" y="25.637181409295355"/>
+            <point key="canvasLocation" x="2646" y="26"/>
         </scene>
         <!--Activity Detail View Controller-->
         <scene sceneID="W9K-fJ-CJn">
@@ -615,32 +614,14 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="street address 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erz-J2-eEJ" userLabel="Street Address 1 Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="street address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erz-J2-eEJ" userLabel="Street Address 1 Label">
                                 <rect key="frame" x="16" y="195" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="street address 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M29-06-wuo" userLabel="Street Address 2 Label">
-                                <rect key="frame" x="16" y="224" width="343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="city" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eze-CF-rzS" userLabel="City Label">
-                                <rect key="frame" x="16" y="253" width="172" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="zipcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfE-Ul-ONc" userLabel="Zipcode Label">
-                                <rect key="frame" x="188" y="253" width="171" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Mxf-3o-JRE">
-                                <rect key="frame" x="0.0" y="320" width="375" height="347"/>
+                                <rect key="frame" x="0.0" y="262" width="375" height="405"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ActivityDetailCell" id="1wY-hO-ttj" customClass="ActivityDetailCell" customModule="Cita" customModuleProvider="target">
@@ -671,7 +652,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3Y-t8-ZaJ">
-                                <rect key="frame" x="128" y="282" width="120" height="30"/>
+                                <rect key="frame" x="128" y="224" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.19946928316341089" green="0.61427268401015223" blue="0.064502188992569071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="DhB-mU-bWB"/>
@@ -687,32 +668,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="dfE-Ul-ONc" secondAttribute="trailing" id="0t1-Ey-m6I"/>
                             <constraint firstAttribute="leadingMargin" secondItem="I7f-t6-us2" secondAttribute="leading" id="1c7-ss-UKM"/>
-                            <constraint firstItem="M29-06-wuo" firstAttribute="top" secondItem="erz-J2-eEJ" secondAttribute="bottom" constant="8" id="32O-a7-tfK"/>
-                            <constraint firstItem="dfE-Ul-ONc" firstAttribute="top" secondItem="M29-06-wuo" secondAttribute="bottom" constant="8" id="599-b3-v2M"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RMe-Gl-6In" secondAttribute="trailing" id="5h4-YD-YhF"/>
-                            <constraint firstItem="eze-CF-rzS" firstAttribute="top" secondItem="M29-06-wuo" secondAttribute="bottom" constant="8" id="9D0-wS-8Qj"/>
                             <constraint firstItem="erz-J2-eEJ" firstAttribute="top" secondItem="ERN-Hl-f78" secondAttribute="bottom" constant="8" id="CsA-VS-MQa"/>
                             <constraint firstItem="nir-xa-CTT" firstAttribute="top" secondItem="Mxf-3o-JRE" secondAttribute="bottom" constant="-44" id="E7U-GQ-LJI"/>
                             <constraint firstAttribute="leadingMargin" secondItem="erz-J2-eEJ" secondAttribute="leading" id="ErC-7J-dgy"/>
                             <constraint firstItem="a3Y-t8-ZaJ" firstAttribute="centerX" secondItem="yCj-gA-r5i" secondAttribute="centerX" id="EzH-ZW-JDK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3fE-0q-jmE" secondAttribute="trailing" id="FmN-wq-3Is"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="M29-06-wuo" secondAttribute="leading" id="JqM-YK-Sjw"/>
-                            <constraint firstAttribute="centerXWithinMargins" secondItem="eze-CF-rzS" secondAttribute="trailing" id="Lje-g4-r7b"/>
                             <constraint firstItem="ERN-Hl-f78" firstAttribute="top" secondItem="3fE-0q-jmE" secondAttribute="bottom" constant="10" id="MYz-G8-nye"/>
-                            <constraint firstAttribute="centerXWithinMargins" secondItem="dfE-Ul-ONc" secondAttribute="leading" id="OR4-n9-g0i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="I7f-t6-us2" secondAttribute="trailing" id="T6d-kB-Pji"/>
                             <constraint firstItem="RMe-Gl-6In" firstAttribute="top" secondItem="Jdl-Ew-odD" secondAttribute="bottom" constant="12" id="Tjg-L5-QUA"/>
                             <constraint firstItem="Mxf-3o-JRE" firstAttribute="width" secondItem="yCj-gA-r5i" secondAttribute="width" id="Vrx-MC-3Ig"/>
                             <constraint firstAttribute="leadingMargin" secondItem="3fE-0q-jmE" secondAttribute="leading" id="WKO-UG-2xt"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="eze-CF-rzS" secondAttribute="leading" id="bHX-Sk-ELx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ERN-Hl-f78" secondAttribute="trailing" id="c04-Ji-gMy"/>
-                            <constraint firstItem="a3Y-t8-ZaJ" firstAttribute="top" secondItem="dfE-Ul-ONc" secondAttribute="bottom" constant="8" id="ido-M5-jPM"/>
+                            <constraint firstItem="a3Y-t8-ZaJ" firstAttribute="top" secondItem="erz-J2-eEJ" secondAttribute="bottom" constant="8" id="gvR-9w-f9Q"/>
                             <constraint firstItem="3fE-0q-jmE" firstAttribute="top" secondItem="I7f-t6-us2" secondAttribute="bottom" constant="8" id="kAV-k3-5tF"/>
                             <constraint firstItem="Mxf-3o-JRE" firstAttribute="top" secondItem="a3Y-t8-ZaJ" secondAttribute="bottom" constant="8" id="ms9-4E-T4n"/>
                             <constraint firstAttribute="trailingMargin" secondItem="erz-J2-eEJ" secondAttribute="trailing" id="nWu-fV-Dcs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="M29-06-wuo" secondAttribute="trailing" id="o7z-yj-dUB"/>
                             <constraint firstItem="I7f-t6-us2" firstAttribute="top" secondItem="RMe-Gl-6In" secondAttribute="bottom" constant="16" id="phD-Oe-GQ6"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ERN-Hl-f78" secondAttribute="leading" id="rfD-Mt-2f2"/>
                             <constraint firstItem="RMe-Gl-6In" firstAttribute="centerX" secondItem="yCj-gA-r5i" secondAttribute="centerX" id="sAh-XS-Qxh"/>
@@ -722,20 +694,17 @@
                     </view>
                     <connections>
                         <outlet property="activityNameLabel" destination="RMe-Gl-6In" id="WkH-bE-nQE"/>
-                        <outlet property="addressLabel1" destination="erz-J2-eEJ" id="GNS-TS-rso"/>
-                        <outlet property="addressLabel2" destination="M29-06-wuo" id="Smv-Zh-jvo"/>
-                        <outlet property="cityLabel" destination="eze-CF-rzS" id="nCh-c5-MnP"/>
+                        <outlet property="addressLabel" destination="erz-J2-eEJ" id="BXI-N9-LaA"/>
                         <outlet property="descriptionLabel" destination="I7f-t6-us2" id="Dil-Mg-JXo"/>
                         <outlet property="endTimeLabel" destination="ERN-Hl-f78" id="Ud2-Dw-a4G"/>
                         <outlet property="joinButton" destination="a3Y-t8-ZaJ" id="TTC-85-fUn"/>
                         <outlet property="startTimeLabel" destination="3fE-0q-jmE" id="arw-MN-6bB"/>
                         <outlet property="tableView" destination="Mxf-3o-JRE" id="xx2-0F-eLq"/>
-                        <outlet property="zipcodeLabel" destination="dfE-Ul-ONc" id="QyJ-Oe-sGq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FFE-Nq-hbb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3461" y="37"/>
+            <point key="canvasLocation" x="3460" y="26"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wPH-9o-oLM">
@@ -759,7 +728,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sam-dO-mVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1098" y="26"/>
+            <point key="canvasLocation" x="1862" y="26"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fFk-ds-qeT">
@@ -783,7 +752,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zrq-Kv-Tb7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1862" y="-702"/>
+            <point key="canvasLocation" x="1862" y="-671"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hJx-QH-uYC">

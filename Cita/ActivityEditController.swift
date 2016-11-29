@@ -186,7 +186,8 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
                 "start_time": startDate!.iso8601,
                 "end_time": endDate!.iso8601,
                 "group_size": Int(groupSizeField.text!)!,
-                "location": location!.toString()
+                "location": location!.toString(),
+                "address": locationTextField.text!
                 ])
             activity.creator = User.currentUser
             activity.attendees = []

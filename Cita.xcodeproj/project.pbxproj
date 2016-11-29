@@ -26,7 +26,6 @@
 		DC23D9781DDE184B00D314D1 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D9771DDE184B00D314D1 /* FirebaseClient.swift */; };
 		DC23D97A1DDE772800D314D1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC23D9791DDE772800D314D1 /* Location.swift */; };
 		DC2C55561DDAD75A00482FF7 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55511DDAD75A00482FF7 /* Activity.swift */; };
-		DC2C55571DDAD75A00482FF7 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55521DDAD75A00482FF7 /* Address.swift */; };
 		DC2C55581DDAD75A00482FF7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55531DDAD75A00482FF7 /* Message.swift */; };
 		DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55541DDAD75A00482FF7 /* Tag.swift */; };
 		DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55551DDAD75A00482FF7 /* User.swift */; };
@@ -91,7 +90,6 @@
 		DC23D9771DDE184B00D314D1 /* FirebaseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
 		DC23D9791DDE772800D314D1 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		DC2C55511DDAD75A00482FF7 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		DC2C55521DDAD75A00482FF7 /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		DC2C55531DDAD75A00482FF7 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		DC2C55541DDAD75A00482FF7 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		DC2C55551DDAD75A00482FF7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -255,7 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				DC2C55511DDAD75A00482FF7 /* Activity.swift */,
-				DC2C55521DDAD75A00482FF7 /* Address.swift */,
 				DC2C55531DDAD75A00482FF7 /* Message.swift */,
 				DC2C55541DDAD75A00482FF7 /* Tag.swift */,
 				DC2C55551DDAD75A00482FF7 /* User.swift */,
@@ -577,7 +574,6 @@
 				FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */,
 				FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */,
 				DC23D97A1DDE772800D314D1 /* Location.swift in Sources */,
-				DC2C55571DDAD75A00482FF7 /* Address.swift in Sources */,
 				DC23D96F1DDC118B00D314D1 /* Date.swift in Sources */,
 				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
 				DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */,
