@@ -50,6 +50,9 @@ class ActivityDetailViewController: UIViewController {
         cityLabel.text = activity.address?.city
         zipcodeLabel.text = activity.address?.zip
         
+        if let creatorID = activity.creatorID {
+            activity.creator = User.userCache[creatorID]
+        }
         if activity.attendeeIDs != nil {
             activity.attendees = []
             for attendeeID in activity.attendeeIDs! {
@@ -79,6 +82,11 @@ class ActivityDetailViewController: UIViewController {
     }
     
     @IBAction func joinActivityButtonPress(_ sender: Any) {
+        if activity.isRegistrationFull() && !currentUserAttending {
+            showRegistrationFullAlert()
+            return
+        }
+        
         var alertTitle = "Get Ready!"
         if currentUserAttending {
             alertTitle = "Awww :("
@@ -105,6 +113,19 @@ class ActivityDetailViewController: UIViewController {
         }
         
         alertController.addAction(CANCELAction)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true)
+    }
+    
+    func showRegistrationFullAlert() {
+        let alertTitle = "No Spots Left!"
+        let alertMessage = "Sorry but this event is full, check back later to see if any spots open."
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
+//            self.navigationController?.popViewController(animated: true)
+        }
+        
         alertController.addAction(OKAction)
         self.present(alertController, animated: true)
     }
@@ -153,10 +174,6 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
             print("indexPath.row: \(indexPath.row)")
             if nil != activity.attendees {
                 let user = activity.attendees?[indexPath.row]
-                
-                //let user = activity.attendees?["attendees"]//.val
-                //indexPath.row]
-                
                 cell.nameLabel.text = user?.displayName
                 
                 if let photoUrl = user?.photoURL,

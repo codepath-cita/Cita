@@ -44,6 +44,7 @@ class Activity: NSObject {
     var address: Address?
     var createdAt: Date?
     var updatedAt: Date?
+    var creatorID: String?
     var creator: User?
     var attendeeIDs: [String]?
     var attendees: [User]?
@@ -62,16 +63,13 @@ class Activity: NSObject {
         startTime = startISO8601?.dateFromISO8601
         endTime = endISO8601?.dateFromISO8601
         
+        
         groupSize = dictionary["group_size"] as? Int
+        creatorID = dictionary["creator_id"] as? String
         attendeeIDs = dictionary["attendee_ids"] as? [String]
         if attendeeIDs == nil {
             attendeeIDs = []
         }
-        
-        // TODO: init address
-        //        if let addressDictionary = dictionary["address"] as? NSDictionary {
-        //            address = Address(dictionary: addressDictionary)
-        //        }
     }
     
     convenience init(snapshot: FIRDataSnapshot) {
@@ -84,29 +82,61 @@ class Activity: NSObject {
     // 1. add user to attendee list
     // 2. add activity to user's activity list
     func registerUser(user: User) {
-        if let userID = user.uid {
-            if user.activityKeys == nil {
-                user.activityKeys = []
-            }
-            if attendeeIDs?.index(of: userID) == nil {
-                attendeeIDs?.append(userID)
-                save()
-            }
-            if user.activityKeys?.index(of: userID) == nil {
-                let startDate = startTime!.iso8601DatePart
-                user.activityKeys?.append("\(startDate)/\(key!)")
-                user.save()
-            }
-        } else {
+        guard let userID = user.uid else {
             print("Error: can't registerUser with nil ID!")
+            return
+        }
+        guard let startTime = startTime,
+              let key = key else {
+                print("Error: invalid activity missing start time  or key: \(name)")
+                return
+        }
+
+        if user.activityKeys == nil {
+            user.activityKeys = []
+        }
+        if attendeeIDs?.index(of: userID) == nil {
+            attendeeIDs?.append(userID)
+            save()
+        }
+        let activityKey = "\(startTime.iso8601DatePart)/\(key)"
+        if user.activityKeys?.index(of: activityKey) == nil {
+            user.activityKeys?.append(activityKey)
+            user.save()
         }
     }
     
     func removeUser(user: User) {
-        if let index = attendeeIDs?.index(of: user.uid!) {
+        guard let userID = user.uid else {
+            print("Error: can't removeUser with nil ID!")
+            return
+        }
+        guard let startTime = startTime,
+              let key = key else {
+            print("Error: invalid activity missing start time  or key: \(name)")
+                return
+        }
+        
+        if let index = attendeeIDs?.index(of: userID) {
             attendeeIDs?.remove(at: index)
             save()
         }
+        
+        let activityKey = "\(startTime.iso8601DatePart)/\(key)"
+        if let index = user.activityKeys?.index(of: activityKey) {
+            user.activityKeys?.remove(at: index)
+            user.save()
+        }
+    }
+    
+    func isRegistrationFull() -> Bool {
+        guard attendeeIDs != nil else {
+            print("no attendees for \(key)")
+            return false
+        }
+        
+        // number attending incl. the creator
+        return attendeeIDs!.count + 1 >= groupSize!
     }
     
     func toDictionary() -> [String: Any] {

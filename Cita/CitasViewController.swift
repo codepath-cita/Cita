@@ -39,6 +39,7 @@ class CitasViewController: UIViewController {
     func observeUserActivities() {
         let userActivitiesRef = userRef.child(User.currentUser!.uid!).child("activity_keys")
         userActivitiesRef.observe(.value, with: { snapshot in
+            self.activities.removeAll()
             for child in snapshot.children {
                 let item = child as! FIRDataSnapshot
                 let key = item.value as! String
