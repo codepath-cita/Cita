@@ -12,6 +12,7 @@ import GooglePlaces
 
 class HomeViewController: UIViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
     @IBOutlet weak var toggleViewButton: UIBarButtonItem!
@@ -126,12 +127,25 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     @IBAction func toggleMapListView(_ sender: Any) {
         if (toggleViewButton.title == "List") {
             toggleViewButton.title = "Map"
-            mapView.isHidden = true
-            tableView.isHidden = false
+            self.view.backgroundColor = UIColor.black
+            
+            UIView.transition(with: containerView, duration: 0.75, options: UIViewAnimationOptions.transitionFlipFromLeft, animations: {
+                self.mapView.isHidden = true
+                self.tableView.isHidden = false
+                
+            }, completion: { finished in
+                self.view.backgroundColor = UIColor.white
+            })
         } else {
             toggleViewButton.title = "List"
-            tableView.isHidden = true
-            mapView.isHidden = false
+            self.view.backgroundColor = UIColor.black
+            
+            UIView.transition(with: containerView, duration: 0.75, options: UIViewAnimationOptions.transitionFlipFromRight, animations: {
+                self.mapView.isHidden = false
+                self.tableView.isHidden = true
+            }, completion: { finished in
+                self.view.backgroundColor = UIColor.white
+            })
         }
     }
     
