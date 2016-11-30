@@ -34,6 +34,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     var didFindMyLocation = false
     var newActivityMarker: GMSMarker! = nil
     var searchController: UISearchController?
+    var searchTerm: String?
     var resultView: UITextView?
     var isNewMarker: Bool! = false
     var reversedAddress: String!
@@ -98,7 +99,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
                 self.activities = Activity.currentActivities
-                self.filteredActivities = self.activities
+                self.updateFilteredActivities()
                 self.tableView.reloadData()
                 self.populateMarkers()
         }
@@ -150,9 +151,8 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filteredActivities = searchText.isEmpty ? activities : activities?.filter({(dataString: Activity) -> Bool in
-            return dataString.name?.range(of: searchText, options: .caseInsensitive) != nil
-        })
+        searchTerm = searchText
+        updateFilteredActivities()
         
         tableView.reloadData()
         populateMarkers()
@@ -228,6 +228,15 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             activityDetailViewController.activity = activity
 //            activity?.fetchAtendees()
         }
+    }
+    
+    func updateFilteredActivities() {
+        let currentTerm = searchTerm ?? ""
+        self.filteredActivities = currentTerm.isEmpty ? activities : activities?.filter({(activity: Activity) -> Bool in
+            let nameMatch = activity.name?.range(of: currentTerm, options: .caseInsensitive)
+            let descMatch = activity.fullDescription?.range(of: currentTerm, options: .caseInsensitive)
+            return nameMatch != nil || descMatch != nil
+        })
     }
 }
 

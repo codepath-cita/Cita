@@ -139,7 +139,6 @@ class ActivityDetailViewController: UIViewController {
             joinButton.backgroundColor = UIColor(red:0.20, green:0.62, blue:0.06, alpha:1.0)
             joinButton.setTitle("Join Activity", for: .normal)
         }
-
     }
     
      /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

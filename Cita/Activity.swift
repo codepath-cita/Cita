@@ -134,6 +134,11 @@ class Activity: NSObject {
         return attendeeIDs!.count + 1 >= groupSize!
     }
     
+    func attendeeCountText() -> String {
+        let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
+        return "\(attendeeCount) of \(groupSize ?? -1) spots taken"
+    }
+    
     func toDictionary() -> [String: Any] {
         return [
             "name": name as Any,

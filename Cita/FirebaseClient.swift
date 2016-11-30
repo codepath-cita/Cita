@@ -21,7 +21,7 @@ class FirebaseClient: NSObject {
         super.init()
     }
     
-    func observeActivities(within: LocationFrame?, searchTerm: String?, withinDates dateRange: DateRange = DateRange.thisWeek()) {
+    func observeActivities(within: LocationFrame?, searchTerm: String?, withinDates dateRange: DateRange = DateRange.thisMonth()) {
         if let query = currentQuery {
             ref.removeObserver(withHandle: query)
         }

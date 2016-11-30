@@ -42,7 +42,12 @@ struct DateRange {
     }
     
     static func thisWeek() -> DateRange {
-        let latest = Date(timeIntervalSinceNow: TimeInterval(7*secondsInDay)) // 24 hrs
+        let latest = Date(timeIntervalSinceNow: TimeInterval(7*secondsInDay))
+        return DateRange(earliest: Date(), latest: latest)
+    }
+    
+    static func thisMonth() -> DateRange {
+        let latest = Date(timeIntervalSinceNow: TimeInterval(31*secondsInDay))
         return DateRange(earliest: Date(), latest: latest)
     }
 }
