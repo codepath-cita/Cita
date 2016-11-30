@@ -10,6 +10,7 @@
 		1A09DC861DE3B7B2003B3CD1 /* ActivityDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A09DC851DE3B7B2003B3CD1 /* ActivityDetailCell.swift */; };
 		1A09DC8C1DE6059B003B3CD1 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A09DC8B1DE6059B003B3CD1 /* ActivityCell.xib */; };
 		1A09DC8E1DE60820003B3CD1 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A09DC8D1DE60820003B3CD1 /* ActivityCell.swift */; };
+		1A10668C1DEEACF2001CF535 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A10668B1DEEACF2001CF535 /* UIColor.swift */; };
 		1AB9BA551DD41DA5003600AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */; };
 		7E5B85E667380FDDF0E202B7 /* Pods_Cita.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */; };
 		9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E291DD194E90079F5AA /* AppDelegate.swift */; };
@@ -32,7 +33,7 @@
 		E2526BF90261A4E4A8172834 /* Pods_CitaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DA1CC2C94DD32DB890472C /* Pods_CitaTests.framework */; };
 		FE6496741DD99FE20025DAEC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */; };
 		FE6496761DD9E6F10025DAEC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */; };
-		FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */; };
+		FE6AD2B91DDAB8EB00E18086 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */; };
 		FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */; };
 		FE6AD2BD1DDABA0F00E18086 /* CitasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */; };
 		FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */; };
@@ -62,6 +63,7 @@
 		1A09DC851DE3B7B2003B3CD1 /* ActivityDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailCell.swift; sourceTree = "<group>"; };
 		1A09DC8B1DE6059B003B3CD1 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
 		1A09DC8D1DE60820003B3CD1 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
+		1A10668B1DEEACF2001CF535 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2548405413F9201256610D29 /* Pods-CitaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CitaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CitaTests/Pods-CitaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3831904E07C70402FE9580BF /* Pods-Cita.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cita.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cita/Pods-Cita.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,7 +98,7 @@
 		FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		FE6496771DD9EAD10025DAEC /* Cita.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cita.entitlements; sourceTree = "<group>"; };
-		FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitasViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				DC23D96E1DDC118B00D314D1 /* Date.swift */,
 				DC23D9701DDC119C00D314D1 /* String.swift */,
+				1A10668B1DEEACF2001CF535 /* UIColor.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -270,7 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */,
-				FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */,
+				FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */,
 				FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */,
 				FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */,
 				FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */,
@@ -580,7 +583,8 @@
 				DC23D9781DDE184B00D314D1 /* FirebaseClient.swift in Sources */,
 				DC2C55561DDAD75A00482FF7 /* Activity.swift in Sources */,
 				9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */,
-				FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */,
+				FE6AD2B91DDAB8EB00E18086 /* HomeViewController.swift in Sources */,
+				1A10668C1DEEACF2001CF535 /* UIColor.swift in Sources */,
 				1A09DC8E1DE60820003B3CD1 /* ActivityCell.swift in Sources */,
 				DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */,
 				DC23D9711DDC119C00D314D1 /* String.swift in Sources */,

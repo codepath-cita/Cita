@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: UIViewController, UISearchBarDelegate {
+class HomeViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
@@ -42,18 +42,21 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
-        myActivitiesImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        myActivitiesImageView.tintColor = UIColor.citaRed()
         newActivityImageView.image = newActivityImageView.image!.withRenderingMode(.alwaysTemplate)
-        newActivityImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        newActivityImageView.tintColor = UIColor.citaRed()
         profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
-        profileImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        profileImageView.tintColor = UIColor.citaRed()
         
         newActivityView.layer.cornerRadius = 10
         newActivityView.clipsToBounds = true
         newActivityView.layer.borderWidth = 1
-        newActivityView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
-        tabBarView.layer.borderWidth = 1
-        tabBarView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
+        newActivityView.layer.borderColor = UIColor.citaRed().cgColor
+        
+        let border = CALayer()
+        border.frame = CGRect(x:0, y:0, width:self.view.frame.width, height:1.0)
+        border.backgroundColor = UIColor.citaRed().cgColor;
+        tabBarView.layer.addSublayer(border)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -214,7 +217,7 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     }
 }
 
-extension MapViewController: CLLocationManagerDelegate {
+extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
@@ -232,7 +235,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MapViewController: GMSMapViewDelegate {
+extension HomeViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {        
         let visibleRegion = mapView.projection.visibleRegion()
         let bounds = GMSCoordinateBounds.init(region: visibleRegion)
@@ -276,7 +279,7 @@ extension MapViewController: GMSMapViewDelegate {
     }
 }
 
-extension MapViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredActivities?.count ?? 0
     }
