@@ -88,22 +88,16 @@ class Activity: NSObject {
         }
         guard let startTime = startTime,
               let key = key else {
-                print("Error: invalid activity missing start time  or key: \(name)")
+                print("Error: invalid activity missing start time or key: \(name)")
                 return
         }
 
-        if user.activityKeys == nil {
-            user.activityKeys = []
-        }
-        if attendeeIDs?.index(of: userID) == nil {
-            attendeeIDs?.append(userID)
-            save()
-        }
+        self.attendeeIDs!.append(userID)
+        save()
+
         let activityKey = "\(startTime.iso8601DatePart)/\(key)"
-        if user.activityKeys?.index(of: activityKey) == nil {
-            user.activityKeys?.append(activityKey)
-            user.save()
-        }
+        user.activityKeys!.append(activityKey)
+        user.save()
     }
     
     func removeUser(user: User) {
@@ -141,24 +135,27 @@ class Activity: NSObject {
     
     func toDictionary() -> [String: Any] {
         return [
-            "name": name,
-            "full_description": fullDescription,
-            "group_size": groupSize,
-            "location": location?.toString(),
-            "latitude": location?.latitude,
-            "longitude": location?.longitude,
-            "start_time": startTime?.iso8601,
-            "end_time": endTime?.iso8601,
-            "creator_id": creator?.uid,
-            "attendee_ids": attendeeIDs,
-            "address" : address
+            "name": name as Any,
+            "full_description": fullDescription as Any,
+            "group_size": groupSize as Any,
+            "location": location?.toString() as Any,
+            "latitude": location?.latitude as Any,
+            "longitude": location?.longitude as Any,
+            "start_time": startTime?.iso8601 as Any,
+            "end_time": endTime?.iso8601 as Any,
+            "creator_id": creator?.uid as Any,
+            "attendee_ids": attendeeIDs as Any,
+            "address" : address as Any
         ]
     }
     
     func save() {
         if ref == nil { // create
             let dateString = startTime!.iso8601.cita_substring(nchars: 10)
-            dbRef.child(dateString).childByAutoId().setValue(self.toDictionary())
+            let firDatabaseRef = dbRef.child(dateString).childByAutoId()
+            firDatabaseRef.setValue(self.toDictionary())
+            self.key = firDatabaseRef.key
+            
         } else { // update
             ref!.setValue(self.toDictionary())
         }

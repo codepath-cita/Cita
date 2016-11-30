@@ -45,12 +45,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             FIRAuth.auth()?.signIn(with: credential) { (firUser, error) in
                 if let firUser = firUser {
-                    let user = User(user: firUser)
-                    User.currentUser = user
+                    // we need to fetch the firebase user
+                    //firUser.
+                    //let user = User(user: firUser)
+                    User.currentUser = User.userCache[firUser.uid]//user
                 } else {
                     self.setLoginState(false, error: error)
                 }
-                
             }
         }
     }

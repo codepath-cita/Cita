@@ -15,7 +15,9 @@ class CitasViewController: UIViewController {
     let userRef = FIRDatabase.database().reference(withPath: User.dbRoot)
     let activityRef = FIRDatabase.database().reference(withPath: Activity.dbRoot)
     
-    var activities: [String:Activity] = [:]
+    var attendingActivities: [String:Activity] = [:]
+    var ownedActivities: [String:Activity] = [:]
+    var activities: [Activity] = []
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -34,19 +36,52 @@ class CitasViewController: UIViewController {
         tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
         
         observeUserActivities()
+        observeOwnedActivities()
+    }
+    
+    func organizeActivities() {
+        
+        var tmp = ownedActivities
+        
+        for key in attendingActivities.keys {
+            tmp[key] = attendingActivities[key]
+        }
+        
+        activities = tmp.values.sorted { (a1, a2) -> Bool in
+            return a1.startTime! < a2.startTime!
+        }
     }
     
     func observeUserActivities() {
         let userActivitiesRef = userRef.child(User.currentUser!.uid!).child("activity_keys")
         userActivitiesRef.observe(.value, with: { snapshot in
-            self.activities.removeAll()
+            self.attendingActivities.removeAll()
             for child in snapshot.children {
                 let item = child as! FIRDataSnapshot
                 let key = item.value as! String
                 self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
                     let dictionary = snapshot.value as! NSDictionary
                     let activity = Activity(dictionary: dictionary)
-                    self.activities[key] = activity
+                    self.attendingActivities[key] = activity
+                    self.organizeActivities()
+                    self.tableView.reloadData()
+                })
+            }
+        })
+    }
+    
+    func observeOwnedActivities() {
+        let userActivitiesRef = userRef.child(User.currentUser!.uid!).child("creator_keys")
+        userActivitiesRef.observe(.value, with: { snapshot in
+            self.ownedActivities.removeAll()
+            for child in snapshot.children {
+                let item = child as! FIRDataSnapshot
+                let key = item.value as! String
+                self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let dictionary = snapshot.value as! NSDictionary
+                    let activity = Activity(dictionary: dictionary)
+                    self.ownedActivities[key] = activity
+                    self.organizeActivities()
                     self.tableView.reloadData()
                 })
             }
@@ -78,11 +113,9 @@ extension CitasViewController: UITableViewDelegate, UITableViewDataSource,  UIGe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
-        let activitiesByStartTime = activities.values.sorted { (a1, a2) -> Bool in
-            return a1.startTime! > a2.startTime!
-        }
+        
         cell.delegate = self
-        cell.activity = activitiesByStartTime[indexPath.row]
+        cell.activity = activities[indexPath.row]
         return cell
     }
     

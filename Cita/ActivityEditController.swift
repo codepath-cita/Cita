@@ -193,6 +193,12 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
             activity.attendees = []
             activity.attendeeIDs = []
             activity.save()
+            
+            let activityKey = "\(startDate!.iso8601DatePart)/\(activity.key!)"
+
+            User.currentUser!.creatorKeys!.append(activityKey)
+            User.currentUser!.save()
+            
             dismiss(animated: true, completion: nil)
         }
     }

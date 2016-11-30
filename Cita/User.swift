@@ -9,16 +9,6 @@
 import UIKit
 import FirebaseAuth
 
-/*
- id
- first_name
- last_name
- avatar_url
- email
- token
- created_at
- updated_at
-*/
 class User: NSObject {
     static let dbRoot = "users"
     static let currentUserKey = "currentUserData"
@@ -34,6 +24,7 @@ class User: NSObject {
     var interests: [Tag]?
     var activityKeys: [String]?
     var activities: [Activity]?
+    var creatorKeys: [String]?
     
     init(dictionary: [String: AnyObject]) {
         uid = dictionary["uid"] as? String
@@ -44,16 +35,13 @@ class User: NSObject {
             photoURL = URL(string: url)
         }
         activityKeys = dictionary["activity_keys"] as? [String]
-    }
-    
-    convenience init(user: FIRUser) {
-        self.init(dictionary: [
-            "uid": user.uid as AnyObject,
-            "provider_id": user.providerID as AnyObject,
-            "display_name": user.displayName as AnyObject,
-            "email": user.email as AnyObject,
-            "photo_url": user.photoURL?.absoluteString as AnyObject
-        ])
+        if activityKeys == nil {
+            activityKeys = []
+        }
+        creatorKeys = dictionary["creator_keys"] as? [String]
+        if creatorKeys == nil {
+            creatorKeys = []
+        }
     }
     
     // store users as a large list
@@ -63,12 +51,13 @@ class User: NSObject {
     
     func toDictionary() -> [String: Any] {
         return [
-            "uid": uid,
-            "provider_id": providerID,
-            "display_name": displayName,
-            "email": email,
-            "photo_url": photoURL?.absoluteString,
-            "activity_keys": activityKeys
+            "uid": uid as Any,
+            "provider_id": providerID as Any,
+            "display_name": displayName as Any,
+            "email": email as Any,
+            "photo_url": photoURL?.absoluteString as Any,
+            "activity_keys": activityKeys as Any,
+            "creator_keys": creatorKeys as Any
         ]
     }
     
@@ -76,6 +65,7 @@ class User: NSObject {
     func save() {
         if uid != nil {
             let myRef = FirebaseClient.sharedInstance.ref.child(dataKey())
+            print(self.toDictionary())
             myRef.setValue(self.toDictionary())
         }
     }
