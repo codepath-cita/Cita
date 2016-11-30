@@ -71,6 +71,9 @@ class ActivityDetailViewController: UIViewController {
         tableView.delegate = self
         
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
+
+        // hide empty cells
+        tableView.tableFooterView = UIView()
         
         setJoinButton(attending: currentUserAttending)
     }

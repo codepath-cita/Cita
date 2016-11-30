@@ -35,7 +35,6 @@
 		FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */; };
 		FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */; };
 		FE6AD2BD1DDABA0F00E18086 /* CitasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */; };
-		FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */; };
 		FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */; };
 		FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */; };
 		FE6AD2C51DDABA6D00E18086 /* ActivityEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */; };
@@ -100,7 +99,6 @@
 		FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitasViewController.swift; sourceTree = "<group>"; };
-		FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityEditController.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				FE6AD2B81DDAB8EB00E18086 /* MapViewController.swift */,
 				FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */,
 				FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */,
-				FE6AD2BE1DDABA2500E18086 /* ListViewController.swift */,
 				FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */,
 				FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */,
 				FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */,
@@ -584,7 +581,6 @@
 				DC2C55561DDAD75A00482FF7 /* Activity.swift in Sources */,
 				9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */,
 				FE6AD2B91DDAB8EB00E18086 /* MapViewController.swift in Sources */,
-				FE6AD2BF1DDABA2500E18086 /* ListViewController.swift in Sources */,
 				1A09DC8E1DE60820003B3CD1 /* ActivityCell.swift in Sources */,
 				DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */,
 				DC23D9711DDC119C00D314D1 /* String.swift in Sources */,

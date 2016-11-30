@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  Cita
 //
 //  Created by Sara Hender on 11/7/16.
@@ -60,6 +60,15 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 160
         tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
+ 
+        // a hacky bug fix to work around auto layouts factoring in two navigation bar heights
+        let topViewTopConstraint = NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal
+            , toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        
+        NSLayoutConstraint.activate([topViewTopConstraint])
+ 
+        // hide empty cells
+        tableView.tableFooterView = UIView()
         
         if Activity.currentActivities != nil {
             activities = Activity.currentActivities
