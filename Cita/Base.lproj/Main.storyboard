@@ -540,7 +540,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ec9-W3-DrB">
-                                <rect key="frame" x="124" y="605" width="125" height="70"/>
+                                <rect key="frame" x="124" y="610" width="125" height="65"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="OKr-hh-3OL">
                                         <rect key="frame" x="49" y="8" width="29" height="29"/>
@@ -563,7 +563,7 @@
                                     <constraint firstItem="KL1-s6-0rY" firstAttribute="top" secondItem="OKr-hh-3OL" secondAttribute="bottom" constant="4" id="T9h-wW-E15"/>
                                     <constraint firstItem="KL1-s6-0rY" firstAttribute="centerX" secondItem="Ec9-W3-DrB" secondAttribute="centerX" constant="1" id="bAD-6i-Cv5"/>
                                     <constraint firstItem="OKr-hh-3OL" firstAttribute="centerX" secondItem="Ec9-W3-DrB" secondAttribute="centerX" constant="1" id="l80-em-3ml"/>
-                                    <constraint firstAttribute="height" constant="70" id="mzh-6e-J9D"/>
+                                    <constraint firstAttribute="height" constant="65" id="mzh-6e-J9D"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="isP-63-35h" appends="YES" id="Rh3-Q9-aiN"/>
@@ -782,7 +782,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MapNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MLJ-SF-8BP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eSh-8m-vKc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eSh-8m-vKc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -804,7 +804,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zc3-PK-ggj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="XNJ-Ky-BLN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XNJ-Ky-BLN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -826,7 +826,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1jW-CO-mm9" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bVv-c0-b4L">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bVv-c0-b4L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
