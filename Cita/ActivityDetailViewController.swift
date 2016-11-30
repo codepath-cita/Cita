@@ -102,7 +102,7 @@ class ActivityDetailViewController: UIViewController {
             }
             self.currentUserAttending = !self.currentUserAttending
             self.setJoinButton(attending: self.currentUserAttending)
-            self.navigationController?.popViewController(animated: true)
+            let _ = self.navigationController?.popViewController(animated: true)
         }
 
         let CANCELAction = UIAlertAction(title: "CANCEL", style: .default) { (action) in
@@ -148,7 +148,7 @@ class ActivityDetailViewController: UIViewController {
      */
 }
 
-extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSource, profileSelectedDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return section == 0 ? 1 : (activity.attendees?.count ?? 0)
@@ -159,25 +159,30 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityDetailCell", for: indexPath) as! ActivityDetailCell
         
         if indexPath.section == 0 {
+            cell.user = User.userCache[(activity.creator?.uid)!]
+            /*
             cell.nameLabel.text = activity.creator?.displayName
             
             if let photoUrl = activity.creator?.photoURL,
                 let data = try? Data(contentsOf: photoUrl) {
                 cell.gravatarImage.image = UIImage(data: data)
             }
-            
+            */
         } else if indexPath.section == 1 {
             print("indexPath.row: \(indexPath.row)")
             if nil != activity.attendees {
-                let user = activity.attendees?[indexPath.row]
+                cell.user = User.userCache[(activity.attendees?[indexPath.row].uid)!]
+                /*
                 cell.nameLabel.text = user?.displayName
                 
                 if let photoUrl = user?.photoURL,
                     let data = try? Data(contentsOf: photoUrl) {
                     cell.gravatarImage.image = UIImage(data: data)
-                }
+                }*/
             }
         }
+        
+        cell.delegate = self
         
         return cell
     }
@@ -198,5 +203,14 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
+    }
+    
+    func profileSelectedDelegate(user: User) {
+        print("tapped")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profileViewController.user = user
+        self.navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
