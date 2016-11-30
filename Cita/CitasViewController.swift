@@ -34,6 +34,9 @@ class CitasViewController: UIViewController {
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
         
         tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
+ 
+        // hide empty cells
+        tableView.tableFooterView = UIView()
         
         observeUserActivities()
         observeOwnedActivities()

@@ -41,6 +41,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         self.registerNotificationObservers()
+
+        
+        // We can use a 1px image with the color we want for the shadow image
+        UINavigationBar.appearance().shadowImage = UIColor.citaRed().as1ptImage()
+        
+        // We need to replace the navigation bar's background image as well
+        // in order to make the shadowImage appear. We use the same 1px color technique
+        UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange().as1ptImage(), for: .default)
         
         return true
     }

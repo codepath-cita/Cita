@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  Cita
 //
 //  Created by Sara Hender on 11/7/16.
@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: UIViewController, UISearchBarDelegate {
+class HomeViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
@@ -43,24 +43,36 @@ class MapViewController: UIViewController, UISearchBarDelegate {
         
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
-        myActivitiesImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        myActivitiesImageView.tintColor = UIColor.citaRed()
         newActivityImageView.image = newActivityImageView.image!.withRenderingMode(.alwaysTemplate)
-        newActivityImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        newActivityImageView.tintColor = UIColor.citaRed()
         profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
-        profileImageView.tintColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        profileImageView.tintColor = UIColor.citaRed()
         
         newActivityView.layer.cornerRadius = 10
         newActivityView.clipsToBounds = true
         newActivityView.layer.borderWidth = 1
-        newActivityView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
-        tabBarView.layer.borderWidth = 1
-        tabBarView.layer.borderColor = UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0).cgColor
+        newActivityView.layer.borderColor = UIColor.citaRed().cgColor
+        
+        let border = CALayer()
+        border.frame = CGRect(x:0, y:0, width:self.view.frame.width, height:1.0)
+        border.backgroundColor = UIColor.citaRed().cgColor;
+        tabBarView.layer.addSublayer(border)
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 160
         tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
+ 
+        // a hacky bug fix to work around auto layouts factoring in two navigation bar heights
+        let topViewTopConstraint = NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal
+            , toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        
+        NSLayoutConstraint.activate([topViewTopConstraint])
+ 
+        // hide empty cells
+        tableView.tableFooterView = UIView()
         
         if Activity.currentActivities != nil {
             activities = Activity.currentActivities
@@ -214,7 +226,7 @@ class MapViewController: UIViewController, UISearchBarDelegate {
     }
 }
 
-extension MapViewController: CLLocationManagerDelegate {
+extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
@@ -232,7 +244,7 @@ extension MapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension MapViewController: GMSMapViewDelegate {
+extension HomeViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {        
         let visibleRegion = mapView.projection.visibleRegion()
         let bounds = GMSCoordinateBounds.init(region: visibleRegion)
@@ -276,7 +288,7 @@ extension MapViewController: GMSMapViewDelegate {
     }
 }
 
-extension MapViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredActivities?.count ?? 0
     }
