@@ -14,6 +14,7 @@ class ActivityCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
 
     let timeFormatter = DateFormatter()
     var delegate: tableDelegate?
@@ -28,6 +29,9 @@ class ActivityCell: UITableViewCell {
             startTimeLabel.text = "From \(starts)"
             endTimeLabel.text = "To \(ends)"
             groupSizeLabel.text = "\(activity.attendeeIDs?.count ?? 1) of \(activity.groupSize ?? 2) spots taken"
+            if activity.owner {
+                iconImageView.image = UIImage(named: "key")
+            }
         }
     }
     

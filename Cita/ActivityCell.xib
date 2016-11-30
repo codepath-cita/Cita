@@ -49,6 +49,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gMc-3p-N0V">
+                        <rect key="frame" x="505" y="16" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="4Xd-bb-Vd6" userLabel="width = 50"/>
+                            <constraint firstAttribute="height" constant="35" id="qSf-VH-o7U" userLabel="height = 50"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9jR-Xu-25d" firstAttribute="top" secondItem="2T7-KS-fs0" secondAttribute="bottom" constant="8" id="0Ia-lG-cVT"/>
@@ -58,10 +65,12 @@
                     <constraint firstItem="x2o-lv-bwb" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="GIN-iW-ndx"/>
                     <constraint firstItem="B45-Xy-rDd" firstAttribute="top" secondItem="9jR-Xu-25d" secondAttribute="bottom" constant="8" id="L7V-xC-Z1T"/>
                     <constraint firstAttribute="trailingMargin" secondItem="B45-Xy-rDd" secondAttribute="trailing" constant="8" id="QCB-fg-eaW"/>
+                    <constraint firstItem="gMc-3p-N0V" firstAttribute="top" secondItem="1db-SQ-4q2" secondAttribute="topMargin" constant="8" id="S8q-Xw-d2V"/>
                     <constraint firstItem="fCT-X5-XXZ" firstAttribute="top" secondItem="x2o-lv-bwb" secondAttribute="bottom" constant="8" id="SrJ-T4-2hy"/>
                     <constraint firstItem="2T7-KS-fs0" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="ZRj-w0-BRo"/>
                     <constraint firstItem="x2o-lv-bwb" firstAttribute="top" secondItem="B45-Xy-rDd" secondAttribute="bottom" constant="8" id="asA-FB-yMD"/>
                     <constraint firstItem="B45-Xy-rDd" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="bJ1-e7-H9Z"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="gMc-3p-N0V" secondAttribute="trailing" constant="8" id="gDp-mw-xew"/>
                     <constraint firstItem="fCT-X5-XXZ" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="inw-xW-bWH"/>
                     <constraint firstItem="9jR-Xu-25d" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="oPl-4K-oFC"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="fCT-X5-XXZ" secondAttribute="bottom" constant="8" id="qSN-Mc-kqj"/>
@@ -73,6 +82,7 @@
                 <outlet property="descriptionLabel" destination="fCT-X5-XXZ" id="Yay-Vn-vEg"/>
                 <outlet property="endTimeLabel" destination="B45-Xy-rDd" id="UCo-cn-60Y"/>
                 <outlet property="groupSizeLabel" destination="x2o-lv-bwb" id="YhH-LP-lZ7"/>
+                <outlet property="iconImageView" destination="gMc-3p-N0V" id="OQ6-qf-mxP"/>
                 <outlet property="nameLabel" destination="2T7-KS-fs0" id="Ner-uo-Wl3"/>
                 <outlet property="startTimeLabel" destination="9jR-Xu-25d" id="6jB-IL-VgO"/>
             </connections>

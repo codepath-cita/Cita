@@ -17,6 +17,9 @@ class ActivityDetailCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        gravatarImage.layer.cornerRadius = 8
+        gravatarImage.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

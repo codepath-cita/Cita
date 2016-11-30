@@ -80,6 +80,7 @@ class CitasViewController: UIViewController {
                 self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
                     let dictionary = snapshot.value as! NSDictionary
                     let activity = Activity(dictionary: dictionary)
+                    activity.owner = true
                     self.ownedActivities[key] = activity
                     self.organizeActivities()
                     self.tableView.reloadData()

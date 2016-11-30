@@ -48,6 +48,7 @@ class Activity: NSObject {
     var creator: User?
     var attendeeIDs: [String]?
     var attendees: [User]?
+    var owner: Bool = false
     
     static var currentActivities: [Activity]? = []
     
