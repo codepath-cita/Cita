@@ -28,7 +28,7 @@ class ActivityCell: UITableViewCell {
             descriptionLabel.text = activity.fullDescription
             startTimeLabel.text = "From \(starts)"
             endTimeLabel.text = "To \(ends)"
-            groupSizeLabel.text = "\(activity.attendeeIDs?.count ?? 1) of \(activity.groupSize ?? 2) spots taken"
+            groupSizeLabel.text = activity.attendeeCountText()
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
             }
