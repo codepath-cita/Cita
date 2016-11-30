@@ -31,6 +31,8 @@ class ActivityCell: UITableViewCell {
             groupSizeLabel.text = activity.attendeeCountText()
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
+            } else {
+                iconImageView.image = nil
             }
         }
     }

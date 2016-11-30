@@ -20,11 +20,11 @@ extension UIColor {
         return image!
     }
     
-    class func citaOrange() -> UIColor {
+    class var citaOrange: UIColor {
         return UIColor(colorLiteralRed: (255/255), green: (131/255), blue: (85/255), alpha: 1.0)
     }
     
-    class func citaRed() -> UIColor {
+    class var citaRed: UIColor {
         return UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
     }
 }

@@ -18,6 +18,7 @@ class CitasViewController: UIViewController {
     var attendingActivities: [String:Activity] = [:]
     var ownedActivities: [String:Activity] = [:]
     var activities: [Activity] = []
+    var pastActivities: [Activity] = []
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -50,9 +51,25 @@ class CitasViewController: UIViewController {
             tmp[key] = attendingActivities[key]
         }
         
-        activities = tmp.values.sorted { (a1, a2) -> Bool in
+        let tmp2 = tmp.values.sorted { (a1, a2) -> Bool in
             return a1.startTime! < a2.startTime!
         }
+        
+        let time = Date.init(timeIntervalSinceNow: 0)
+        
+        pastActivities = []
+        activities = []
+        
+        for activity in tmp2 {
+            if activity.startTime! < time {
+                pastActivities.insert(activity, at: 0)
+            } else {
+                activities.append(activity)
+            }
+        }
+        
+        print( activities[0].startTime! < Date.init(timeIntervalSinceNow: 0))
+        print(Date.init(timeIntervalSinceNow: 0))
     }
     
     func observeUserActivities() {
@@ -112,19 +129,29 @@ class CitasViewController: UIViewController {
 
 extension CitasViewController: UITableViewDelegate, UITableViewDataSource,  UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        if section == 0 {
+           return activities.count
+        } else {
+            return pastActivities.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
+        if indexPath.section == 0 {
+            cell.activity = activities[indexPath.row]
+        }
+        else {
+            cell.activity = pastActivities[indexPath.row]
+        }
         
         cell.delegate = self
-        cell.activity = activities[indexPath.row]
+        
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -44,20 +44,20 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
-        myActivitiesImageView.tintColor = UIColor.citaRed()
+        myActivitiesImageView.tintColor = UIColor.citaRed
         newActivityImageView.image = newActivityImageView.image!.withRenderingMode(.alwaysTemplate)
-        newActivityImageView.tintColor = UIColor.citaRed()
+        newActivityImageView.tintColor = UIColor.citaRed
         profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
-        profileImageView.tintColor = UIColor.citaRed()
+        profileImageView.tintColor = UIColor.citaRed
         
         newActivityView.layer.cornerRadius = 10
         newActivityView.clipsToBounds = true
         newActivityView.layer.borderWidth = 1
-        newActivityView.layer.borderColor = UIColor.citaRed().cgColor
+        newActivityView.layer.borderColor = UIColor.citaRed.cgColor
         
         let border = CALayer()
         border.frame = CGRect(x:0, y:0, width:self.view.frame.width, height:1.0)
-        border.backgroundColor = UIColor.citaRed().cgColor;
+        border.backgroundColor = UIColor.citaRed.cgColor;
         tabBarView.layer.addSublayer(border)
         
         tableView.dataSource = self

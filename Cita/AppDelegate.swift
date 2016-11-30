@@ -35,7 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        rootNavController = storyboard.instantiateViewController(withIdentifier: "MapNavigationController")
+        rootNavController = storyboard.instantiateViewController(withIdentifier:
+            "HomeNavigationController")
+            //"LaunchViewController")
         if (User.currentUser != nil) {
             window?.rootViewController = rootNavController
         }
@@ -44,11 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         // We can use a 1px image with the color we want for the shadow image
-        UINavigationBar.appearance().shadowImage = UIColor.citaRed().as1ptImage()
+        UINavigationBar.appearance().shadowImage = UIColor.citaRed.as1ptImage()
         
         // We need to replace the navigation bar's background image as well
         // in order to make the shadowImage appear. We use the same 1px color technique
-        UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange().as1ptImage(), for: .default)
+        UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange.as1ptImage(), for: .default)
         
         return true
     }
@@ -160,6 +162,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseClient.sharedInstance.observeUsers()
     }
-
 }
 

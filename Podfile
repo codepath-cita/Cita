@@ -17,14 +17,4 @@ target 'Cita' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
 
-  target 'CitaTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'CitaUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
