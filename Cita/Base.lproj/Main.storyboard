@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -399,7 +399,7 @@
             </objects>
             <point key="canvasLocation" x="3460" y="782"/>
         </scene>
-        <!--Filter View Controller-->
+        <!--Search Filters-->
         <scene sceneID="vuq-Tq-nUD">
             <objects>
                 <viewController storyboardIdentifier="FilterViewController" id="dcD-gn-GsA" customClass="FilterViewController" customModule="Cita" customModuleProvider="target" sceneMemberID="viewController">
@@ -410,9 +410,57 @@
                     <view key="view" contentMode="scaleToFill" id="VD1-7p-WYa" customClass="Filter">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wft-Ht-yXk">
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SwitchCell" selectionStyle="default" indentationWidth="10" rowHeight="40" id="ZVT-kn-EMC" customClass="SwitchCell" customModule="Cita" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZVT-kn-EMC" id="zWE-eA-vbF">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="39"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bLi-0Q-DQC">
+                                                    <rect key="frame" x="4" y="4" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="32" id="cyT-iR-MsI"/>
+                                                        <constraint firstAttribute="height" constant="32" id="sFG-yi-wAi"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-5C-pMN">
+                                                    <rect key="frame" x="44" y="9.5" width="120" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NAf-ZW-T48">
+                                                    <rect key="frame" x="286" y="4.5" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bLi-0Q-DQC" firstAttribute="centerY" secondItem="zWE-eA-vbF" secondAttribute="centerY" id="0hj-bj-460"/>
+                                                <constraint firstItem="MPP-5C-pMN" firstAttribute="leading" secondItem="bLi-0Q-DQC" secondAttribute="trailing" constant="8" id="26J-Ba-qLG"/>
+                                                <constraint firstItem="bLi-0Q-DQC" firstAttribute="leading" secondItem="zWE-eA-vbF" secondAttribute="leading" constant="4" id="4Id-x8-egb"/>
+                                                <constraint firstItem="MPP-5C-pMN" firstAttribute="centerY" secondItem="zWE-eA-vbF" secondAttribute="centerY" id="SYS-92-gyb"/>
+                                                <constraint firstAttribute="trailing" secondItem="NAf-ZW-T48" secondAttribute="trailing" constant="8" id="boh-qZ-9q0"/>
+                                                <constraint firstItem="NAf-ZW-T48" firstAttribute="centerY" secondItem="zWE-eA-vbF" secondAttribute="centerY" id="xok-BF-Ki3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wft-Ht-yXk" secondAttribute="trailing" id="A9s-19-ZIa"/>
+                            <constraint firstItem="bCJ-GJ-XZg" firstAttribute="top" secondItem="Wft-Ht-yXk" secondAttribute="bottom" id="ASL-YZ-Vx0"/>
+                            <constraint firstItem="Wft-Ht-yXk" firstAttribute="leading" secondItem="VD1-7p-WYa" secondAttribute="leadingMargin" id="Hti-n8-a2J"/>
+                            <constraint firstItem="Wft-Ht-yXk" firstAttribute="top" secondItem="4D5-V9-uGB" secondAttribute="bottom" id="n6p-te-5mu"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KRM-Mz-85X">
+                    <navigationItem key="navigationItem" title="Search Filters" id="KRM-Mz-85X">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="8JX-XZ-4yi">
                             <connections>
                                 <action selector="onCancel:" destination="dcD-gn-GsA" id="vPU-fb-Ten"/>
@@ -427,7 +475,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Kp-KR-sBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="-672"/>
+            <point key="canvasLocation" x="2645.5999999999999" y="-672.41379310344837"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="p3E-lh-bYs">
