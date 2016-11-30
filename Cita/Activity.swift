@@ -52,6 +52,24 @@ class Activity: NSObject {
     
     static var currentActivities: [Activity]? = []
     
+    static var defaultCategories: [String:UIImage] = [
+        "Team Sports": #imageLiteral(resourceName: "sports-ball"),
+        "Exercise & Workout": #imageLiteral(resourceName: "workout"),
+        "Indoor Games": #imageLiteral(resourceName: "games"),
+        "Drinks": #imageLiteral(resourceName: "drinks"),
+        "Food & Meals": #imageLiteral(resourceName: "food"),
+        "Music": #imageLiteral(resourceName: "music"),
+        "Dancing": #imageLiteral(resourceName: "dance"),
+        "Outdoors": #imageLiteral(resourceName: "outdoors"),
+        "Family": #imageLiteral(resourceName: "family"),
+        "Discussion": #imageLiteral(resourceName: "discussion"),
+        "Sightseeing": #imageLiteral(resourceName: "sightseeing"),
+        "Political": #imageLiteral(resourceName: "politics"),
+        "Volunteer": #imageLiteral(resourceName: "volunteer"),
+        "Religious": #imageLiteral(resourceName: "religion"),
+        "Random/Other": #imageLiteral(resourceName: "other")
+    ]
+    
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
         fullDescription = dictionary["full_description"] as? String
