@@ -9,7 +9,7 @@
 import UIKit
 import GooglePlaces
 
-class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewDelegate, CategoryViewDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var nameInvalidLabel: UILabel!
@@ -17,7 +17,8 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var descriptionInvalidLabel: UILabel!
     @IBOutlet weak var startTimeTextField: UITextField!
-    @IBOutlet weak var endTimeTextField: UITextField!
+    @IBOutlet weak var durationTextField: UITextField!
+    
     @IBOutlet weak var locationTextField: UITextField!
     
     @IBOutlet weak var titleView: UIView!
@@ -26,26 +27,46 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var endView: UIView!
     @IBOutlet weak var peopleView: UIView!
     @IBOutlet weak var descriptionView: UIView!
+    @IBOutlet weak var categoryButton: UIButton!
     
     var location: Location!
     var locationAddress: String!
     var startTimePicker: UIDatePicker!
-    var endTimePicker: UIDatePicker!
+    var durationPicker: UIDatePicker!
     let timeFormatter = DateFormatter()
     var startDate: Date?
     var endDate: Date?
 //    var initialDescriptionViewY: CGFloat!
-    var offset: CGFloat!
+    var category: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationItem.title = "New Activity"
+        
+        // borders/styling
+        addBordersStyles()
+        // category/start time/end time
+        addSelectors()
+        // notifications/observers
+        addDelegatesListeners()
+        
+        // Google Places
+//        resultsViewController = GMSAutocompleteResultsViewController()
+//        resultsViewController?.delegate = self
+//        searchController = UISearchController(searchResultsController: resultsViewController)
+//        searchController?.searchResultsUpdater = resultsViewController
+//        // Put the search bar in the navigation bar.
+//        searchController?.searchBar.sizeToFit()
+//        searchController?.searchBar.placeholder = "Enter address to create activity"
+//        self.navigationItem.titleView = searchController?.searchBar
+//        self.definesPresentationContext = true
+//        searchController?.hidesNavigationBarDuringPresentation = false
+    }
+    
+    func addBordersStyles() {
         if (locationAddress != nil) {
             locationTextField.text = locationAddress
         }
-        
-        // Styling
         titleView.layer.borderWidth = 1
         titleView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
         locationView.layer.borderWidth = 1
@@ -60,7 +81,28 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         descriptionView.layer.borderColor = UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.0).cgColor
         descriptionTextView.text = "Description"
         descriptionTextView.textColor = UIColor(red:0.80, green:0.80, blue:0.80, alpha:1.0)
+    }
+    
+    func addSelectors() {
         
+        timeFormatter.dateStyle = .medium
+        timeFormatter.timeStyle = .short
+        
+        startTimePicker = UIDatePicker()
+        startTimePicker.datePickerMode = .dateAndTime
+        startTimePicker.minimumDate = 30.minutes.fromNow()
+        startTimePicker.minuteInterval = 10
+        startTimeTextField.inputView = startTimePicker
+        startTimePicker.addTarget(self, action: #selector(setStartTime), for: .valueChanged)
+        
+        durationPicker = UIDatePicker()
+        durationPicker.datePickerMode = .countDownTimer
+        durationPicker.minuteInterval = 10
+        durationTextField.inputView = durationPicker
+        durationPicker.addTarget(self, action: #selector(setEndTime), for: .valueChanged)
+    }
+    
+    func addDelegatesListeners() {
         startTimeTextField.delegate = self
         descriptionTextView.delegate = self
         
@@ -70,40 +112,12 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         view.addGestureRecognizer(tap)
         
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { (notification: Notification) in
-//            self.descriptionView.frame.origin.y = self.initialDescriptionViewY + self.offset
             self.descriptionView.backgroundColor = UIColor.white.withAlphaComponent(1.0)
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { (notification: Notification) in
-//            self.descriptionView.frame.origin.y = self.initialDescriptionViewY
+            //            self.descriptionView.frame.origin.y = self.initialDescriptionViewY
         }
-        
-        timeFormatter.dateStyle = .medium
-        timeFormatter.timeStyle = .short
-        
-        startTimePicker = UIDatePicker()
-        startTimePicker.datePickerMode = .dateAndTime
-        startTimeTextField.inputView = startTimePicker
-        startTimePicker.addTarget(self, action: #selector(setStartTime), for: .valueChanged)
-        
-        endTimePicker = UIDatePicker()
-        endTimeTextField.inputView = endTimePicker
-        endTimePicker.addTarget(self, action: #selector(setEndTime), for: .valueChanged)
-        
-//        initialDescriptionViewY = descriptionView.frame.origin.y
-        offset = -68
-        
-        // Google Places
-//        resultsViewController = GMSAutocompleteResultsViewController()
-//        resultsViewController?.delegate = self
-//        searchController = UISearchController(searchResultsController: resultsViewController)
-//        searchController?.searchResultsUpdater = resultsViewController
-//        // Put the search bar in the navigation bar.
-//        searchController?.searchBar.sizeToFit()
-//        searchController?.searchBar.placeholder = "Enter address to create activity"
-//        self.navigationItem.titleView = searchController?.searchBar
-//        self.definesPresentationContext = true
-//        searchController?.hidesNavigationBarDuringPresentation = false
     }
     
     @IBAction func onLocationTap(_ sender: Any) {
@@ -161,15 +175,20 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         startDate = startTimePicker.date
         startTimeTextField.text = timeText
         
-        // yay our event can't end before it started
-        endTimePicker.date = startTimePicker.date
+        durationPicker.date = startTimePicker.date
     }
     
     func setEndTime() {
-        let timeText = timeFormatter.string(from: endTimePicker.date)
-        print("chose end time \(timeText)")
-        endDate = endTimePicker.date
-        endTimeTextField.text = timeText
+        let duration = durationPicker.countDownDuration
+        let minutes = Int((duration / 60).truncatingRemainder(dividingBy: 60))
+        let hours = Int(floor(duration / 3600))
+        print("chose duration \(hours):\(minutes)")
+        endDate = startTimePicker.date + durationPicker.countDownDuration
+        if hours == 0 {
+            durationTextField.text = "\(minutes) minutes"
+        } else {
+            durationTextField.text = "\(hours) hours \(minutes) minutes"
+        }
     }
     
     @IBAction func didCancel(_ sender: Any) {
@@ -224,6 +243,11 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
             valid = false
         }
         
+        if category == nil {
+            categoryButton.tintColor = .red
+            valid = false
+        }
+        
         if startDate == nil {
             startTimeTextField.layer.borderWidth = 1.0
             startTimeTextField.layer.cornerRadius = 5
@@ -234,12 +258,12 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         }
         
         if endDate == nil {
-            endTimeTextField.layer.borderWidth = 1.0
-            endTimeTextField.layer.cornerRadius = 5
-            endTimeTextField.layer.borderColor = UIColor.red.cgColor
+            durationTextField.layer.borderWidth = 1.0
+            durationTextField.layer.cornerRadius = 5
+            durationTextField.layer.borderColor = UIColor.red.cgColor
             valid = false
         } else {
-            endTimeTextField.layer.borderWidth = 0
+            durationTextField.layer.borderWidth = 0
         }
         
         if groupSizeField.text == nil || (Int(groupSizeField.text!) == nil) {
@@ -253,15 +277,19 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         
         return valid
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+ 
+    func onCategory(categoryPicker: CategoryViewController, didPickCategory: String) {
+        category = didPickCategory
+        let icon = Activity.defaultCategories[category!]
+        print("set activity category=\(category)")
+        categoryButton.setTitle("", for: .normal)
+        categoryButton.imageView?.contentMode = .scaleAspectFit
+        categoryButton.setImage(icon, for: .normal)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let categoryVC = segue.destination as! CategoryViewController
+        categoryVC.delegate = self
+    }
 }
 
 extension ActivityEditController: GMSAutocompleteViewControllerDelegate {

@@ -33,6 +33,7 @@ class Activity: NSObject {
     var ref: FIRDatabaseReference?
     var key: String?
     var name: String?
+    var category: String?
     var fullDescription: String?
     var groupSize: Int?
     var imageURL: URL?
@@ -70,8 +71,11 @@ class Activity: NSObject {
         "Random/Other": #imageLiteral(resourceName: "other")
     ]
     
+    static var categoryNames: [String] = Activity.defaultCategories.keys.sorted()
+    
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
+        category = dictionary["category"] as? String
         fullDescription = dictionary["full_description"] as? String
         
         if let locationString = dictionary["location"] as? String {
@@ -157,9 +161,17 @@ class Activity: NSObject {
         return "\(attendeeCount) of \(groupSize ?? -1) spots taken"
     }
     
+    func iconImage() -> UIImage? {
+        if let category = category {
+            return Activity.defaultCategories[category]
+        }
+        return nil
+    }
+    
     func toDictionary() -> [String: Any] {
         return [
             "name": name as Any,
+            "category": category as Any,
             "full_description": fullDescription as Any,
             "group_size": groupSize as Any,
             "location": location?.toString() as Any,
