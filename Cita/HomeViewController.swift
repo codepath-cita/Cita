@@ -45,8 +45,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
         myActivitiesImageView.tintColor = UIColor.citaRed
+        
         newActivityImageView.image = newActivityImageView.image!.withRenderingMode(.alwaysTemplate)
         newActivityImageView.tintColor = UIColor.citaRed
+        
         profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
         profileImageView.tintColor = UIColor.citaRed
         
@@ -111,12 +113,14 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: (activity.location?.latitude)!, longitude: (activity.location?.longitude)!)
             marker.title = activity.name
-            
+            /*
             let dataFormatter = DateFormatter()
             dataFormatter.dateFormat = "MMM d h:ma"
             let startDateString = dataFormatter.string(from: activity.startTime!)
             let endDateString = dataFormatter.string(from: activity.endTime!)
-            marker.snippet = "\(startDateString) - \(endDateString) \n(Tap for details)"
+            */
+            let time = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: true)
+            marker.snippet = "\(time) \n(Tap for details)"
             
             marker.icon = UIImage(named: "marker_red.png")
 //            marker.appearAnimation = kGMSMarkerAnimationPop

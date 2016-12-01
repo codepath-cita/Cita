@@ -16,28 +16,12 @@ class ActivityDetailCell: UITableViewCell {
     var delegate: profileSelectedDelegate?
     var user: User! {
         didSet {
-            
             self.nameLabel.text = user.displayName
             
             if let photoUrl = user.photoURL,
                 let data = try? Data(contentsOf: photoUrl) {
                 self.gravatarImage.image = UIImage(data: data)
             }
-            /*
-            timeFormatter.dateStyle = .medium
-            timeFormatter.timeStyle = .short
-            let starts = timeFormatter.string(from: activity.startTime!)
-            let ends = timeFormatter.string(from: activity.endTime!)
-            nameLabel.text = activity.name
-            descriptionLabel.text = activity.fullDescription
-            startTimeLabel.text = "From \(starts)"
-            endTimeLabel.text = "To \(ends)"
-            groupSizeLabel.text = activity.attendeeCountText()
-            if activity.owner {
-                iconImageView.image = UIImage(named: "key")
-            } else {
-                iconImageView.image = nil
-            }*/
         }
     }
     

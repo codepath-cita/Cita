@@ -26,8 +26,10 @@ class ActivityCell: UITableViewCell {
             let ends = timeFormatter.string(from: activity.endTime!)
             nameLabel.text = activity.name
             descriptionLabel.text = activity.fullDescription
-            startTimeLabel.text = "From \(starts)"
-            endTimeLabel.text = "To \(ends)"
+            
+            startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
+            //endTimeLabel.text = "To \(ends)"
+            
             groupSizeLabel.text = activity.attendeeCountText()
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")

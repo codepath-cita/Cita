@@ -196,6 +196,7 @@
 		DC23D96B1DDC116900D314D1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1A6A1C6E1DEF4565009FCF95 /* Twinkle.swift */,
 				DC23D96E1DDC118B00D314D1 /* Date.swift */,
 				DC23D9701DDC119C00D314D1 /* String.swift */,
 				1A10668B1DEEACF2001CF535 /* UIColor.swift */,
@@ -206,7 +207,6 @@
 		DC23D9731DDC1B9200D314D1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1A6A1C6E1DEF4565009FCF95 /* Twinkle.swift */,
 				DC069B511DEEC57800646865 /* SwitchCell.swift */,
 				1A09DC851DE3B7B2003B3CD1 /* ActivityDetailCell.swift */,
 				1A09DC8D1DE60820003B3CD1 /* ActivityCell.swift */,

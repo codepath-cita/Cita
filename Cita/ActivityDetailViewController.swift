@@ -39,8 +39,9 @@ class ActivityDetailViewController: UIViewController {
         let starts = timeFormatter.string(from: activity.startTime!)
         let ends = timeFormatter.string(from: activity.endTime!)
         
-        startTimeLabel.text = "From \(starts)"
-        endTimeLabel.text = "To \(ends)"
+        startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
+        //"From \(starts)"
+        //endTimeLabel.text = "To \(ends)"
         
         addressLabel.text = activity.address
         

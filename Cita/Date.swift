@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftDate
 
 extension Date {
     struct Formatter {
@@ -29,6 +30,23 @@ extension Date {
     func cita_withinRange(dates: DateRange) -> Bool {
         return self.compare(dates.earliest) == .orderedAscending && self.compare(dates.latest) == .orderedDescending
     }
+    
+    static func niceToRead(from: Date, to: Date, terse: Bool) -> String {
+        let now = Date(timeIntervalSinceNow: 0)
+        
+        if now.year == from.year {
+            
+        }
+        let zero = from.string(format: .custom("MMM d"))
+        let one = from.string(format: .custom("h:mm"))
+        let two = to.string(format: .custom("h:mm a"))
+        if !terse {
+            return  zero + " from " + one + " to " + two
+        } else {
+            return  zero + ", " + one + " - " + two
+        }
+    }
+    
 }
 
 struct DateRange {
