@@ -1,5 +1,5 @@
 //
-//  CitasViewController.swift
+//  MyActivitiesViewController.swift
 //  Cita
 //
 //  Created by Sara Hender on 11/9/16.
@@ -9,9 +9,11 @@
 import UIKit
 import FirebaseDatabase
 
-class CitasViewController: UIViewController {
+class MyActivitiesViewController: UIViewController {
     
     let HeaderViewIdentifier = "TableViewHeaderView"
+    let ActivityCellIdentifier = "ActivityCell"
+    
     let userRef = FIRDatabase.database().reference(withPath: User.dbRoot)
     let activityRef = FIRDatabase.database().reference(withPath: Activity.dbRoot)
     
@@ -34,7 +36,7 @@ class CitasViewController: UIViewController {
         
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
         
-        tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: "ActivityCell")
+        tableView.register(UINib(nibName: "ActivityCell", bundle: nil), forCellReuseIdentifier: ActivityCellIdentifier)
  
         // hide empty cells
         tableView.tableFooterView = UIView()
@@ -68,8 +70,8 @@ class CitasViewController: UIViewController {
             }
         }
         
-        print( activities[0].startTime! < Date.init(timeIntervalSinceNow: 0))
-        print(Date.init(timeIntervalSinceNow: 0))
+        //print( activities[0].startTime! < Date.init(timeIntervalSinceNow: 0))
+        //print(Date.init(timeIntervalSinceNow: 0))
     }
     
     func observeUserActivities() {
@@ -127,7 +129,7 @@ class CitasViewController: UIViewController {
     
 }
 
-extension CitasViewController: UITableViewDelegate, UITableViewDataSource,  UIGestureRecognizerDelegate, tableDelegate {
+extension MyActivitiesViewController: UITableViewDelegate, UITableViewDataSource,  UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
            return activities.count
@@ -137,7 +139,7 @@ extension CitasViewController: UITableViewDelegate, UITableViewDataSource,  UIGe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ActivityCellIdentifier, for: indexPath) as! ActivityCell
         if indexPath.section == 0 {
             cell.activity = activities[indexPath.row]
         }
@@ -153,9 +155,12 @@ extension CitasViewController: UITableViewDelegate, UITableViewDataSource,  UIGe
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderViewIdentifier)! as UITableViewHeaderFooterView
+        header.textLabel?.textAlignment = .center
+        header.textLabel?.textColor = UIColor.black
+        
         if section == 0 {
             header.textLabel?.text = "Upcoming Events"
         } else if section == 1 {

@@ -150,8 +150,8 @@ class ActivityDetailViewController: UIViewController {
 }
 
 extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSource, profileSelectedDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return section == 0 ? 1 : (activity.attendees?.count ?? 0)
     }
     
@@ -161,25 +161,9 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
         
         if indexPath.section == 0 {
             cell.user = User.userCache[(activity.creator?.uid)!]
-            /*
-            cell.nameLabel.text = activity.creator?.displayName
-            
-            if let photoUrl = activity.creator?.photoURL,
-                let data = try? Data(contentsOf: photoUrl) {
-                cell.gravatarImage.image = UIImage(data: data)
-            }
-            */
         } else if indexPath.section == 1 {
-            print("indexPath.row: \(indexPath.row)")
             if nil != activity.attendees {
                 cell.user = User.userCache[(activity.attendees?[indexPath.row].uid)!]
-                /*
-                cell.nameLabel.text = user?.displayName
-                
-                if let photoUrl = user?.photoURL,
-                    let data = try? Data(contentsOf: photoUrl) {
-                    cell.gravatarImage.image = UIImage(data: data)
-                }*/
             }
         }
         
@@ -191,9 +175,25 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+/*
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var returnedView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)) //set these values as necessary
+        returnedView.backgroundColor = UIColor.citaYellow
+        
+        var label = UILabel(frame: CGRect(x: 16, y: 4, width: self.view.frame.width - 15, height: 46))
+        label.text = "Hello World!"
+        returnedView.addSubview(label)
+        
+        return returnedView
+    }
+ */
+ 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderViewIdentifier)! as UITableViewHeaderFooterView
+
+        header.textLabel?.textAlignment = .center
+        header.textLabel?.textColor = UIColor.black
+                
         if section == 0 {
             header.textLabel?.text = "Organizer"
         } else if section == 1 {
@@ -201,14 +201,12 @@ extension ActivityDetailViewController: UITableViewDelegate, UITableViewDataSour
         }
         return header
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
     
     func profileSelectedDelegate(user: User) {
-        print("tapped")
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
         profileViewController.user = user
