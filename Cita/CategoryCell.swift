@@ -14,11 +14,16 @@ class CategoryCell: UICollectionViewCell {
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!
     
-    let yellow = UIColor(colorLiteralRed: 242/255.0, green: 204/255.0, blue: 50/255.0, alpha: 50)
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        bgView.backgroundColor = yellow
+        setSelectedState()
     }
 
+    func setSelectedState() {
+        if isSelected {
+            bgView.backgroundColor = UIColor.citaGreen
+        } else {
+            bgView.backgroundColor = UIColor.citaYellow
+        }
+    }
 }

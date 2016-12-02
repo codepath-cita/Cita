@@ -23,13 +23,8 @@ class CategoryViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
         // Register cell xib
         collectionView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,9 +61,9 @@ extension CategoryViewController:  UICollectionViewDataSource, UICollectionViewD
         cell.categoryNameLabel.text = name
         cell.iconImage.image = Activity.defaultCategories[name]
         if indexPath.row == selectedIndex {
-            cell.bgView.backgroundColor = .red
+            cell.bgView.backgroundColor = UIColor.citaGreen
         } else {
-            cell.bgView.backgroundColor = cell.yellow
+            cell.bgView.backgroundColor = UIColor.citaYellow
         }
         
         return cell
