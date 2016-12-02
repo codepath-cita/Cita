@@ -12,6 +12,8 @@ class ActivityDetailViewController: UIViewController {
     
     let HeaderViewIdentifier = "TableViewHeaderView"
     
+    @IBOutlet weak var categoryIconImage: UIImageView!
+    @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var activityNameLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
@@ -32,6 +34,14 @@ class ActivityDetailViewController: UIViewController {
         
         activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
+        if let category = activity.category {
+            categoryNameLabel.text = category
+            categoryIconImage.image = Activity.defaultCategories[category]
+        } else {
+            let category = Activity.other
+            categoryNameLabel.text = category
+            categoryIconImage.image = Activity.defaultCategories[category]
+        }
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .medium

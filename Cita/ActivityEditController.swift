@@ -37,6 +37,8 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     var locationAddress: String?
     var startDate: Date?
     var endDate: Date?
+    var countdownDuration: Double?
+    var durationText: String?
     var category: String?
     
     override func viewDidLoad() {
@@ -45,7 +47,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         
         // borders/styling
         addBordersStyles()
-        // category/start time/end time
+        // start time/duration
         addSelectors()
         // notifications/observers
         addDelegatesListeners()
@@ -99,11 +101,15 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         durationPicker.datePickerMode = .countDownTimer
         durationPicker.minuteInterval = 10
         durationTextField.inputView = durationPicker
-        durationPicker.addTarget(self, action: #selector(setEndTime), for: .valueChanged)
+        durationPicker.addTarget(self, action: #selector(setDuration), for: .valueChanged)
     }
     
     func addDelegatesListeners() {
+        nameTextField.delegate = self
+        locationTextField.delegate = self
         startTimeTextField.delegate = self
+        durationTextField.delegate = self
+        groupSizeField.delegate = self
         descriptionTextView.delegate = self
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -152,7 +158,9 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        print(#function)
+        if textField.layer.borderColor == UIColor.red.cgColor {
+            removeTextFieldErrors(textField)
+        }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -174,21 +182,11 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         print("chose start time \(timeText)")
         startDate = startTimePicker.date
         startTimeTextField.text = timeText
-        
-        durationPicker.date = startTimePicker.date
     }
     
-    func setEndTime() {
-        let duration = durationPicker.countDownDuration
-        let minutes = Int((duration / 60).truncatingRemainder(dividingBy: 60))
-        let hours = Int(floor(duration / 3600))
-        print("chose duration \(hours):\(minutes)")
-        endDate = startTimePicker.date + durationPicker.countDownDuration
-        if hours == 0 {
-            durationTextField.text = "\(minutes) minutes"
-        } else {
-            durationTextField.text = "\(hours) hours \(minutes) minutes"
-        }
+    func setDuration() {
+        countdownDuration = durationPicker.countDownDuration
+        durationTextField.text = Activity.durationText(countdownDuration!)
     }
     
     @IBAction func didCancel(_ sender: Any) {
@@ -197,17 +195,17 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     
     @IBAction func didClickSave(_ sender: Any) {
         if validateFields() {
-            let location = self.location
-            let activity = Activity(dictionary: [
-                "name": nameTextField.text! as AnyObject,
-                "full_description": descriptionTextView.text!,
-                "attendees_count": Int(groupSizeField.text!)!,
-                "start_time": startDate!.iso8601,
-                "end_time": endDate!.iso8601,
-                "group_size": Int(groupSizeField.text!)!,
-                "location": location!.toString(),
-                "address": locationTextField.text!
-                ])
+            endDate = startDate! + countdownDuration!
+            let activity = Activity(dictionary: [:])
+            activity.name = nameTextField.text!
+            activity.category = category!
+            activity.fullDescription = descriptionTextView.text!
+            activity.groupSize = Int(groupSizeField.text!)
+            activity.startTime = startDate!
+            activity.endTime = endDate!
+            activity.countdownDuration = countdownDuration!
+            activity.location = location!
+            activity.address = locationTextField.text!
             activity.creator = User.currentUser
             activity.attendees = []
             activity.attendeeIDs = []
@@ -228,13 +226,11 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         
         // name
         if nameTextField?.text == nil || nameTextField.text!.characters.count < 4 {
-            nameTextField.layer.borderWidth = 1.0
-            nameTextField.layer.cornerRadius = 5
-            nameTextField.layer.borderColor = UIColor.red.cgColor
-            nameInvalidLabel.isHidden = false
             valid = false
+            errorsOnTextField(nameTextField)
+            nameInvalidLabel.isHidden = false
         } else {
-            nameTextField.layer.borderWidth = 0
+            removeTextFieldErrors(nameTextField)
             nameInvalidLabel.isHidden = true
         }
         
@@ -266,7 +262,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         }
         
         // ends
-        if endDate == nil {
+        if countdownDuration == nil {
             valid = false
             errorsOnTextField(durationTextField)
         } else {

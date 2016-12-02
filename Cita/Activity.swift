@@ -42,6 +42,7 @@ class Activity: NSObject {
     var endISO8601: String?
     var startTime: Date?
     var endTime: Date?
+    var countdownDuration: Double?
     var address: String?
     var createdAt: Date?
     var updatedAt: Date?
@@ -70,6 +71,7 @@ class Activity: NSObject {
         "Religious": #imageLiteral(resourceName: "religion"),
         "Random/Other": #imageLiteral(resourceName: "other")
     ]
+    static var other = "Random/Other"
     
     static var categoryNames: [String] = Activity.defaultCategories.keys.sorted()
     
@@ -85,6 +87,7 @@ class Activity: NSObject {
         endISO8601 = dictionary["end_time"] as? String
         startTime = startISO8601?.dateFromISO8601
         endTime = endISO8601?.dateFromISO8601
+        countdownDuration = dictionary["duration"] as? Double
         
         address = dictionary["address"] as? String
         groupSize = dictionary["group_size"] as? Int
@@ -161,6 +164,13 @@ class Activity: NSObject {
         return "\(attendeeCount) of \(groupSize ?? -1) spots taken"
     }
     
+    func durationText() -> String {
+        if let duration = countdownDuration {
+            return Activity.durationText(duration)
+        }
+        return ""
+    }
+    
     func iconImage() -> UIImage? {
         if let category = category {
             return Activity.defaultCategories[category]
@@ -179,6 +189,7 @@ class Activity: NSObject {
             "longitude": location?.longitude as Any,
             "start_time": startTime?.iso8601 as Any,
             "end_time": endTime?.iso8601 as Any,
+            "duration": countdownDuration as Any,
             "creator_id": creator?.uid as Any,
             "attendee_ids": attendeeIDs as Any,
             "address" : address as Any
@@ -205,5 +216,19 @@ class Activity: NSObject {
             activities.append(activity)
         }
         return activities
+    }
+    
+    class func durationText(_ duration: Double) -> String {
+        let minutes = Int((duration / 60).truncatingRemainder(dividingBy: 60))
+        let hours = Int(floor(duration / 3600))
+        
+        var durationText = ""
+        if hours > 0 {
+            durationText.append("\(hours) hours ")
+        }
+        if minutes > 0 {
+            durationText.append("\(minutes) minutes")
+        }
+        return durationText
     }
 }
