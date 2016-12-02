@@ -52,6 +52,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         profileImageView.image = profileImageView.image!.withRenderingMode(.alwaysTemplate)
         profileImageView.tintColor = UIColor.citaRed
         
+        tabBarView.backgroundColor = UIColor.citaOrange
+        newActivityView.backgroundColor = UIColor.citaOrange
+        profileView.backgroundColor = UIColor.citaOrange
+        
         newActivityView.layer.cornerRadius = 10
         newActivityView.clipsToBounds = true
         newActivityView.layer.borderWidth = 1

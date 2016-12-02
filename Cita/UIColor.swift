@@ -21,10 +21,22 @@ extension UIColor {
     }
     
     class var citaOrange: UIColor {
-        return UIColor(colorLiteralRed: (255/255), green: (131/255), blue: (85/255), alpha: 1.0)
+        return UIColor(colorLiteralRed: (255/255), green: (117/255), blue: (11/255), alpha: 1.0)
     }
     
     class var citaRed: UIColor {
-        return UIColor(red:0.80, green:0.21, blue:0.00, alpha:1.0)
+        return UIColor(red: (191/255), green: (49/255), blue: (0/255), alpha: 1.0)
+    }
+    
+    class var citaYellow: UIColor {
+        return UIColor(red: (245/255), green: (187/255), blue: (0/255), alpha: 1.0)
+    }
+    
+    class var citaDarkYellow: UIColor {
+        return UIColor(red: (236/255), green: (159/255), blue: (5/255), alpha: 1.0)
+    }
+    
+    class var citaGreen: UIColor {
+        return UIColor(red: (142/255), green: (166/255), blue: (4/255), alpha: 1.0)
     }
 }
