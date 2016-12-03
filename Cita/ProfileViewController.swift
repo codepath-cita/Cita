@@ -15,8 +15,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
-    @IBOutlet weak var logOutButton: UIBarButtonItem!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var user: User!
     
@@ -25,10 +25,12 @@ class ProfileViewController: UIViewController {
         
         avatarImageView.layer.cornerRadius = avatarImageView.layer.frame.size.width / 2
         avatarImageView.clipsToBounds = true
-                
+        
         if user == nil {
             user = User.currentUser
-            self.navigationItem.rightBarButtonItem  = logOutButton
+            logoutButton.titleLabel?.text = "Log Out"
+        } else {
+            logoutButton.titleLabel?.text = "Email"
         }
         
         userNameLabel.text = user.displayName
@@ -38,8 +40,8 @@ class ProfileViewController: UIViewController {
             avatarImageView.image = UIImage(data: data)
         }
         
-        button.layer.cornerRadius = 7
-        button.clipsToBounds = true
+        logoutButton.layer.cornerRadius = 7
+        logoutButton.clipsToBounds = true
         
     }
     
@@ -48,12 +50,13 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didTapLogoutButton(_ sender: UIBarButtonItem) {
+    @IBAction func logoutButtonAction(_ sender: Any) {
         // Signs user out of Firebase
         try! FIRAuth.auth()!.signOut()
         //Signs user out of Facebook
         FBSDKAccessToken.setCurrent(nil)
     }
+
     
     /*
      // MARK: - Navigation

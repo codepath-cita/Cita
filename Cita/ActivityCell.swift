@@ -20,17 +20,11 @@ class ActivityCell: UITableViewCell {
     var delegate: tableDelegate?
     var activity: Activity! {
         didSet {
-            timeFormatter.dateStyle = .medium
-            timeFormatter.timeStyle = .short
-            let starts = timeFormatter.string(from: activity.startTime!)
-            let ends = timeFormatter.string(from: activity.endTime!)
             nameLabel.text = activity.name
             descriptionLabel.text = activity.fullDescription
-            
             startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
-            //endTimeLabel.text = "To \(ends)"
-            
             groupSizeLabel.text = activity.attendeeCountText()
+            
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
             } else {
