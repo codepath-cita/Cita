@@ -136,8 +136,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
 
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("search test changed to \(searchText)")
-        currentSearchFilter.searchTerm = searchText
+//        print("search test changed to \(searchText)")
+        if searchText.isEmpty {
+            currentSearchFilter.searchTerm = nil
+        } else {
+            currentSearchFilter.searchTerm = searchText
+        }
         FirebaseClient.sharedInstance.observeActivities(filter: currentSearchFilter)
     }
     
@@ -149,7 +153,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        currentSearchFilter.searchTerm = ""
+        currentSearchFilter.searchTerm = nil
         FirebaseClient.sharedInstance.observeActivities(filter: currentSearchFilter)
     }
     

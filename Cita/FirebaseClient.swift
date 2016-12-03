@@ -48,7 +48,7 @@ class FirebaseClient: NSObject {
                             continue
                         }
                     }
-//                    print("check activity category \(activity.category) against \(filter.categories)")
+
                     if !filter.categories.isEmpty {
                         if let category = activity.category {
                             if filter.categories.index(of: category) == nil {
@@ -71,6 +71,7 @@ class FirebaseClient: NSObject {
                             continue
                         }
                     }
+                    print("comparing startTime=\(activity.startTime) to dates \(filter.dateRange.earliest)..\(filter.dateRange.latest)")
                     if activity.startTime! < filter.dateRange.earliest || activity.startTime! > filter.dateRange.latest {
                         print("further filtered date \(activity.startISO8601)")
                         continue
