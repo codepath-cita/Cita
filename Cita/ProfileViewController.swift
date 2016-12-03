@@ -16,35 +16,16 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
+    @IBOutlet weak var button: UIButton!
     
     var user: User!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-/*
-        var containerLayer: CALayer = CALayer()
-        containerLayer.shadowColor = UIColor.black.cgColor
-        containerLayer.shadowRadius = 10
-        containerLayer.shadowOffset = CGSize(width: 0, height: 5)
-        containerLayer.shadowOpacity = 1
-        */
-        // use the image's layer to mask the image into a circle
-        //image.layer.cornerRadius = roundf(image.frame.size.width/2.0);
-        //image.layer.masksToBounds = YES;
-        
-        // add masked image layer into container layer so that it's shadowed
-        //[containerLayer addSublayer:image.layer];
-        
-        // add container including masked image and shadow into view
-        //[self.view.layer addSublayer:containerLayer];
-        
         
         avatarImageView.layer.cornerRadius = avatarImageView.layer.frame.size.width / 2
         avatarImageView.clipsToBounds = true
-        
-        //containerLayer.addSublayer(avatarImageView.layer)
-        //self.view.layer.addSublayer(containerLayer)
-        
+                
         if user == nil {
             user = User.currentUser
             self.navigationItem.rightBarButtonItem  = logOutButton
@@ -56,6 +37,10 @@ class ProfileViewController: UIViewController {
             let data = try? Data(contentsOf: photoUrl) {
             avatarImageView.image = UIImage(data: data)
         }
+        
+        button.layer.cornerRadius = 7
+        button.clipsToBounds = true
+        
     }
     
     override func didReceiveMemoryWarning() {

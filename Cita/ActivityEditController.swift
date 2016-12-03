@@ -29,14 +29,14 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var categoryButton: UIButton!
     
-    var location: Location!
-    var locationAddress: String!
     var startTimePicker: UIDatePicker!
     var durationPicker: UIDatePicker!
     let timeFormatter = DateFormatter()
+    
+    var location: Location?
+    var locationAddress: String?
     var startDate: Date?
     var endDate: Date?
-//    var initialDescriptionViewY: CGFloat!
     var category: String?
     
     override func viewDidLoad() {
@@ -226,6 +226,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     func validateFields() -> Bool {
         var valid = true
         
+        // name
         if nameTextField?.text == nil || nameTextField.text!.characters.count < 4 {
             nameTextField.layer.borderWidth = 1.0
             nameTextField.layer.cornerRadius = 5
@@ -237,42 +238,54 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
             nameInvalidLabel.isHidden = true
         }
         
+        // description
         if descriptionTextView?.text == nil || descriptionTextView.text!.characters.count < 4 {
             descriptionTextView.layer.borderColor = UIColor.red.cgColor
+            descriptionTextView.layer.borderWidth = 1.0
+            descriptionTextView.layer.cornerRadius = 5
             descriptionInvalidLabel.isHidden = false
             valid = false
+        } else {
+            descriptionTextView.layer.borderWidth = 0
+            descriptionInvalidLabel.isHidden = true
         }
         
+        // category (button)
         if category == nil {
             categoryButton.tintColor = .red
+            categoryButton.layer.borderColor = UIColor.red.cgColor
             valid = false
         }
-        
+
+        // starts
         if startDate == nil {
-            startTimeTextField.layer.borderWidth = 1.0
-            startTimeTextField.layer.cornerRadius = 5
-            startTimeTextField.layer.borderColor = UIColor.red.cgColor
             valid = false
+            errorsOnTextField(startTimeTextField)
         } else {
-            startTimeTextField.layer.borderWidth = 0
+            removeTextFieldErrors(startTimeTextField)
         }
         
+        // ends
         if endDate == nil {
-            durationTextField.layer.borderWidth = 1.0
-            durationTextField.layer.cornerRadius = 5
-            durationTextField.layer.borderColor = UIColor.red.cgColor
             valid = false
+            errorsOnTextField(durationTextField)
         } else {
-            durationTextField.layer.borderWidth = 0
+            removeTextFieldErrors(durationTextField)
         }
         
+        // party #
         if groupSizeField.text == nil || (Int(groupSizeField.text!) == nil) {
-            groupSizeField.layer.borderWidth = 1.0
-            groupSizeField.layer.cornerRadius = 5
-            groupSizeField.layer.borderColor = UIColor.red.cgColor
             valid = false
+            errorsOnTextField(groupSizeField)
         } else {
-            groupSizeField.layer.borderWidth = 0
+            removeTextFieldErrors(groupSizeField)
+        }
+        
+        if location ==  nil {
+            valid = false
+            errorsOnTextField(locationTextField)
+        } else {
+            removeTextFieldErrors(locationTextField)
         }
         
         return valid
@@ -290,12 +303,24 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         let categoryVC = segue.destination as! CategoryViewController
         categoryVC.delegate = self
     }
+    
+    func errorsOnTextField(_ textField: UITextField) {
+        textField.layer.borderWidth = 1.0
+        textField.layer.cornerRadius = 5
+        textField.layer.borderColor = UIColor.red.cgColor
+        textField.borderStyle = .roundedRect
+    }
+    func removeTextFieldErrors(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+        textField.borderStyle = .none
+    }
 }
 
 extension ActivityEditController: GMSAutocompleteViewControllerDelegate {
     
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        print("user chose formatted address: \(place.formattedAddress)")
         self.locationAddress = place.formattedAddress
         self.locationTextField.text = self.locationAddress
         self.location = Location(lat: place.coordinate.latitude, long: place.coordinate.longitude)
@@ -303,7 +328,6 @@ extension ActivityEditController: GMSAutocompleteViewControllerDelegate {
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
         print("Error: ", error.localizedDescription)
     }
     

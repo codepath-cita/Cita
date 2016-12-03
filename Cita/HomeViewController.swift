@@ -26,7 +26,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var newActivityImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     
-    
+    var nothingFoundView: UILabel?
     var activities: [Activity]?
     var filteredActivities: [Activity]?
     var searchBar = UISearchBar()
@@ -41,6 +41,16 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nothingFoundView = UILabel(frame: CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.height)! +
+            UIApplication.shared.statusBarFrame.height
+            , width: self.view.frame.width, height: 30))
+        nothingFoundView?.textAlignment = .center
+        nothingFoundView?.isHidden = true
+        nothingFoundView?.backgroundColor = UIColor.citaYellow
+        nothingFoundView?.text = "No events found, try expanding your search area on the map"
+        self.view.addSubview(nothingFoundView!)
+        
         
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
@@ -109,6 +119,9 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 self.tableView.reloadData()
                 self.populateMarkers()
         }
+        
+
+        
     }
     
     func populateMarkers() {
@@ -131,6 +144,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             marker.map = self.mapView
             self.isNewMarker = false
         }
+        
+        if self.filteredActivities?.count == 0 {
+            self.nothingFoundView?.isHidden = false
+        } else {
+            self.nothingFoundView?.isHidden = true
+        }
+        
     }
     
     @IBAction func toggleMapListView(_ sender: Any) {
@@ -144,6 +164,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 
             }, completion: { finished in
                 self.view.backgroundColor = UIColor.white
+                
+                if self.filteredActivities?.count == 0 {
+                    self.nothingFoundView?.isHidden = false
+                } else {
+                    self.nothingFoundView?.isHidden = true
+                }
+                
             })
         } else {
             toggleViewButton.title = "List"
@@ -154,6 +181,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 self.tableView.isHidden = true
             }, completion: { finished in
                 self.view.backgroundColor = UIColor.white
+                
+                if self.filteredActivities?.count == 0 {
+                    self.nothingFoundView?.isHidden = false
+                } else {
+                    self.nothingFoundView?.isHidden = true
+                }
+                
             })
         }
     }
@@ -312,6 +346,7 @@ extension HomeViewController: GMSMapViewDelegate {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return filteredActivities?.count ?? 0
     }
     
