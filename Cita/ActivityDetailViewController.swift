@@ -34,8 +34,7 @@ class ActivityDetailViewController: UIViewController {
         
         activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
-<<<<<<< HEAD
-=======
+
         if let category = activity.category {
             categoryNameLabel.text = category
             categoryIconImage.image = Activity.defaultCategories[category]
@@ -48,10 +47,7 @@ class ActivityDetailViewController: UIViewController {
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .medium
         timeFormatter.timeStyle = .short
-        let starts = timeFormatter.string(from: activity.startTime!)
-        let ends = timeFormatter.string(from: activity.endTime!)
         
->>>>>>> 2547d0ac050f0575d77373d65f98b665068c78b5
         startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
         addressLabel.text = activity.address
         

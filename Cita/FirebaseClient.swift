@@ -21,41 +21,59 @@ class FirebaseClient: NSObject {
         super.init()
     }
     
-    func observeActivities(within: LocationFrame?, searchTerm: String?, withinDates dateRange: DateRange = DateRange.thisMonth()) {
+    func observeActivities(filter: Filter) {
         if let query = currentQuery {
             ref.removeObserver(withHandle: query)
         }
         
         // this query filters by start date of activity
         // get all activities that start within date dateRange.earliest...latest
-        currentQuery = ref.child(Activity.dbRoot).queryStarting(atValue: nil, childKey: dateRange.earliest.iso8601DatePart).queryEnding(atValue: nil, childKey: dateRange.latest.iso8601DatePart).observe(.value, with: { snapshot in
+        currentQuery = ref.child(Activity.dbRoot).queryStarting(atValue: nil, childKey: filter.dateRange.earliest.iso8601DatePart).queryEnding(atValue: nil, childKey: filter.dateRange.latest.iso8601DatePart).observe(.value, with: { snapshot in
             print("observing activities for \(snapshot.childrenCount) dates")
             var activities: [Activity] = []
             for child in snapshot.children {
                 let date = child as! FIRDataSnapshot
-                print("adding \(date.childrenCount) activities on \(date.key)")
                 for dateChild in date.children {
                     let activity = Activity(snapshot: dateChild as! FIRDataSnapshot)
                     
-                    if within != nil { // filter on location
+                    if filter.locationFrame != nil { // filter on location
                         if let location = activity.location {
-                            if !location.inFrame(frame: within!) {
-                                print("location not in frame: \(location.toString())")
+                            if !location.inFrame(frame: filter.locationFrame!) {
                                 continue
+                            } else {
+                                print("location in frame: \(location)")
                             }
                         } else {
-                            print("no location for activity \(activity.key)")
+                            print("!! no location for activity \(activity.key)")
                             continue
                         }
                     }
-                    if let search = searchTerm { // filter on search term
-                        let matchName = activity.name?.range(of: search)
-                        let matchDescription = activity.fullDescription?.range(of: search)
+//                    print("check activity category \(activity.category) against \(filter.categories)")
+                    if !filter.categories.isEmpty {
+                        if let category = activity.category {
+                            if filter.categories.index(of: category) == nil {
+                                print("activity category \(category) not in category search list")
+                                continue
+                            } else {
+                                print("category \(category) in \(filter.categories)")
+                            }
+                        } else { // nil category does not match list
+                            continue
+                        }
+                    }
+                    
+                    if let search = filter.searchTerm { // filter on search term
+                        let matchName = activity.name?.range(of: search, options: .caseInsensitive)
+                        let matchDescription = activity.fullDescription?.range(of: search, options: .caseInsensitive)
 
                         if matchName==nil && matchDescription==nil {
                             print("no search match for name(\(activity.name)) or description(\(activity.fullDescription))")
                             continue
                         }
+                    }
+                    if activity.startTime! < filter.dateRange.earliest || activity.startTime! > filter.dateRange.latest {
+                        print("further filtered date \(activity.startISO8601)")
+                        continue
                     }
                     
                     activities.append(activity)
