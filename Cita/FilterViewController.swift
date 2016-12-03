@@ -8,25 +8,23 @@
 
 import UIKit
 
-@objc protocol FiltersViewControllerDelegate {
-    @objc optional func filtersViewController(filtersViewController: FiltersViewController, filter: Filter)
+@objc protocol FilterViewControllerDelegate {
+    @objc optional func filterViewController(filterViewController: FilterViewController, filter: Filter)
 }
 
-class FiltersViewController: UIViewController {
+class FilterViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var startsAfterTextField: UITextField!
     @IBOutlet weak var startsBeforeTextField: UITextField!
     @IBOutlet weak var distanceTextField: UITextField!
     
-    weak var delegate: FiltersViewControllerDelegate?
+    weak var delegate: FilterViewControllerDelegate?
     
     var filter: Filter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.filter = Filter()
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -48,10 +46,10 @@ class FiltersViewController: UIViewController {
     @IBAction func onSearch(_ sender: AnyObject) {
         dismiss(animated: true, completion: nil)
         
-        delegate?.filtersViewController?(filtersViewController: self, filter: self.filter)
+        delegate?.filterViewController?(filterViewController: self, filter: self.filter)
     }
 }
-extension FiltersViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension FilterViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -70,7 +68,10 @@ extension FiltersViewController: UICollectionViewDataSource, UICollectionViewDel
         let selected = filter.categories.index(of: name)
         cell.categoryNameLabel.text = name
         cell.iconImage.image = Activity.defaultCategories[name]
-        cell.isSelected = (selected != nil)
+        if selected != nil {
+            cell.isSelected = (selected != nil)
+            collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)
+        }
         cell.setSelectedState()
         return cell
     }

@@ -28,7 +28,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
     
     var activities: [Activity]?
-    var filteredActivities: [Activity]?
+    var currentSearchFilter = Filter()
     var searchBar = UISearchBar()
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
@@ -83,7 +83,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         
         if Activity.currentActivities != nil {
             activities = Activity.currentActivities
-            filteredActivities = activities
             tableView.reloadData()
             populateMarkers()
         }
@@ -104,16 +103,18 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             forName: NSNotification.Name(rawValue: Activity.activitiesUpdated),
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
+                print("got notif \(Activity.activitiesUpdated) with \(Activity.currentActivities?.count) activities")
                 self.activities = Activity.currentActivities
-                self.updateFilteredActivities()
-                self.tableView.reloadData()
-                self.populateMarkers()
+                self.updateActivities()
         }
     }
     
     func populateMarkers() {
         mapView.clear()
-        for activity in self.filteredActivities! {
+        guard let activities = self.activities else {
+            return
+        }
+        for activity in activities {
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: (activity.location?.latitude)!, longitude: (activity.location?.longitude)!)
             marker.title = activity.name
@@ -131,6 +132,25 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             marker.map = self.mapView
             self.isNewMarker = false
         }
+    }
+
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("search test changed to \(searchText)")
+        currentSearchFilter.searchTerm = searchText
+        FirebaseClient.sharedInstance.observeActivities(filter: currentSearchFilter)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        currentSearchFilter.searchTerm = ""
+        FirebaseClient.sharedInstance.observeActivities(filter: currentSearchFilter)
     }
     
     @IBAction func toggleMapListView(_ sender: Any) {
@@ -157,28 +177,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             })
         }
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchTerm = searchText
-        updateFilteredActivities()
-        
-        tableView.reloadData()
-        populateMarkers()
+
+    @IBAction func filterSearchTap(_ sender: Any) {
     }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.searchBar.showsCancelButton = true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-        self.filteredActivities = activities
-        tableView.reloadData()
-        populateMarkers()
-    }
-    
+
     @IBAction func myActivitiesTap(_ sender: UITapGestureRecognizer) {
         self.performSegue(withIdentifier: "MyActivitiesSegue", sender: nil)
     }
@@ -234,17 +236,17 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             let activity = self.activities?[selectedIndex]
             let activityDetailViewController = segue.destination as! ActivityDetailViewController
             activityDetailViewController.activity = activity
-//            activity?.fetchAtendees()
+        } else if segue.identifier == "SearchFilter" {
+            let navigationController = segue.destination as! UINavigationController
+            let filterViewController = navigationController.topViewController as! FilterViewController
+            filterViewController.filter = currentSearchFilter
+            filterViewController.delegate = self
         }
     }
     
-    func updateFilteredActivities() {
-        let currentTerm = searchTerm ?? ""
-        self.filteredActivities = currentTerm.isEmpty ? activities : activities?.filter({(activity: Activity) -> Bool in
-            let nameMatch = activity.name?.range(of: currentTerm, options: .caseInsensitive)
-            let descMatch = activity.fullDescription?.range(of: currentTerm, options: .caseInsensitive)
-            return nameMatch != nil || descMatch != nil
-        })
+    func updateActivities() {
+        tableView.reloadData()
+        populateMarkers()
     }
 }
 
@@ -267,13 +269,27 @@ extension HomeViewController: CLLocationManagerDelegate {
 }
 
 extension HomeViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {        
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        print("map willMove")
+    }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        print("map didChange")
+    }
+    
+    func mapView(_ mapView: GMSMapView, didEndDragging marker: GMSMarker) {
+        print("map didEndDragging")
+    }
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        print("map idleAt")
         let visibleRegion = mapView.projection.visibleRegion()
         let bounds = GMSCoordinateBounds.init(region: visibleRegion)
         let upperRight = Location(lat: bounds.northEast.latitude, long: bounds.northEast.longitude)
         let lowerLeft = Location(lat: bounds.southWest.latitude, long: bounds.southWest.longitude)
         let locationFrame = LocationFrame(lowerLeft: lowerLeft, upperRight: upperRight)
-        FirebaseClient.sharedInstance.observeActivities(within: locationFrame, searchTerm: nil)
+        currentSearchFilter.locationFrame = locationFrame
+        FirebaseClient.sharedInstance.observeActivities(filter: currentSearchFilter)
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
@@ -312,12 +328,12 @@ extension HomeViewController: GMSMapViewDelegate {
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, tableDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredActivities?.count ?? 0
+        return activities?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
-        cell.activity = filteredActivities?[indexPath.row]
+        cell.activity = activities?[indexPath.row]
         cell.delegate = self
         return cell
     }
@@ -331,6 +347,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate, UIGest
         let activityDetailViewController = storyboard.instantiateViewController(withIdentifier: "ActivityDetailViewController") as! ActivityDetailViewController
         activityDetailViewController.activity = activity
         self.navigationController?.pushViewController(activityDetailViewController, animated: true)
+    }
+}
+
+extension HomeViewController: FilterViewControllerDelegate {
+    func filterViewController(filterViewController: FilterViewController, filter: Filter) {
+        print("applying filter with categories \(filter.categories)")
+        currentSearchFilter = filter
+        FirebaseClient.sharedInstance.observeActivities(filter: currentSearchFilter)
     }
 }
 

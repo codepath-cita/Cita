@@ -9,8 +9,9 @@
 import UIKit
 
 class Filter: NSObject {
-    var searchTerm: String = "Restaurants"
+    var searchTerm: String?
     var categories: [String] = []
+    var locationFrame: LocationFrame?
     var distance: String = "40000"
     var dateRange: DateRange = DateRange.thisMonth()
     

@@ -622,12 +622,12 @@
         <!--Search Filters-->
         <scene sceneID="vuq-Tq-nUD">
             <objects>
-                <viewController storyboardIdentifier="FilterViewController" id="dcD-gn-GsA" customClass="FiltersViewController" customModule="Cita" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilterViewController" id="dcD-gn-GsA" customClass="FilterViewController" customModule="Cita" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4D5-V9-uGB"/>
                         <viewControllerLayoutGuide type="bottom" id="bCJ-GJ-XZg"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VD1-7p-WYa" customClass="Filter">
+                    <view key="view" contentMode="scaleToFill" id="VD1-7p-WYa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -698,11 +698,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="he4-fU-w91" userLabel="Distance View">
                                 <rect key="frame" x="4" y="191.5" width="367" height="36"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_marker.png" translatesAutoresizingMaskIntoConstraints="NO" id="AET-h2-tOw">
-                                        <rect key="frame" x="8" y="4" width="28" height="28"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="AET-h2-tOw">
+                                        <rect key="frame" x="8" y="8" width="20" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="1ac-OB-8c4" userLabel="height = 20"/>
-                                            <constraint firstAttribute="width" constant="28" id="KzU-Bv-yZ7" userLabel="width = 20"/>
+                                            <constraint firstAttribute="height" constant="20" id="1ac-OB-8c4" userLabel="height = 20"/>
+                                            <constraint firstAttribute="width" constant="20" id="KzU-Bv-yZ7" userLabel="width = 20"/>
                                         </constraints>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Within (Miles)" textAlignment="natural" minimumFontSize="15" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1qx-pq-gxp">
@@ -724,7 +724,7 @@
                                     <constraint firstAttribute="height" constant="36" id="QH8-dN-PBF"/>
                                     <constraint firstItem="AET-h2-tOw" firstAttribute="centerY" secondItem="he4-fU-w91" secondAttribute="centerY" id="YFB-qX-GNb"/>
                                     <constraint firstAttribute="trailing" secondItem="1qx-pq-gxp" secondAttribute="trailing" constant="4" id="YGK-kr-q7b"/>
-                                    <constraint firstItem="1qx-pq-gxp" firstAttribute="leading" secondItem="AET-h2-tOw" secondAttribute="trailing" constant="12" id="k7w-SO-743"/>
+                                    <constraint firstItem="1qx-pq-gxp" firstAttribute="leading" secondItem="AET-h2-tOw" secondAttribute="trailing" constant="20" id="k7w-SO-743"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tq0-4A-JPQ">
@@ -963,7 +963,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="5aQ-6o-bvF">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="zc3-PK-ggj" kind="presentation" id="puK-8l-W8x"/>
+                                <segue destination="zc3-PK-ggj" kind="presentation" identifier="SearchFilter" id="puK-8l-W8x"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="List" id="Bl1-5q-lEm">
@@ -1230,7 +1230,6 @@
         <image name="add" width="240" height="240"/>
         <image name="bell" width="24" height="24"/>
         <image name="calendar" width="26" height="26"/>
-        <image name="default_marker.png" width="21" height="38"/>
         <image name="description" width="350" height="350"/>
         <image name="introBackground" width="640" height="1140"/>
         <image name="location" width="25" height="25"/>

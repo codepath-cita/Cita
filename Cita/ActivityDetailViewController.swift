@@ -46,8 +46,6 @@ class ActivityDetailViewController: UIViewController {
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .medium
         timeFormatter.timeStyle = .short
-        let starts = timeFormatter.string(from: activity.startTime!)
-        let ends = timeFormatter.string(from: activity.endTime!)
         
         startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
         //"From \(starts)"
