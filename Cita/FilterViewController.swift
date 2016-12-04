@@ -19,6 +19,12 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var startsBeforeTextField: UITextField!
     @IBOutlet weak var distanceTextField: UITextField!
     
+    var startsAfterText: String?
+    var startsAfterPicker: UIDatePicker!
+    var startsBeforeText: String?
+    var startsBeforePicker: UIDatePicker!
+    let timeFormatter = DateFormatter()
+    
     weak var delegate: FilterViewControllerDelegate?
     
     var filter: Filter!
@@ -32,6 +38,26 @@ class FilterViewController: UIViewController {
         
         // Register cell xib
         collectionView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+        
+        timeFormatter.dateStyle = .medium
+        timeFormatter.timeStyle = .short
+        
+        startsAfterPicker = UIDatePicker()
+        startsAfterPicker.date = filter.dateRange.earliest
+        startsAfterPicker.datePickerMode = .dateAndTime
+        startsAfterPicker.minimumDate = 30.minutes.fromNow()
+        startsAfterPicker.minuteInterval = 10
+        startsAfterTextField.inputView = startsAfterPicker
+        startsAfterPicker.addTarget(self, action: #selector(setStartAfterTime), for: .valueChanged)
+        
+        startsBeforePicker = UIDatePicker()
+        startsBeforePicker.date = filter.dateRange.latest
+        startsBeforePicker.datePickerMode = .dateAndTime
+        startsBeforePicker.minimumDate = 30.minutes.fromNow()
+        startsBeforePicker.minuteInterval = 10
+        startsBeforeTextField.inputView = startsBeforePicker
+        startsBeforePicker.addTarget(self, action: #selector(setStartBeforeTime), for: .valueChanged)
+        updateDateText()
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,6 +73,25 @@ class FilterViewController: UIViewController {
         dismiss(animated: true, completion: nil)
         
         delegate?.filterViewController?(filterViewController: self, filter: self.filter)
+    }
+    
+    func setStartAfterTime() {
+        let dateRange = DateRange(earliest: startsAfterPicker.date, latest: filter.dateRange.latest)
+        filter.dateRange = dateRange
+        updateDateText()
+    }
+    
+    func setStartBeforeTime() {
+        let dateRange = DateRange(earliest: filter.dateRange.earliest, latest: startsBeforePicker.date)
+        filter.dateRange = dateRange
+        updateDateText()
+    }
+    
+    func updateDateText() {
+        startsAfterText = timeFormatter.string(from: filter.dateRange.earliest)
+        startsAfterTextField.text = startsAfterText
+        startsBeforeText = timeFormatter.string(from: filter.dateRange.latest)
+        startsBeforeTextField.text = startsBeforeText
     }
 }
 extension FilterViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

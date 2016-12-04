@@ -27,7 +27,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="756" text="name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T7-KS-fs0" userLabel="name">
-                        <rect key="frame" x="44" y="10" width="496" height="20"/>
+                        <rect key="frame" x="44" y="10" width="468" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -61,14 +61,14 @@
                 <constraints>
                     <constraint firstItem="9jR-Xu-25d" firstAttribute="top" secondItem="2T7-KS-fs0" secondAttribute="bottom" constant="4" id="0Ia-lG-cVT"/>
                     <constraint firstAttribute="trailingMargin" secondItem="fCT-X5-XXZ" secondAttribute="trailing" constant="8" id="1Dy-4W-KCo"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="2T7-KS-fs0" secondAttribute="trailing" constant="8" id="9qc-bQ-jSh"/>
+                    <constraint firstItem="gMc-3p-N0V" firstAttribute="leading" secondItem="2T7-KS-fs0" secondAttribute="trailing" constant="8" id="ClG-iL-Nqb"/>
                     <constraint firstAttribute="trailingMargin" secondItem="9jR-Xu-25d" secondAttribute="trailing" constant="8" id="FCT-rq-R7H"/>
-                    <constraint firstItem="x2o-lv-bwb" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="GIN-iW-ndx"/>
                     <constraint firstItem="x2o-lv-bwb" firstAttribute="top" secondItem="9jR-Xu-25d" secondAttribute="bottom" constant="4" id="QDh-kL-rxs"/>
                     <constraint firstItem="gMc-3p-N0V" firstAttribute="top" secondItem="1db-SQ-4q2" secondAttribute="topMargin" constant="2" id="S8q-Xw-d2V"/>
                     <constraint firstItem="fCT-X5-XXZ" firstAttribute="top" secondItem="x2o-lv-bwb" secondAttribute="bottom" constant="4" id="SrJ-T4-2hy"/>
                     <constraint firstItem="Pi5-EB-IYt" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="a4Z-Cy-pa6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="gMc-3p-N0V" secondAttribute="trailing" constant="8" id="gDp-mw-xew"/>
+                    <constraint firstItem="x2o-lv-bwb" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="gOR-3F-5Rk"/>
                     <constraint firstItem="fCT-X5-XXZ" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="inw-xW-bWH"/>
                     <constraint firstItem="Pi5-EB-IYt" firstAttribute="top" secondItem="1db-SQ-4q2" secondAttribute="topMargin" constant="2" id="jpg-6e-6yZ"/>
                     <constraint firstItem="9jR-Xu-25d" firstAttribute="leading" secondItem="1db-SQ-4q2" secondAttribute="leadingMargin" constant="8" id="oPl-4K-oFC"/>
@@ -82,7 +82,7 @@
                 <outlet property="categoryImage" destination="Pi5-EB-IYt" id="hyC-nk-Phf"/>
                 <outlet property="descriptionLabel" destination="fCT-X5-XXZ" id="Yay-Vn-vEg"/>
                 <outlet property="groupSizeLabel" destination="x2o-lv-bwb" id="YhH-LP-lZ7"/>
-                <outlet property="iconImageView" destination="gMc-3p-N0V" id="OQ6-qf-mxP"/>
+                <outlet property="iconImageView" destination="gMc-3p-N0V" id="Lnz-v7-cbg"/>
                 <outlet property="nameLabel" destination="2T7-KS-fs0" id="Ner-uo-Wl3"/>
                 <outlet property="startTimeLabel" destination="9jR-Xu-25d" id="6jB-IL-VgO"/>
             </connections>
