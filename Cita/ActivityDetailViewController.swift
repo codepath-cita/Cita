@@ -34,14 +34,8 @@ class ActivityDetailViewController: UIViewController {
         
         activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
-        if let category = activity.category {
-            categoryNameLabel.text = category
-            categoryIconImage.image = Activity.defaultCategories[category]
-        } else {
-            let category = Activity.other
-            categoryNameLabel.text = category
-            categoryIconImage.image = Activity.defaultCategories[category]
-        }
+        categoryNameLabel.text = activity.category ?? Activity.other
+        categoryIconImage.image = activity.iconImage()
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .medium

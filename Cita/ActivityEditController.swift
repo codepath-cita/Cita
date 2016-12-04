@@ -289,7 +289,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
  
     func onCategory(categoryPicker: CategoryViewController, didPickCategory: String) {
         category = didPickCategory
-        let icon = Activity.defaultCategories[category!]
+        let icon = Activity.categoryIcons[category!]
         print("set activity category=\(category)")
         categoryButton.setTitle("", for: .normal)
         categoryButton.imageView?.contentMode = .scaleAspectFit

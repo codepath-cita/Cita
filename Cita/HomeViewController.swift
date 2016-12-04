@@ -127,8 +127,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             let time = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: true)
             marker.snippet = "\(time) \n(Tap for details)"
             
-            marker.icon = UIImage(named: "marker_red.png")
-//            marker.appearAnimation = kGMSMarkerAnimationPop
+            marker.icon = activity.iconMarker()
             marker.map = self.mapView
             self.isNewMarker = false
         }

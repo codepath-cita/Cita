@@ -59,7 +59,7 @@ extension CategoryViewController:  UICollectionViewDataSource, UICollectionViewD
         // Configure the cell
         let name = Activity.categoryNames[indexPath.row]
         cell.categoryNameLabel.text = name
-        cell.iconImage.image = Activity.defaultCategories[name]
+        cell.iconImage.image = Activity.categoryIcons[name]
         if indexPath.row == selectedIndex {
             cell.bgView.backgroundColor = UIColor.citaGreen
         } else {

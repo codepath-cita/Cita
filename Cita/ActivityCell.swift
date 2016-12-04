@@ -30,11 +30,7 @@ class ActivityCell: UITableViewCell {
             //endTimeLabel.text = "To \(ends)"
             
             groupSizeLabel.text = activity.attendeeCountText()
-            if let category = activity.category {
-                categoryImageView.image = Activity.defaultCategories[category]
-            } else {
-                categoryImageView.image = Activity.defaultCategories[Activity.other]
-            }
+            categoryImageView.image = activity.iconImage()
             
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
