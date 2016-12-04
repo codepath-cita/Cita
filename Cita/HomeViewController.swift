@@ -48,7 +48,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         nothingFoundView?.textAlignment = .center
         nothingFoundView?.isHidden = true
         nothingFoundView?.backgroundColor = UIColor.citaYellow
-        nothingFoundView?.text = " No events found, try expanding your search area on the map "
+        nothingFoundView?.text = " No activities found, try expanding the search area on the map "
         nothingFoundView?.numberOfLines = 1;
         nothingFoundView?.adjustsFontSizeToFitWidth = true
         nothingFoundView?.minimumScaleFactor = 0.2
