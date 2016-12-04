@@ -71,13 +71,13 @@ class Activity: NSObject {
         "Religious": #imageLiteral(resourceName: "religion"),
         "Other": #imageLiteral(resourceName: "other")
     ]
-    static var other = "Random/Other"
+    static var other = "Other"
     
     static var categoryNames: [String] = Activity.defaultCategories.keys.sorted()
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
-        category = dictionary["category"] as? String
+        let category = dictionary["category"] as? String
         fullDescription = dictionary["full_description"] as? String
         
         if let locationString = dictionary["location"] as? String {
