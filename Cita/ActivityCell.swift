@@ -15,6 +15,7 @@ class ActivityCell: UITableViewCell {
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var categoryImage: UIImageView!
 
     let timeFormatter = DateFormatter()
     var delegate: tableDelegate?
@@ -24,6 +25,12 @@ class ActivityCell: UITableViewCell {
             descriptionLabel.text = activity.fullDescription
             startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
             groupSizeLabel.text = activity.attendeeCountText()
+           
+            if let category = activity.category {
+                categoryImage.image = Activity.defaultCategories[category]
+            } else {
+                categoryImage.image = Activity.defaultCategories[Activity.other]
+            }
             
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")

@@ -16,7 +16,6 @@ class ActivityDetailViewController: UIViewController {
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var activityNameLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
-    @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var descriptionLabel: UILabel!

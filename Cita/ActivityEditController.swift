@@ -29,6 +29,10 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var categoryButton: UIButton!
     
+    @IBOutlet weak var createButton: UIButton!
+    
+    
+    
     var startTimePicker: UIDatePicker!
     var durationPicker: UIDatePicker!
     let timeFormatter = DateFormatter()
@@ -63,6 +67,10 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
 //        self.navigationItem.titleView = searchController?.searchBar
 //        self.definesPresentationContext = true
 //        searchController?.hidesNavigationBarDuringPresentation = false
+        
+        createButton.clipsToBounds = true
+        createButton.layer.cornerRadius = 7
+        
     }
     
     func addBordersStyles() {
@@ -193,7 +201,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func didClickSave(_ sender: Any) {
+    @IBAction func createButtonAction(_ sender: Any) {
         if validateFields() {
             endDate = startDate! + countdownDuration!
             let activity = Activity(dictionary: [:])
@@ -212,14 +220,13 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
             activity.save()
             
             let activityKey = "\(startDate!.iso8601DatePart)/\(activity.key!)"
-
+            
             User.currentUser!.creatorKeys!.append(activityKey)
             User.currentUser!.save()
             
             dismiss(animated: true, completion: nil)
         }
     }
-
     
     func validateFields() -> Bool {
         var valid = true

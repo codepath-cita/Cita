@@ -25,6 +25,7 @@ class User: NSObject {
     var activityKeys: [String]?
     var activities: [Activity]?
     var creatorKeys: [String]?
+    var lastLogin: String?
     
     init(dictionary: [String: AnyObject]) {
         uid = dictionary["uid"] as? String
@@ -42,6 +43,7 @@ class User: NSObject {
         if creatorKeys == nil {
             creatorKeys = []
         }
+        lastLogin = dictionary["last_login"] as? String
     }
     
     // store users as a large list
@@ -57,7 +59,8 @@ class User: NSObject {
             "email": email as Any,
             "photo_url": photoURL?.absoluteString as Any,
             "activity_keys": activityKeys as Any,
-            "creator_keys": creatorKeys as Any
+            "creator_keys": creatorKeys as Any,
+            "last_login": lastLogin as Any
         ]
     }
     

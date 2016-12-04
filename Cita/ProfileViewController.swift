@@ -9,16 +9,22 @@
 import UIKit
 import FBSDKCoreKit
 import FirebaseAuth
+import Foundation
+import MessageUI
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var lastLoginLabel: UILabel!
+    @IBOutlet weak var activitiesCreatedCountLabel: UILabel!
+    @IBOutlet weak var activitiesCountLabel: UILabel!
     
     var user: User!
+    var profileCurrentUser: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +34,10 @@ class ProfileViewController: UIViewController {
         
         if user == nil {
             user = User.currentUser
-            logoutButton.titleLabel?.text = "Log Out"
+            logoutButton.setTitle("Log Out", for: .normal)
         } else {
-            logoutButton.titleLabel?.text = "Email"
+            logoutButton.setTitle("Email", for: .normal)
+            profileCurrentUser = false
         }
         
         userNameLabel.text = user.displayName
@@ -40,9 +47,14 @@ class ProfileViewController: UIViewController {
             avatarImageView.image = UIImage(data: data)
         }
         
+        lastLoginLabel.text = "Last login: " + (user.lastLogin ?? "")
+        
+        activitiesCreatedCountLabel.text = String(describing: user.creatorKeys!.count)
+        activitiesCountLabel.text = String(describing: user.activityKeys!.count)
+        
         logoutButton.layer.cornerRadius = 7
         logoutButton.clipsToBounds = true
-        
+        logoutButton.backgroundColor = UIColor.citaYellow
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,13 +63,43 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logoutButtonAction(_ sender: Any) {
-        // Signs user out of Firebase
-        try! FIRAuth.auth()!.signOut()
-        //Signs user out of Facebook
-        FBSDKAccessToken.setCurrent(nil)
+        if profileCurrentUser == true {
+            // Signs user out of Firebase
+            try! FIRAuth.auth()!.signOut()
+            //Signs user out of Facebook
+            FBSDKAccessToken.setCurrent(nil)
+        } else {
+            let mailComposeViewController = configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                self.present(mailComposeViewController, animated: true, completion: nil)
+            } else {
+                self.showSendMailErrorAlert()
+            }
+        }
     }
 
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients([user.email!])
+        mailComposerVC.setSubject("Sending you an in-app e-mail about this activity...")
+        mailComposerVC.setMessageBody("", isHTML: false)
+        
+        return mailComposerVC
+    }
     
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismiss(animated: true, completion: nil)
+        
+    }
     /*
      // MARK: - Navigation
      

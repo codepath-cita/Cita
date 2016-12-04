@@ -48,7 +48,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         nothingFoundView?.textAlignment = .center
         nothingFoundView?.isHidden = true
         nothingFoundView?.backgroundColor = UIColor.citaYellow
-        nothingFoundView?.text = "No events found, try expanding your search area on the map"
+        nothingFoundView?.text = " No events found, try expanding your search area on the map "
+        nothingFoundView?.numberOfLines = 1;
+        nothingFoundView?.adjustsFontSizeToFitWidth = true
+        nothingFoundView?.minimumScaleFactor = 0.2
         self.view.addSubview(nothingFoundView!)
         
         
@@ -224,7 +227,11 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
     @IBAction func newActivityTap(_ sender: UITapGestureRecognizer) {
-        self.performSegue(withIdentifier: "NewActivitySegue", sender: nil)
+        let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+        
+        self.navigationController?.pushViewController(activityEditVC, animated: true)
+        
+        //self.performSegue(withIdentifier: "NewActivitySegue", sender: nil)
     }
     
     override func didReceiveMemoryWarning() {
