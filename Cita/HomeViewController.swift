@@ -234,8 +234,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
         
         self.navigationController?.pushViewController(activityEditVC, animated: true)
-        
-        //self.performSegue(withIdentifier: "NewActivitySegue", sender: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -256,18 +254,8 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "NewActivitySegue" {
-            if (sender != nil) {
-                let marker = sender as! GMSMarker
-                let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
-                
-                let navigationController = segue.destination as! UINavigationController
-                let activityEditViewController = navigationController.topViewController as! ActivityEditController
-                activityEditViewController.location = location
-                print(self.reversedAddress)
-                activityEditViewController.locationAddress = self.reversedAddress
-            }
-        } else if segue.identifier == "ActivityDetailSegue" {
+        print(#function)
+        if segue.identifier == "ActivityDetailSegue" {
             let marker = sender as! GMSMarker
             var selectedIndex = Int()
             var counter = 0
@@ -286,6 +274,22 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             let filterViewController = navigationController.topViewController as! FilterViewController
             filterViewController.filter = currentSearchFilter
             filterViewController.delegate = self
+        } else { // NewActivity
+            if (sender != nil) {
+                let marker = sender as! GMSMarker
+                let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
+
+                let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+                activityEditVC.location = location
+                print(self.reversedAddress)
+                activityEditVC.locationAddress = self.reversedAddress
+                self.navigationController?.pushViewController(activityEditVC, animated: true)
+                
+                /*
+                let navigationController = segue.destination as! UINavigationController
+                let activityEditViewController = navigationController.topViewController as! ActivityEditController*/
+
+            }
         }
     }
     
@@ -356,8 +360,17 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print(#function)
         if (self.isNewMarker == true) {
-            self.performSegue(withIdentifier: "NewActivitySegue", sender: marker)
+            let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
+            
+            let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+            activityEditVC.location = location
+            print(self.reversedAddress)
+            activityEditVC.locationAddress = self.reversedAddress
+            
+            self.navigationController?.pushViewController(activityEditVC, animated: true)
+            
             marker.map = nil
         } else {
             self.performSegue(withIdentifier: "ActivityDetailSegue", sender: marker)
