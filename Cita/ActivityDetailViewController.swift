@@ -12,6 +12,7 @@ class ActivityDetailViewController: UIViewController {
     
     let HeaderViewIdentifier = "TableViewHeaderView"
     
+    @IBOutlet weak var groupSizeLabel: UILabel!
     @IBOutlet weak var categoryIconImage: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var activityNameLabel: UILabel!
@@ -33,7 +34,8 @@ class ActivityDetailViewController: UIViewController {
         
         activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
-
+        groupSizeLabel.text = activity.attendeeCountText()
+        
         if let category = activity.category {
             categoryNameLabel.text = category
             categoryIconImage.image = Activity.defaultCategories[category]
@@ -42,6 +44,9 @@ class ActivityDetailViewController: UIViewController {
             categoryNameLabel.text = category
             categoryIconImage.image = Activity.defaultCategories[category]
         }
+
+        categoryIconImage.image = categoryIconImage.image!.withRenderingMode(.alwaysTemplate)
+        categoryIconImage.tintColor = UIColor.citaGray
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .medium

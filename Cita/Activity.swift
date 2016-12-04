@@ -163,6 +163,11 @@ class Activity: NSObject {
         let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
         return "\(attendeeCount) of \(groupSize ?? -1) spots taken"
     }
+
+    func attendeeCount() -> String {
+        let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
+        return "\(attendeeCount)"
+    }
     
     func durationText() -> String {
         if let duration = countdownDuration {
