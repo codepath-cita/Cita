@@ -98,7 +98,6 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         }
         titleView.layer.borderWidth = 1
         titleView.layer.borderColor = UIColor.citaLightLightGray.cgColor
-        nameTextField.textColor = UIColor.citaLightGray
         nameTextField.layer.borderWidth = 1.0
         nameTextField.layer.cornerRadius = 5
         nameTextField.borderStyle = .roundedRect
