@@ -55,11 +55,11 @@ class Activity: NSObject {
     static var currentActivities: [Activity]? = []
     
     static var defaultCategories: [String:UIImage] = [
-        "Team Sports": #imageLiteral(resourceName: "sports-ball"),
-        "Exercise & Workout": #imageLiteral(resourceName: "workout"),
-        "Indoor Games": #imageLiteral(resourceName: "games"),
+        "Sports": #imageLiteral(resourceName: "sports-ball"),
+        "Exercise": #imageLiteral(resourceName: "workout"),
+        "Games": #imageLiteral(resourceName: "games"),
         "Drinks": #imageLiteral(resourceName: "drinks"),
-        "Food & Meals": #imageLiteral(resourceName: "food"),
+        "Food": #imageLiteral(resourceName: "food"),
         "Music": #imageLiteral(resourceName: "music"),
         "Dancing": #imageLiteral(resourceName: "dance"),
         "Outdoors": #imageLiteral(resourceName: "outdoors"),
@@ -69,7 +69,7 @@ class Activity: NSObject {
         "Political": #imageLiteral(resourceName: "politics"),
         "Volunteer": #imageLiteral(resourceName: "volunteer"),
         "Religious": #imageLiteral(resourceName: "religion"),
-        "Random/Other": #imageLiteral(resourceName: "other")
+        "Other": #imageLiteral(resourceName: "other")
     ]
     static var other = "Random/Other"
     
