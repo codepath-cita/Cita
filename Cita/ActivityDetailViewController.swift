@@ -69,6 +69,10 @@ class ActivityDetailViewController: UIViewController {
         
         joinButton.layer.cornerRadius = 7
         joinButton.clipsToBounds = true
+        joinButton.backgroundColor = UIColor.citaGreen
+        joinButton.layer.borderWidth = 1
+        joinButton.layer.borderColor = UIColor.citaDarkGray.cgColor
+
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
@@ -139,10 +143,12 @@ class ActivityDetailViewController: UIViewController {
     
     func setJoinButton(attending: Bool) {
         if attending {
-            joinButton.backgroundColor = .red
+            joinButton.backgroundColor = UIColor.citaYellow
+            joinButton.layer.borderColor = UIColor.citaDarkYellow.cgColor
             joinButton.setTitle("Leave Activity", for: .normal)
         } else {
-            joinButton.backgroundColor = UIColor(red:0.20, green:0.62, blue:0.06, alpha:1.0)
+            joinButton.backgroundColor = UIColor.citaGreen
+            joinButton.layer.borderColor = UIColor.citaDarkGray.cgColor
             joinButton.setTitle("Join Activity", for: .normal)
         }
     }

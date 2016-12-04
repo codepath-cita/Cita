@@ -17,7 +17,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
-    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var lastLoginLabel: UILabel!
     @IBOutlet weak var activitiesCreatedCountLabel: UILabel!
@@ -31,6 +30,16 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         
         avatarImageView.layer.cornerRadius = avatarImageView.layer.frame.size.width / 2
         avatarImageView.clipsToBounds = true
+        avatarImageView.layer.borderColor = UIColor.black.cgColor
+        avatarImageView.layer.borderWidth = 1
+        avatarImageView.layer.shadowColor = UIColor.black.cgColor
+        avatarImageView.layer.shadowRadius = 2
+        avatarImageView.layer.shadowOpacity = 1
+        avatarImageView.layer.shadowOffset = CGSize(width: 2, height: 2)
+        
+        logoutButton.backgroundColor = UIColor.citaYellow
+        logoutButton.layer.borderWidth = 1
+        logoutButton.layer.borderColor = UIColor.citaDarkYellow.cgColor
         
         if user == nil {
             user = User.currentUser

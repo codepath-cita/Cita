@@ -78,9 +78,11 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         layout.minimumLineSpacing = 0
         categoryCollection!.collectionViewLayout = layout
         
-        
         createButton.clipsToBounds = true
         createButton.layer.cornerRadius = 7
+        createButton.backgroundColor = UIColor.citaGreen
+        createButton.layer.borderWidth = 1
+        createButton.layer.borderColor = UIColor.citaDarkGray.cgColor
         
         nameTextField.returnKeyType = .done
         groupSizeField.returnKeyType = .done
