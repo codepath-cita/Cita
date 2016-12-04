@@ -77,7 +77,7 @@ class Activity: NSObject {
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
-        let category = dictionary["category"] as? String
+        category = dictionary["category"] as? String
         fullDescription = dictionary["full_description"] as? String
         
         if let locationString = dictionary["location"] as? String {
