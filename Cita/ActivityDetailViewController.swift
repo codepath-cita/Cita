@@ -20,7 +20,7 @@ class ActivityDetailViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var joinButton: CitaButton!
     
     var activity: Activity!
     var currentUserAttending = false
@@ -66,12 +66,7 @@ class ActivityDetailViewController: UIViewController {
             }
         }
         
-        joinButton.layer.cornerRadius = 7
-        joinButton.clipsToBounds = true
-        joinButton.backgroundColor = UIColor.citaGreen
-        joinButton.layer.borderWidth = 1
-        joinButton.layer.borderColor = UIColor.citaDarkGray.cgColor
-
+        joinButton.style(borderColor: UIColor.citaDarkGray, backgroundColor: UIColor.citaGreen)
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
@@ -88,39 +83,41 @@ class ActivityDetailViewController: UIViewController {
     }
     
     @IBAction func joinActivityButtonPress(_ sender: Any) {
-        if activity.isRegistrationFull() && !currentUserAttending {
-            showRegistrationFullAlert()
-            return
-        }
-        
-        var alertTitle = "Get Ready!"
-        if currentUserAttending {
-            alertTitle = "Awww :("
-        }
-        var alertMessage = "Thank you for joining this event, we  hope you have a lot of fun!!"
-        if currentUserAttending {
-            alertMessage = "Sorry to see you go. Press Cancel if you are still interested."
-        }
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        
-        let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            if self.currentUserAttending {
-                self.activity.removeUser(user: User.currentUser!)
-            } else {
-                self.activity.registerUser(user: User.currentUser!)
+        joinButton.animate {
+            if self.activity.isRegistrationFull() && !self.currentUserAttending {
+                self.showRegistrationFullAlert()
+                return
             }
-            self.currentUserAttending = !self.currentUserAttending
-            self.setJoinButton(attending: self.currentUserAttending)
-            let _ = self.navigationController?.popViewController(animated: true)
-        }
+            
+            var alertTitle = "Get Ready!"
+            if self.currentUserAttending {
+                alertTitle = "Awww :("
+            }
+            var alertMessage = "Thank you for joining this event, we  hope you have a lot of fun!!"
+            if self.currentUserAttending {
+                alertMessage = "Sorry to see you go. Press Cancel if you are still interested."
+            }
+            let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                if self.currentUserAttending {
+                    self.activity.removeUser(user: User.currentUser!)
+                } else {
+                    self.activity.registerUser(user: User.currentUser!)
+                }
+                self.currentUserAttending = !self.currentUserAttending
+                self.setJoinButton(attending: self.currentUserAttending)
+                let _ = self.navigationController?.popViewController(animated: true)
+            }
 
-        let CANCELAction = UIAlertAction(title: "CANCEL", style: .default) { (action) in
-            // => DO NOTHING
+            let CANCELAction = UIAlertAction(title: "CANCEL", style: .default) { (action) in
+                // => DO NOTHING
+            }
+            
+            alertController.addAction(CANCELAction)
+            alertController.addAction(OKAction)
+            self.present(alertController, animated: true)
         }
-        
-        alertController.addAction(CANCELAction)
-        alertController.addAction(OKAction)
-        self.present(alertController, animated: true)
     }
     
     func showRegistrationFullAlert() {

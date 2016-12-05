@@ -23,7 +23,7 @@ class CategoryCell: UICollectionViewCell {
         
         if isSelected {
             self.layer.shadowColor = UIColor.citaGreen.cgColor
-            self.layer.shadowOffset = CGSize(width: 2, height: 2)
+            self.layer.shadowOffset = CGSize(width: 0, height: 0)
             self.layer.shadowOpacity = 1
             self.layer.shadowRadius = 1.0
             self.clipsToBounds = false

@@ -12,6 +12,9 @@ import GooglePlaces
 
 class HomeViewController: UIViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var newActivityImage: UIImageView!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var myActivitiesImage: UIImageView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var tabBarView: UIView!
@@ -222,17 +225,32 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
 
     @IBAction func myActivitiesTap(_ sender: UITapGestureRecognizer) {
-        self.performSegue(withIdentifier: "MyActivitiesSegue", sender: nil)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.myActivitiesImage.tintColor = UIColor.white
+        }, completion: {success in
+            self.myActivitiesImage.tintColor = UIColor.citaRed
+            self.performSegue(withIdentifier: "MyActivitiesSegue", sender: nil)
+        })
     }
     
     @IBAction func profileTap(_ sender: UITapGestureRecognizer) {
-        self.performSegue(withIdentifier: "ProfileSegue", sender: nil)
+        UIView.animate(withDuration: 0.2, animations: {
+            self.profileImage.tintColor = UIColor.white
+        }, completion: {success in
+            self.profileImage.tintColor = UIColor.citaRed
+            self.performSegue(withIdentifier: "ProfileSegue", sender: nil)
+        })
     }
     
     @IBAction func newActivityTap(_ sender: UITapGestureRecognizer) {
-        let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+        UIView.animate(withDuration: 0.2, animations: {
+            self.newActivityImage.tintColor = UIColor.white
+        }, completion: {success in
+            self.newActivityImage.tintColor = UIColor.citaRed
+            let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
         
-        self.navigationController?.pushViewController(activityEditVC, animated: true)
+            self.navigationController?.pushViewController(activityEditVC, animated: true)
+        })
     }
     
     override func didReceiveMemoryWarning() {

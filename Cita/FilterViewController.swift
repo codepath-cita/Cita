@@ -13,13 +13,11 @@ import UIKit
 }
 
 class FilterViewController: UIViewController {
-    
     @IBOutlet weak var beforeImage: UIImageView!
     @IBOutlet weak var afterImage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var startsAfterTextField: UITextField!
     @IBOutlet weak var startsBeforeTextField: UITextField!
-    @IBOutlet weak var distanceTextField: UITextField!
     
     var startsAfterText: String?
     var startsAfterPicker: UIDatePicker!
@@ -33,7 +31,7 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         beforeImage.image = beforeImage.image!.withRenderingMode(.alwaysTemplate)
         beforeImage.tintColor = UIColor.citaLightGray
         afterImage.image = afterImage.image!.withRenderingMode(.alwaysTemplate)

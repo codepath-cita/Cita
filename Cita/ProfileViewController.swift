@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
-    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var logoutButton: CitaButton!
     @IBOutlet weak var lastLoginLabel: UILabel!
     @IBOutlet weak var activitiesCreatedCountLabel: UILabel!
     @IBOutlet weak var activitiesCountLabel: UILabel!
@@ -37,9 +37,7 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         avatarImageView.layer.shadowOpacity = 1
         avatarImageView.layer.shadowOffset = CGSize(width: 2, height: 2)
         
-        logoutButton.backgroundColor = UIColor.citaYellow
-        logoutButton.layer.borderWidth = 1
-        logoutButton.layer.borderColor = UIColor.citaDarkYellow.cgColor
+        logoutButton.style(borderColor: UIColor.citaDarkYellow, backgroundColor: UIColor.citaYellow)
         
         if user == nil {
             user = User.currentUser
@@ -60,10 +58,6 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         
         activitiesCreatedCountLabel.text = String(describing: user.creatorKeys!.count)
         activitiesCountLabel.text = String(describing: user.activityKeys!.count)
-        
-        logoutButton.layer.cornerRadius = 7
-        logoutButton.clipsToBounds = true
-        logoutButton.backgroundColor = UIColor.citaYellow
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,17 +66,19 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     }
     
     @IBAction func logoutButtonAction(_ sender: Any) {
-        if profileCurrentUser == true {
-            // Signs user out of Firebase
-            try! FIRAuth.auth()!.signOut()
-            //Signs user out of Facebook
-            FBSDKAccessToken.setCurrent(nil)
-        } else {
-            let mailComposeViewController = configuredMailComposeViewController()
-            if MFMailComposeViewController.canSendMail() {
-                self.present(mailComposeViewController, animated: true, completion: nil)
+        logoutButton.animate {
+            if self.profileCurrentUser == true {
+                // Signs user out of Firebase
+                try! FIRAuth.auth()!.signOut()
+                //Signs user out of Facebook
+                FBSDKAccessToken.setCurrent(nil)
             } else {
-                self.showSendMailErrorAlert()
+                let mailComposeViewController = self.configuredMailComposeViewController()
+                if MFMailComposeViewController.canSendMail() {
+                    self.present(mailComposeViewController, animated: true, completion: nil)
+                } else {
+                    self.showSendMailErrorAlert()
+                }
             }
         }
     }

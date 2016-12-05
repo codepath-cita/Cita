@@ -11,6 +11,7 @@ import GooglePlaces
 
 class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
+    @IBOutlet weak var containerCollectionView: UIView!
     @IBOutlet weak var descriptionIcon: UIImageView!
     @IBOutlet weak var groupSizeIcon: UIImageView!
     @IBOutlet weak var durationIcon: UIImageView!
@@ -32,7 +33,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     @IBOutlet weak var endView: UIView!
     @IBOutlet weak var peopleView: UIView!
     @IBOutlet weak var descriptionView: UIView!
-    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var createButton: CitaButton!
     
     var selectedIndex: Int?
     var startTimePicker: UIDatePicker!
@@ -62,27 +63,22 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         
         // Register cell xib
         categoryCollection.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
-        
         categoryCollection.delegate = self
         categoryCollection.dataSource = self
-
         categoryCollection.allowsMultipleSelection = false;
         categoryCollection.allowsSelection = true;
-
+        categoryCollection.layer.cornerRadius = 7
+        categoryCollection.clipsToBounds = true
         
         let screenWidth = self.view.frame.width
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 2, right: 8)
+        layout.sectionInset = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 8)
         layout.itemSize = CGSize(width: screenWidth/3 - 16, height: 28)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         categoryCollection!.collectionViewLayout = layout
         
-        createButton.clipsToBounds = true
-        createButton.layer.cornerRadius = 7
-        createButton.backgroundColor = UIColor.citaGreen
-        createButton.layer.borderWidth = 1
-        createButton.layer.borderColor = UIColor.citaDarkGray.cgColor
+        createButton.style(borderColor: UIColor.citaDarkGray, backgroundColor: UIColor.citaGreen)
         
         nameTextField.returnKeyType = .done
         groupSizeField.returnKeyType = .done
@@ -159,7 +155,9 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         descriptionIcon.tintColor = UIColor.citaLightGray
         
         categoryCollection.layer.borderWidth = 1
-        categoryCollection.layer.borderColor = UIColor.citaLightLightGray.cgColor
+        categoryCollection.layer.borderColor = UIColor.white.cgColor
+        containerCollectionView.layer.borderWidth = 1
+        containerCollectionView.layer.borderColor = UIColor.citaLightLightGray.cgColor
     }
     
     func addSelectors() {
@@ -290,36 +288,33 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     
     @IBAction func createButtonAction(_ sender: Any) {
         print(#function)
-        if validateFields() {
-            endDate = startDate! + countdownDuration!
-            let activity = Activity(dictionary: [:])
-            activity.name = nameTextField.text!
-            activity.category = Activity.categoryNames[selectedIndex!]
-            activity.fullDescription = descriptionTextView.text!
-            activity.groupSize = Int(groupSizeField.text!)
-            activity.startTime = startDate!
-            activity.endTime = endDate!
-            activity.countdownDuration = countdownDuration!
-            activity.location = location!
-            activity.address = locationTextField.text!
-            activity.creator = User.currentUser
-            activity.attendees = []
-            activity.attendeeIDs = []
-            activity.save()
-            
-            let activityKey = "\(startDate!.iso8601DatePart)/\(activity.key!)"
-            
-            User.currentUser!.creatorKeys!.append(activityKey)
-            User.currentUser!.save()
-            
-            print("trying to dismiss")
-            
-            navigationController?.popViewController(animated: true)
-            
-            //dismiss(animated: true, completion: nil)
-        }
-        else {
-            print("invalid fields")
+        createButton.animate {
+             if self.validateFields() {
+             self.endDate = self.startDate! + self.countdownDuration!
+             let activity = Activity(dictionary: [:])
+             activity.name = self.nameTextField.text!
+             activity.category = Activity.categoryNames[self.selectedIndex!]
+             activity.fullDescription = self.descriptionTextView.text!
+             activity.groupSize = Int(self.groupSizeField.text!)
+             activity.startTime = self.startDate!
+             activity.endTime = self.endDate!
+             activity.countdownDuration = self.countdownDuration!
+             activity.location = self.location!
+             activity.address = self.locationTextField.text!
+             activity.creator = User.currentUser
+             activity.attendees = []
+             activity.attendeeIDs = []
+             activity.save()
+             
+             let activityKey = "\(self.startDate!.iso8601DatePart)/\(activity.key!)"
+             
+             User.currentUser!.creatorKeys!.append(activityKey)
+             User.currentUser!.save()
+             
+             print("trying to dismiss")
+             
+             let _ = self.navigationController?.popViewController(animated: true)
+             }
         }
     }
     
@@ -465,7 +460,7 @@ extension ActivityEditController:  UICollectionViewDataSource, UICollectionViewD
         
         if indexPath.row == selectedIndex {
             cell.layer.shadowColor = UIColor.citaGreen.cgColor
-            cell.layer.shadowOffset = CGSize(width: 2, height: 2)
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
             cell.layer.shadowOpacity = 1
             cell.layer.shadowRadius = 1.0
             cell.clipsToBounds = false
