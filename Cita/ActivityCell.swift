@@ -15,25 +15,23 @@ class ActivityCell: UITableViewCell {
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var categoryImageView: UIImageView!
-    
+    @IBOutlet weak var categoryImage: UIImageView!
+
     let timeFormatter = DateFormatter()
     var delegate: tableDelegate?
     var activity: Activity! {
         didSet {
-            timeFormatter.dateStyle = .medium
-            timeFormatter.timeStyle = .short
             nameLabel.text = activity.name
             descriptionLabel.text = activity.fullDescription
-            
             startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
-            //endTimeLabel.text = "To \(ends)"
-            
             groupSizeLabel.text = activity.attendeeCountText()
-            categoryImageView.image = activity.iconImage()
+            categoryImage.image = activity.iconImage()
             
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
+                iconImageView.image = iconImageView.image!.withRenderingMode(.alwaysTemplate)
+                iconImageView.tintColor = UIColor.citaYellow
+                
             } else {
                 iconImageView.image = nil
             }

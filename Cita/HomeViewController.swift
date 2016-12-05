@@ -26,7 +26,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var newActivityImageView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     
-    
+    var nothingFoundView: UILabel?
     var activities: [Activity]?
     var currentSearchFilter = Filter()
     var searchBar = UISearchBar()
@@ -41,6 +41,19 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nothingFoundView = UILabel(frame: CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.height)! +
+            UIApplication.shared.statusBarFrame.height
+            , width: self.view.frame.width, height: 30))
+        nothingFoundView?.textAlignment = .center
+        nothingFoundView?.isHidden = true
+        nothingFoundView?.backgroundColor = UIColor.citaYellow
+        nothingFoundView?.text = " No activities found, try expanding the search area on the map "
+        nothingFoundView?.numberOfLines = 1;
+        nothingFoundView?.adjustsFontSizeToFitWidth = true
+        nothingFoundView?.minimumScaleFactor = 0.2
+        self.view.addSubview(nothingFoundView!)
+        
         
         // UI Styling
         myActivitiesImageView.image = myActivitiesImageView.image!.withRenderingMode(.alwaysTemplate)
@@ -107,6 +120,9 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 self.activities = Activity.currentActivities
                 self.updateActivities()
         }
+        
+
+        
     }
     
     func populateMarkers() {
@@ -131,6 +147,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             marker.map = self.mapView
             self.isNewMarker = false
         }
+        
+        if self.activities?.count == 0 {
+            self.nothingFoundView?.isHidden = false
+        } else {
+            self.nothingFoundView?.isHidden = true
+        }
+        
     }
 
     
@@ -167,6 +190,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 
             }, completion: { finished in
                 self.view.backgroundColor = UIColor.white
+                
+                if self.activities?.count == 0 {
+                    self.nothingFoundView?.isHidden = false
+                } else {
+                    self.nothingFoundView?.isHidden = true
+                }
+                
             })
         } else {
             toggleViewButton.title = "List"
@@ -177,6 +207,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                 self.tableView.isHidden = true
             }, completion: { finished in
                 self.view.backgroundColor = UIColor.white
+                
+                if self.activities?.count == 0 {
+                    self.nothingFoundView?.isHidden = false
+                } else {
+                    self.nothingFoundView?.isHidden = true
+                }
+                
             })
         }
     }
@@ -193,7 +230,9 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
     @IBAction func newActivityTap(_ sender: UITapGestureRecognizer) {
-        self.performSegue(withIdentifier: "NewActivitySegue", sender: nil)
+        let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+        
+        self.navigationController?.pushViewController(activityEditVC, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -214,18 +253,8 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "NewActivitySegue" {
-            if (sender != nil) {
-                let marker = sender as! GMSMarker
-                let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
-                
-                let navigationController = segue.destination as! UINavigationController
-                let activityEditViewController = navigationController.topViewController as! ActivityEditController
-                activityEditViewController.location = location
-                print(self.reversedAddress)
-                activityEditViewController.locationAddress = self.reversedAddress
-            }
-        } else if segue.identifier == "ActivityDetailSegue" {
+        print(#function)
+        if segue.identifier == "ActivityDetailSegue" {
             let marker = sender as! GMSMarker
             var selectedIndex = Int()
             var counter = 0
@@ -244,6 +273,22 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             let filterViewController = navigationController.topViewController as! FilterViewController
             filterViewController.filter = currentSearchFilter
             filterViewController.delegate = self
+        } else { // NewActivity
+            if (sender != nil) {
+                let marker = sender as! GMSMarker
+                let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
+
+                let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+                activityEditVC.location = location
+                print(self.reversedAddress)
+                activityEditVC.locationAddress = self.reversedAddress
+                self.navigationController?.pushViewController(activityEditVC, animated: true)
+                
+                /*
+                let navigationController = segue.destination as! UINavigationController
+                let activityEditViewController = navigationController.topViewController as! ActivityEditController*/
+
+            }
         }
     }
     
@@ -314,8 +359,17 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print(#function)
         if (self.isNewMarker == true) {
-            self.performSegue(withIdentifier: "NewActivitySegue", sender: marker)
+            let location = Location(lat: marker.position.latitude, long: marker.position.longitude)
+            
+            let activityEditVC =  self.storyboard?.instantiateViewController(withIdentifier: "ActivityEditController") as! ActivityEditController
+            activityEditVC.location = location
+            print(self.reversedAddress)
+            activityEditVC.locationAddress = self.reversedAddress
+            
+            self.navigationController?.pushViewController(activityEditVC, animated: true)
+            
             marker.map = nil
         } else {
             self.performSegue(withIdentifier: "ActivityDetailSegue", sender: marker)

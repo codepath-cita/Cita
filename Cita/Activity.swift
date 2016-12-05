@@ -56,11 +56,11 @@ class Activity: NSObject {
 
     static var other = "Random/Other"
     static var categoryIcons: [String:UIImage] = [
-        "Team Sports": #imageLiteral(resourceName: "sports-ball"),
-        "Exercise & Workout": #imageLiteral(resourceName: "workout"),
-        "Indoor Games": #imageLiteral(resourceName: "games"),
+        "Sports": #imageLiteral(resourceName: "sports-ball"),
+        "Exercise": #imageLiteral(resourceName: "workout"),
+        "Games": #imageLiteral(resourceName: "games"),
         "Drinks": #imageLiteral(resourceName: "drinks"),
-        "Food & Meals": #imageLiteral(resourceName: "food"),
+        "Food": #imageLiteral(resourceName: "food"),
         "Music": #imageLiteral(resourceName: "music"),
         "Dancing": #imageLiteral(resourceName: "dance"),
         "Outdoors": #imageLiteral(resourceName: "outdoors"),
@@ -74,11 +74,11 @@ class Activity: NSObject {
     ]
 
     static var categoryMarkers: [String:UIImage] = [
-        "Team Sports": #imageLiteral(resourceName: "marker_sports"),
-        "Exercise & Workout": #imageLiteral(resourceName: "marker_workout"),
-        "Indoor Games": #imageLiteral(resourceName: "marker_games"),
+        "Sports": #imageLiteral(resourceName: "marker_sports"),
+        "Exercise": #imageLiteral(resourceName: "marker_workout"),
+        "Games": #imageLiteral(resourceName: "marker_games"),
         "Drinks": #imageLiteral(resourceName: "marker_drinks"),
-        "Food & Meals": #imageLiteral(resourceName: "marker_food"),
+        "Food": #imageLiteral(resourceName: "marker_food"),
         "Music": #imageLiteral(resourceName: "marker_music"),
         "Dancing": #imageLiteral(resourceName: "marker_dance"),
         "Outdoors": #imageLiteral(resourceName: "marker_outdoors"),

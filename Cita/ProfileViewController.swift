@@ -9,45 +9,44 @@
 import UIKit
 import FBSDKCoreKit
 import FirebaseAuth
+import Foundation
+import MessageUI
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userEmailLabel: UILabel!
-    @IBOutlet weak var logOutButton: UIBarButtonItem!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var lastLoginLabel: UILabel!
+    @IBOutlet weak var activitiesCreatedCountLabel: UILabel!
+    @IBOutlet weak var activitiesCountLabel: UILabel!
     
     var user: User!
+    var profileCurrentUser: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-/*
-        var containerLayer: CALayer = CALayer()
-        containerLayer.shadowColor = UIColor.black.cgColor
-        containerLayer.shadowRadius = 10
-        containerLayer.shadowOffset = CGSize(width: 0, height: 5)
-        containerLayer.shadowOpacity = 1
-        */
-        // use the image's layer to mask the image into a circle
-        //image.layer.cornerRadius = roundf(image.frame.size.width/2.0);
-        //image.layer.masksToBounds = YES;
-        
-        // add masked image layer into container layer so that it's shadowed
-        //[containerLayer addSublayer:image.layer];
-        
-        // add container including masked image and shadow into view
-        //[self.view.layer addSublayer:containerLayer];
-        
         
         avatarImageView.layer.cornerRadius = avatarImageView.layer.frame.size.width / 2
         avatarImageView.clipsToBounds = true
+        avatarImageView.layer.borderColor = UIColor.black.cgColor
+        avatarImageView.layer.borderWidth = 1
+        avatarImageView.layer.shadowColor = UIColor.black.cgColor
+        avatarImageView.layer.shadowRadius = 2
+        avatarImageView.layer.shadowOpacity = 1
+        avatarImageView.layer.shadowOffset = CGSize(width: 2, height: 2)
         
-        //containerLayer.addSublayer(avatarImageView.layer)
-        //self.view.layer.addSublayer(containerLayer)
+        logoutButton.backgroundColor = UIColor.citaYellow
+        logoutButton.layer.borderWidth = 1
+        logoutButton.layer.borderColor = UIColor.citaDarkYellow.cgColor
         
         if user == nil {
             user = User.currentUser
-            self.navigationItem.rightBarButtonItem  = logOutButton
+            logoutButton.setTitle("Log Out", for: .normal)
+        } else {
+            logoutButton.setTitle("Email", for: .normal)
+            profileCurrentUser = false
         }
         
         userNameLabel.text = user.displayName
@@ -56,6 +55,15 @@ class ProfileViewController: UIViewController {
             let data = try? Data(contentsOf: photoUrl) {
             avatarImageView.image = UIImage(data: data)
         }
+        
+        lastLoginLabel.text = "Last login: " + (user.lastLogin ?? "")
+        
+        activitiesCreatedCountLabel.text = String(describing: user.creatorKeys!.count)
+        activitiesCountLabel.text = String(describing: user.activityKeys!.count)
+        
+        logoutButton.layer.cornerRadius = 7
+        logoutButton.clipsToBounds = true
+        logoutButton.backgroundColor = UIColor.citaYellow
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,13 +71,44 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func didTapLogoutButton(_ sender: UIBarButtonItem) {
-        // Signs user out of Firebase
-        try! FIRAuth.auth()!.signOut()
-        //Signs user out of Facebook
-        FBSDKAccessToken.setCurrent(nil)
+    @IBAction func logoutButtonAction(_ sender: Any) {
+        if profileCurrentUser == true {
+            // Signs user out of Firebase
+            try! FIRAuth.auth()!.signOut()
+            //Signs user out of Facebook
+            FBSDKAccessToken.setCurrent(nil)
+        } else {
+            let mailComposeViewController = configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                self.present(mailComposeViewController, animated: true, completion: nil)
+            } else {
+                self.showSendMailErrorAlert()
+            }
+        }
+    }
+
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients([user.email!])
+        mailComposerVC.setSubject("Sending you an in-app e-mail about this activity...")
+        mailComposerVC.setMessageBody("", isHTML: false)
+        
+        return mailComposerVC
     }
     
+    func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismiss(animated: true, completion: nil)
+        
+    }
     /*
      // MARK: - Navigation
      

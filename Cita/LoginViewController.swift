@@ -49,6 +49,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                     //firUser.
                     //let user = User(user: firUser)
                     User.currentUser = User.userCache[firUser.uid]//user
+                    User.currentUser?.lastLogin = Date(timeIntervalSinceNow: 0).string()
+                    User.currentUser?.save()
                     print(User.currentUser as Any)
                 } else {
                     self.setLoginState(false, error: error)

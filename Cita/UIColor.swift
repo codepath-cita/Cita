@@ -20,8 +20,30 @@ extension UIColor {
         return image!
     }
     
+    // 51 delta?
+    class var citaLightLightGray: UIColor {
+        return UIColor(red: (230/255), green: (230/255), blue: (230/255), alpha: 1.0)
+    }
+
+    class var citaLightGray: UIColor {
+        return UIColor(red: (179/255), green: (179/255), blue: (179/255), alpha: 1.0)
+    }
+    
+    class var citaGray: UIColor {
+        return UIColor(red: (128/255), green: (128/255), blue: (128/255), alpha: 1.0)
+    }
+    
+    class var citaDarkGray: UIColor {
+        return UIColor(red: (102/255), green: (102/255), blue: (102/255), alpha: 1.0)
+    }
+    
+    class var citaDarkDarkGray: UIColor {
+        return UIColor(red: (51/255), green: (51/255), blue: (51/255), alpha: 1.0)
+    }
+    
+    
     class var citaOrange: UIColor {
-        return UIColor(colorLiteralRed: (255/255), green: (117/255), blue: (11/255), alpha: 1.0)
+        return UIColor(red: (255/255), green: (117/255), blue: (11/255), alpha: 1.0)
     }
     
     class var citaRed: UIColor {

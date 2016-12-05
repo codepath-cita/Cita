@@ -31,14 +31,13 @@
 		DC2C55591DDAD75A00482FF7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55541DDAD75A00482FF7 /* Tag.swift */; };
 		DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC2C55551DDAD75A00482FF7 /* User.swift */; };
 		DCA779541DEED725008C8C09 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA779531DEED725008C8C09 /* Filter.swift */; };
-		DCEC9D6B1DF0225A00B6C6DA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEC9D6A1DF0225A00B6C6DA /* CategoryViewController.swift */; };
 		DCEC9D721DF0230600B6C6DA /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEC9D701DF0230600B6C6DA /* CategoryCell.swift */; };
 		DCEC9D731DF0230600B6C6DA /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCEC9D711DF0230600B6C6DA /* CategoryCell.xib */; };
 		FE6496741DD99FE20025DAEC /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496731DD99FE20025DAEC /* FBSDKLoginKit.framework */; };
 		FE6496761DD9E6F10025DAEC /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE6496751DD9E6F10025DAEC /* FBSDKCoreKit.framework */; };
 		FE6AD2B91DDAB8EB00E18086 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */; };
 		FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */; };
-		FE6AD2BD1DDABA0F00E18086 /* CitasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */; };
+		FE6AD2BD1DDABA0F00E18086 /* MyActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2BC1DDABA0F00E18086 /* MyActivitiesViewController.swift */; };
 		FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */; };
 		FE6AD2C31DDABA5700E18086 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */; };
 		FE6AD2C51DDABA6D00E18086 /* ActivityEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */; };
@@ -93,7 +92,6 @@
 		DC2C55541DDAD75A00482FF7 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		DC2C55551DDAD75A00482FF7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DCA779531DEED725008C8C09 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
-		DCEC9D6A1DF0225A00B6C6DA /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		DCEC9D701DF0230600B6C6DA /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DCEC9D711DF0230600B6C6DA /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cita.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +100,7 @@
 		FE6496771DD9EAD10025DAEC /* Cita.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cita.entitlements; sourceTree = "<group>"; };
 		FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitasViewController.swift; sourceTree = "<group>"; };
+		FE6AD2BC1DDABA0F00E18086 /* MyActivitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyActivitiesViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
 		FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityEditController.swift; sourceTree = "<group>"; };
@@ -256,12 +254,11 @@
 				9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */,
 				FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */,
 				FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */,
-				FE6AD2BC1DDABA0F00E18086 /* CitasViewController.swift */,
+				FE6AD2BC1DDABA0F00E18086 /* MyActivitiesViewController.swift */,
 				FE6AD2C01DDABA3900E18086 /* FilterViewController.swift */,
 				FE6AD2C21DDABA5700E18086 /* ActivityDetailViewController.swift */,
 				FE6AD2C41DDABA6D00E18086 /* ActivityEditController.swift */,
 				1A10668D1DEEB9A2001CF535 /* LaunchScreenViewController.swift */,
-				DCEC9D6A1DF0225A00B6C6DA /* CategoryViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -464,9 +461,8 @@
 				DC23D97A1DDE772800D314D1 /* Location.swift in Sources */,
 				DC23D96F1DDC118B00D314D1 /* Date.swift in Sources */,
 				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
-				DCEC9D6B1DF0225A00B6C6DA /* CategoryViewController.swift in Sources */,
 				DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */,
-				FE6AD2BD1DDABA0F00E18086 /* CitasViewController.swift in Sources */,
+				FE6AD2BD1DDABA0F00E18086 /* MyActivitiesViewController.swift in Sources */,
 				FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */,
 				9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */,
 				DC23D9781DDE184B00D314D1 /* FirebaseClient.swift in Sources */,
