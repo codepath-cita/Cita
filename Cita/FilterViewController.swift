@@ -14,6 +14,8 @@ import UIKit
 
 class FilterViewController: UIViewController {
     
+    @IBOutlet weak var beforeImage: UIImageView!
+    @IBOutlet weak var afterImage: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var startsAfterTextField: UITextField!
     @IBOutlet weak var startsBeforeTextField: UITextField!
@@ -32,12 +34,25 @@ class FilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        beforeImage.image = beforeImage.image!.withRenderingMode(.alwaysTemplate)
+        beforeImage.tintColor = UIColor.citaLightGray
+        afterImage.image = afterImage.image!.withRenderingMode(.alwaysTemplate)
+        afterImage.tintColor = UIColor.citaLightGray
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.allowsMultipleSelection = true;
         
         // Register cell xib
         collectionView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "CategoryCell")
+
+        let screenWidth = self.view.frame.width
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 2, right: 8)
+        layout.itemSize = CGSize(width: screenWidth/3 - 16, height: 28)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        collectionView!.collectionViewLayout = layout
         
         timeFormatter.dateStyle = .medium
         timeFormatter.timeStyle = .short
@@ -113,6 +128,16 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
         let selected = filter.categories.index(of: name)
         cell.categoryNameLabel.text = name
         cell.iconImage.image = Activity.categoryIcons[name]
+        cell.categoryNameLabel.textColor = UIColor.citaLightGray
+        cell.iconImage.image = cell.iconImage.image!.withRenderingMode(.alwaysTemplate)
+        cell.iconImage.tintColor = UIColor.citaLightGray
+        
+        cell.bgView.backgroundColor = UIColor(red: (250/255), green: (250/255), blue: (250/255), alpha: 1.0 )
+        cell.bgView.layer.cornerRadius = 5
+        cell.bgView.clipsToBounds = true
+        cell.bgView.layer.borderWidth = 1
+        cell.bgView.layer.borderColor = UIColor.citaLightGray.cgColor
+        
         if selected != nil {
             cell.isSelected = (selected != nil)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)

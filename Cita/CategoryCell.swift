@@ -20,10 +20,27 @@ class CategoryCell: UICollectionViewCell {
     }
 
     func setSelectedState() {
+        
         if isSelected {
-            bgView.backgroundColor = UIColor.citaGreen
+            self.layer.shadowColor = UIColor.citaGreen.cgColor
+            self.layer.shadowOffset = CGSize(width: 2, height: 2)
+            self.layer.shadowOpacity = 1
+            self.layer.shadowRadius = 1.0
+            self.clipsToBounds = false
+            self.layer.masksToBounds = false
+            self.bgView.backgroundColor = UIColor.citaLightLightGray
+            self.categoryNameLabel.textColor = UIColor.black
+            self.iconImage.tintColor = UIColor.black
+            self.bgView.layer.borderColor = UIColor.citaDarkGray.cgColor
         } else {
-            bgView.backgroundColor = UIColor.citaYellow
+            self.layer.shadowOpacity = 0
+            self.layer.shadowRadius = 0
+            self.iconImage.tintColor = UIColor.citaLightGray
+            self.bgView.backgroundColor = UIColor(red: (250/255), green: (250/255), blue: (250/255), alpha: 1.0 )
+            self.categoryNameLabel.textColor = UIColor.citaLightGray
+            self.bgView.layer.borderColor = UIColor.citaLightGray.cgColor
         }
+        
+        
     }
 }

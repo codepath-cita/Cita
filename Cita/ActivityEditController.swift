@@ -104,6 +104,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         nameTextField.layer.cornerRadius = 5
         nameTextField.borderStyle = .roundedRect
         nameTextField.layer.borderColor = UIColor.white.cgColor
+        nameTextField.textColor = UIColor.citaLightGray
         activityNameIcon.image = activityNameIcon.image!.withRenderingMode(.alwaysTemplate)
         activityNameIcon.tintColor = UIColor.citaLightGray
         
@@ -113,6 +114,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         locationTextField.layer.cornerRadius = 5
         locationTextField.borderStyle = .roundedRect
         locationTextField.layer.borderColor = UIColor.white.cgColor
+        locationTextField.textColor = UIColor.citaLightGray
         locationIcon.image = locationIcon.image!.withRenderingMode(.alwaysTemplate)
         locationIcon.tintColor = UIColor.citaLightGray
         
@@ -122,6 +124,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         startTimeTextField.layer.cornerRadius = 5
         startTimeTextField.borderStyle = .roundedRect
         startTimeTextField.layer.borderColor = UIColor.white.cgColor
+        startTimeTextField.textColor = UIColor.citaLightGray
         startIcon.image = startIcon.image!.withRenderingMode(.alwaysTemplate)
         startIcon.tintColor = UIColor.citaLightGray
         
@@ -131,6 +134,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         durationTextField.layer.cornerRadius = 5
         durationTextField.borderStyle = .roundedRect
         durationTextField.layer.borderColor = UIColor.white.cgColor
+        durationTextField.textColor = UIColor.citaLightGray
         durationIcon.image = durationIcon.image!.withRenderingMode(.alwaysTemplate)
         durationIcon.tintColor = UIColor.citaLightGray
         
@@ -140,6 +144,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         groupSizeField.layer.cornerRadius = 5
         groupSizeField.borderStyle = .roundedRect
         groupSizeField.layer.borderColor = UIColor.white.cgColor
+        groupSizeField.textColor = UIColor.citaLightGray
         groupSizeIcon.image = groupSizeIcon.image!.withRenderingMode(.alwaysTemplate)
         groupSizeIcon.tintColor = UIColor.citaLightGray
         
@@ -459,16 +464,12 @@ extension ActivityEditController:  UICollectionViewDataSource, UICollectionViewD
         cell.bgView.layer.borderColor = UIColor.citaLightGray.cgColor
         
         if indexPath.row == selectedIndex {
-            
             cell.layer.shadowColor = UIColor.citaGreen.cgColor
             cell.layer.shadowOffset = CGSize(width: 2, height: 2)
             cell.layer.shadowOpacity = 1
             cell.layer.shadowRadius = 1.0
             cell.clipsToBounds = false
             cell.layer.masksToBounds = false
-            
-            
-            
             cell.bgView.backgroundColor = UIColor.citaLightLightGray
             cell.categoryNameLabel.textColor = UIColor.black
             cell.iconImage.tintColor = UIColor.black
