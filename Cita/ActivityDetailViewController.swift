@@ -12,6 +12,7 @@ class ActivityDetailViewController: UIViewController {
     
     let HeaderViewIdentifier = "TableViewHeaderView"
     
+    @IBOutlet weak var groupSizeLabel: UILabel!
     @IBOutlet weak var categoryIconImage: UIImageView!
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var activityNameLabel: UILabel!
@@ -34,14 +35,12 @@ class ActivityDetailViewController: UIViewController {
         activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
 
-        if let category = activity.category {
-            categoryNameLabel.text = category
-            categoryIconImage.image = Activity.defaultCategories[category]
-        } else {
-            let category = Activity.other
-            categoryNameLabel.text = category
-            categoryIconImage.image = Activity.defaultCategories[category]
-        }
+        categoryNameLabel.text = activity.category ?? Activity.other
+        categoryIconImage.image = activity.iconImage()
+        groupSizeLabel.text = activity.attendeeCountText()
+
+        categoryIconImage.image = categoryIconImage.image!.withRenderingMode(.alwaysTemplate)
+        categoryIconImage.tintColor = UIColor.citaGray
         
         let timeFormatter = DateFormatter()
         timeFormatter.dateStyle = .medium
@@ -69,6 +68,10 @@ class ActivityDetailViewController: UIViewController {
         
         joinButton.layer.cornerRadius = 7
         joinButton.clipsToBounds = true
+        joinButton.backgroundColor = UIColor.citaGreen
+        joinButton.layer.borderWidth = 1
+        joinButton.layer.borderColor = UIColor.citaDarkGray.cgColor
+
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
@@ -139,10 +142,12 @@ class ActivityDetailViewController: UIViewController {
     
     func setJoinButton(attending: Bool) {
         if attending {
-            joinButton.backgroundColor = .red
+            joinButton.backgroundColor = UIColor.citaYellow
+            joinButton.layer.borderColor = UIColor.citaDarkYellow.cgColor
             joinButton.setTitle("Leave Activity", for: .normal)
         } else {
-            joinButton.backgroundColor = UIColor(red:0.20, green:0.62, blue:0.06, alpha:1.0)
+            joinButton.backgroundColor = UIColor.citaGreen
+            joinButton.layer.borderColor = UIColor.citaDarkGray.cgColor
             joinButton.setTitle("Join Activity", for: .normal)
         }
     }

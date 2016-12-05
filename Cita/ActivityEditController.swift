@@ -78,9 +78,11 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         layout.minimumLineSpacing = 0
         categoryCollection!.collectionViewLayout = layout
         
-        
         createButton.clipsToBounds = true
         createButton.layer.cornerRadius = 7
+        createButton.backgroundColor = UIColor.citaGreen
+        createButton.layer.borderWidth = 1
+        createButton.layer.borderColor = UIColor.citaDarkGray.cgColor
         
         nameTextField.returnKeyType = .done
         groupSizeField.returnKeyType = .done
@@ -446,7 +448,7 @@ extension ActivityEditController:  UICollectionViewDataSource, UICollectionViewD
         cell.categoryNameLabel.text = name
         cell.categoryNameLabel.textColor = UIColor.citaLightGray
         
-        cell.iconImage.image = Activity.defaultCategories[name]
+        cell.iconImage.image = Activity.categoryIcons[name]
         cell.iconImage.image = cell.iconImage.image!.withRenderingMode(.alwaysTemplate)
         cell.iconImage.tintColor = UIColor.citaLightGray
         
@@ -478,11 +480,6 @@ extension ActivityEditController:  UICollectionViewDataSource, UICollectionViewD
         
         return cell
     }
-    /*
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        print("Selected cell number: \(indexPath.row)")
-    }
-    */
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row

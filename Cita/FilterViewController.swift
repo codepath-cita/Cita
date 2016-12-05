@@ -112,7 +112,7 @@ extension FilterViewController: UICollectionViewDataSource, UICollectionViewDele
         let name = Activity.categoryNames[indexPath.row]
         let selected = filter.categories.index(of: name)
         cell.categoryNameLabel.text = name
-        cell.iconImage.image = Activity.defaultCategories[name]
+        cell.iconImage.image = Activity.categoryIcons[name]
         if selected != nil {
             cell.isSelected = (selected != nil)
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .right)

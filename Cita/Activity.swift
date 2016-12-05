@@ -53,8 +53,9 @@ class Activity: NSObject {
     var owner: Bool = false
     
     static var currentActivities: [Activity]? = []
-    
-    static var defaultCategories: [String:UIImage] = [
+
+    static var other = "Random/Other"
+    static var categoryIcons: [String:UIImage] = [
         "Sports": #imageLiteral(resourceName: "sports-ball"),
         "Exercise": #imageLiteral(resourceName: "workout"),
         "Games": #imageLiteral(resourceName: "games"),
@@ -69,11 +70,28 @@ class Activity: NSObject {
         "Political": #imageLiteral(resourceName: "politics"),
         "Volunteer": #imageLiteral(resourceName: "volunteer"),
         "Religious": #imageLiteral(resourceName: "religion"),
-        "Other": #imageLiteral(resourceName: "other")
+        Activity.other: #imageLiteral(resourceName: "other")
     ]
-    static var other = "Other"
+
+    static var categoryMarkers: [String:UIImage] = [
+        "Sports": #imageLiteral(resourceName: "marker_sports"),
+        "Exercise": #imageLiteral(resourceName: "marker_workout"),
+        "Games": #imageLiteral(resourceName: "marker_games"),
+        "Drinks": #imageLiteral(resourceName: "marker_drinks"),
+        "Food": #imageLiteral(resourceName: "marker_food"),
+        "Music": #imageLiteral(resourceName: "marker_music"),
+        "Dancing": #imageLiteral(resourceName: "marker_dance"),
+        "Outdoors": #imageLiteral(resourceName: "marker_outdoors"),
+        "Family": #imageLiteral(resourceName: "marker_family"),
+        "Discussion": #imageLiteral(resourceName: "marker_discussion"),
+        "Sightseeing": #imageLiteral(resourceName: "marker_sightseeing"),
+        "Political": #imageLiteral(resourceName: "marker_politics"),
+        "Volunteer": #imageLiteral(resourceName: "marker_volunteer"),
+        "Religious": #imageLiteral(resourceName: "marker_religion"),
+        Activity.other: #imageLiteral(resourceName: "marker_other")
+    ]
     
-    static var categoryNames: [String] = Activity.defaultCategories.keys.sorted()
+    static var categoryNames: [String] = Activity.categoryIcons.keys.sorted()
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String
@@ -163,6 +181,11 @@ class Activity: NSObject {
         let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
         return "\(attendeeCount) of \(groupSize ?? -1) spots taken"
     }
+
+    func attendeeCount() -> String {
+        let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
+        return "\(attendeeCount)"
+    }
     
     func durationText() -> String {
         if let duration = countdownDuration {
@@ -173,9 +196,18 @@ class Activity: NSObject {
     
     func iconImage() -> UIImage? {
         if let category = category {
-            return Activity.defaultCategories[category]
+            return Activity.categoryIcons[category]
+        } else {
+            return Activity.categoryIcons[Activity.other]
         }
-        return nil
+    }
+    
+    func iconMarker() -> UIImage? {
+        if let category = category {
+            return Activity.categoryMarkers[category]
+        } else {
+            return Activity.categoryMarkers[Activity.other]
+        }
     }
     
     func toDictionary() -> [String: Any] {
