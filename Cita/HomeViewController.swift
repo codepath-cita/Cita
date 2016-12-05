@@ -378,8 +378,9 @@ extension HomeViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         self.isNewMarker = false
+        mapView.selectedMarker = marker;
         
-        return false
+        return true
     }
 }
 
