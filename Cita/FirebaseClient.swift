@@ -89,10 +89,10 @@ class FirebaseClient: NSObject {
     // get data for every user
     func observeUsers() {
         ref.child(User.dbRoot).observe(.value, with: { snapshot in
-            print("\(snapshot.childrenCount) users found!")
+            //print("\(snapshot.childrenCount) users found!")
             for child in snapshot.children {
                 if let userDictionary = (child as! FIRDataSnapshot).value as? [String : AnyObject] {
-                    print("user data=\(userDictionary)")
+                    //print("user data=\(userDictionary)")
                     let uid = userDictionary["uid"] as! String
                     User.userCache[uid] =  User(dictionary: userDictionary)
                 }
