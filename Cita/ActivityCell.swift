@@ -9,23 +9,26 @@
 import UIKit
 
 class ActivityCell: UITableViewCell {
+    @IBOutlet weak var peopleImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var categoryImage: UIImageView!
+    @IBOutlet weak var addressLabel: UILabel!
 
     let timeFormatter = DateFormatter()
     var delegate: tableDelegate?
     var activity: Activity! {
         didSet {
             nameLabel.text = activity.name
-            descriptionLabel.text = activity.fullDescription
+            //descriptionLabel.text = activity.fullDescription
             startTimeLabel.text = Date.niceToRead(from: activity.startTime!, to: activity.endTime!, terse: false)
-            groupSizeLabel.text = activity.attendeeCountText()
             categoryImage.image = activity.iconImage()
+            groupSizeLabel.text = String(describing: activity.groupSize!)
+            addressLabel.text = activity.address
+            peopleImage.image = peopleImage.image!.withRenderingMode(.alwaysTemplate)
+            peopleImage.tintColor = UIColor.citaDarkGray
             
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
