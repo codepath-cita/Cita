@@ -99,4 +99,39 @@ class FirebaseClient: NSObject {
             }
         })
     }
+    
+    // notify user when their activities are updated (user registers)
+    func observeUserEventUpdates() {
+        guard let user = User.currentUser else {
+            print("no current user for event updates!")
+            return
+        }
+        
+        let myEventsRef = ref.child(user.dataKey).child("event_updates")
+        myEventsRef.observe(.value, with: { snapshot in
+            var newEvents: [String] = []
+            for child in snapshot.children {
+                let key = child as! String
+                newEvents.append(key)
+            }
+            user.eventUpdates = newEvents
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.eventsUpdated), object: nil)
+        })
+    }
+
+    // when someone registers for the activity => add the update to the creator's events
+    func notifyActivityCreator(activity: Activity) {
+        let creatorEvents = ref.child(User.dbRoot).child(activity.creatorID!).child("event_updates")
+        creatorEvents.observeSingleEvent(of: .value, with: { snapshot in
+            var events: [String] = []
+            for child in snapshot.children {
+                let key = child as! String
+                events.append(key)
+            }
+            if events.index(of: activity.userActivityKey)==nil {
+                events.append(activity.userActivityKey)
+                creatorEvents.setValue(events)
+            }
+        })
+    }
 }

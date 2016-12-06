@@ -29,6 +29,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     var nothingFoundView: UILabel?
     var activities: [Activity]?
     var currentSearchFilter = Filter()
+    var myActivityCount: Int?
     var searchBar = UISearchBar()
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
@@ -116,13 +117,16 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             forName: NSNotification.Name(rawValue: Activity.activitiesUpdated),
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
-                print("got notif \(Activity.activitiesUpdated) with \(Activity.currentActivities?.count) activities")
                 self.activities = Activity.currentActivities
                 self.updateActivities()
         }
-        
-
-        
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: User.eventsUpdated),
+            object: nil, queue: OperationQueue.main) {
+                (notification: Notification) in
+                self.myActivityCount = User.currentUser?.eventUpdates?.count
+                self.updateActivities()
+        }
     }
     
     func populateMarkers() {
