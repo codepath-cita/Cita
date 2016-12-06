@@ -82,8 +82,7 @@ class MyActivitiesViewController: UIViewController {
                 let item = child as! FIRDataSnapshot
                 let key = item.value as! String
                 self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let dictionary = snapshot.value as! NSDictionary
-                    let activity = Activity(dictionary: dictionary)
+                    let activity = Activity(snapshot: snapshot)
                     self.attendingActivities[key] = activity
                     self.organizeActivities()
                     self.tableView.reloadData()
@@ -100,8 +99,7 @@ class MyActivitiesViewController: UIViewController {
                 let item = child as! FIRDataSnapshot
                 let key = item.value as! String
                 self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let dictionary = snapshot.value as! NSDictionary
-                    let activity = Activity(dictionary: dictionary)
+                    let activity = Activity(snapshot: snapshot)
                     activity.owner = true
                     self.ownedActivities[key] = activity
                     self.organizeActivities()

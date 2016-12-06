@@ -128,7 +128,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
                 self.myActivityCount = User.currentUser?.eventUpdates?.count
-                self.updateActivities()
         }
     }
     
