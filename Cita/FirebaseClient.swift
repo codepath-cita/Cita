@@ -111,8 +111,9 @@ class FirebaseClient: NSObject {
         myEventsRef.observe(.value, with: { snapshot in
             var newEvents: [String] = []
             for child in snapshot.children {
-                let key = child as! String
-                newEvents.append(key)
+                if let key = (child as! FIRDataSnapshot).value as? String {
+                    newEvents.append(key)
+                }
             }
             user.eventUpdates = newEvents
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.eventsUpdated), object: nil)
