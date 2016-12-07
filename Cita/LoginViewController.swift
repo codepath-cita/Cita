@@ -5,7 +5,7 @@
 //  Created by Sara Hender on 11/7/16.
 //  Copyright © 2016 codepath. All rights reserved.
 //
-
+/*
 import UIKit
 import FBSDKLoginKit
 import FirebaseAuth
@@ -68,10 +68,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func setLoginState(_ loggedIn: Bool, error: Error?) {
-//        guard loginButton != nil else { return }
-        
-        loginButton.isHidden = loggedIn
+    func setLoginState(_ loggedIn: Bool, error: Error?) {        loginButton.isHidden = loggedIn
         logoImageView.isHidden = loggedIn
         loginErrorLabel.isHidden = true
         loadingSpinnerAIV.stopAnimating()
@@ -80,4 +77,4 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
 }
-
+*/

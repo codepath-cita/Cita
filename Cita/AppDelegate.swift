@@ -26,10 +26,10 @@ var locationStatus : NSString = "Not Started"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
     var rootNavController: UIViewController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         // Override point for customization after application launch.
         FIRApp.configure()
         
@@ -60,28 +60,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyDAMvPjmoWiADSIyzkH1TqL62In0kN8qTc")
         GMSPlacesClient.provideAPIKey("AIzaSyDAMvPjmoWiADSIyzkH1TqL62In0kN8qTc")
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
+        self.registerNotificationObservers()
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        rootNavController = storyboard.instantiateViewController(withIdentifier:
-            "HomeNavigationController")
-            //"LaunchViewController")
+        UINavigationBar.appearance().shadowImage = UIColor.citaRed.as1ptImage()
+        UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange.as1ptImage(), for: .default)
+        
         if (User.currentUser != nil) {
             FirebaseClient.sharedInstance.observeUserEventUpdates()
-            window?.rootViewController = rootNavController
         }
-        
-        self.registerNotificationObservers()
-
-        
-        // We can use a 1px image with the color we want for the shadow image
-        UINavigationBar.appearance().shadowImage = UIColor.citaRed.as1ptImage()
-        
-        // We need to replace the navigation bar's background image as well
-        // in order to make the shadowImage appear. We use the same 1px color technique
-        UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange.as1ptImage(), for: .default)
         
         return true
     }
+    
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
@@ -163,18 +154,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             forName: NSNotification.Name(rawValue: User.userDidLogoutNotification),
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateInitialViewController() as! LoginViewController
-                vc.view.layoutIfNeeded()
-                vc.setLoginState(false, error: nil)
-                self.window?.rootViewController = vc
+                print("registerNotificationObservers for User.userDidLogoutNotification")
+                
+                print("What am I? \(self.window?.rootViewController?.presentedViewController)")
+                
+                if self.window?.rootViewController?.presentedViewController != nil {
+                    print("What am I? \(self.window?.rootViewController)")
+                    //self.window?.rootViewController = LaunchScreenViewController()
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "LaunchScreenViewController") as! LaunchScreenViewController
+                    self.window?.rootViewController = controller
+                }
+                
+                (self.window?.rootViewController as! LaunchScreenViewController).setLoginState(false, error: nil)
         }
         
         NotificationCenter.default.addObserver(
             forName: NSNotification.Name(rawValue: User.userDidLoginNotification),
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
-                self.window?.rootViewController = self.rootNavController
+                print("registerNotificationObservers for User.userDidLoginNotification")
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "HomeNavigationController") as! UINavigationController
+                self.window?.rootViewController?.present(controller, animated: true, completion: nil)
         }
         
         FIRAuth.auth()?.addStateDidChangeListener { auth, user in
