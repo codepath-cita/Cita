@@ -25,11 +25,9 @@ class ActivityCell: UITableViewCell {
             // Displays update label only if activity contained in eventUpdates array
             updatesLabel.isHidden = true
             let eventUpdates = User.currentUser?.eventUpdates
-            print("holllllla")
-            print(activity.userActivityKey)
-//            if eventUpdates?.contains(activity.userActivityKey) == true {
-//                updatesLabel.isHidden = false
-//            }
+            if eventUpdates?.contains(activity.userActivityKey) == true {
+                updatesLabel.isHidden = false
+            }
 
             nameLabel.text = activity.name
             //descriptionLabel.text = activity.fullDescription

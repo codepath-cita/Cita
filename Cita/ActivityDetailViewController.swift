@@ -32,12 +32,6 @@ class ActivityDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Remove eventUpdates notification
-        var eventUpdates = User.currentUser?.eventUpdates
-        if let index = eventUpdates?.index(of: activity.userActivityKey) {
-            eventUpdates?.remove(at: index)
-        }
-        
         activityNameLabel.text = activity.name
         descriptionLabel.text = activity.fullDescription
 
