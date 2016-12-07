@@ -19,7 +19,6 @@
 		1AB9BA551DD41DA5003600AA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9BA541DD41DA5003600AA /* GoogleService-Info.plist */; };
 		7E5B85E667380FDDF0E202B7 /* Pods_Cita.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C016309DB934E7CA4049A3 /* Pods_Cita.framework */; };
 		9E7F5E2A1DD194E90079F5AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E291DD194E90079F5AA /* AppDelegate.swift */; };
-		9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */; };
 		9E7F5E2F1DD194E90079F5AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7F5E2D1DD194E90079F5AA /* Main.storyboard */; };
 		9E7F5E321DD194E90079F5AA /* Cita.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F5E301DD194E90079F5AA /* Cita.xcdatamodeld */; };
 		9E7F5E341DD194E90079F5AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E7F5E331DD194E90079F5AA /* Assets.xcassets */; };
@@ -77,7 +76,6 @@
 		4432BA125FE116E147E88370 /* Pods-Cita.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cita.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cita/Pods-Cita.release.xcconfig"; sourceTree = "<group>"; };
 		9E7F5E261DD194E90079F5AA /* Cita.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cita.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7F5E291DD194E90079F5AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E7F5E2E1DD194E90079F5AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E7F5E311DD194E90079F5AA /* Cita.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cita.xcdatamodel; sourceTree = "<group>"; };
 		9E7F5E331DD194E90079F5AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -257,7 +255,6 @@
 		FE6496781DD9F12E0025DAEC /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9E7F5E2B1DD194E90079F5AA /* LoginViewController.swift */,
 				FE6AD2B81DDAB8EB00E18086 /* HomeViewController.swift */,
 				FE6AD2BA1DDAB9F000E18086 /* ProfileViewController.swift */,
 				FE6AD2BC1DDABA0F00E18086 /* MyActivitiesViewController.swift */,
@@ -474,7 +471,6 @@
 				FE6AD2BB1DDAB9F000E18086 /* ProfileViewController.swift in Sources */,
 				DC23D97A1DDE772800D314D1 /* Location.swift in Sources */,
 				DC23D96F1DDC118B00D314D1 /* Date.swift in Sources */,
-				9E7F5E2C1DD194E90079F5AA /* LoginViewController.swift in Sources */,
 				DC2C555A1DDAD75A00482FF7 /* User.swift in Sources */,
 				FE6AD2BD1DDABA0F00E18086 /* MyActivitiesViewController.swift in Sources */,
 				FE6AD2C11DDABA3900E18086 /* FilterViewController.swift in Sources */,

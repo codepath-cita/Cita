@@ -50,7 +50,7 @@
                             </constraints>
                             <color key="color" red="1" green="0.51296293739999999" blue="0.33299261330000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </activityIndicatorView>
-                        <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3O-Wq-mxl" userLabel="buttonView">
+                        <view hidden="YES" tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3O-Wq-mxl" userLabel="buttonView">
                             <rect key="frame" x="46.5" y="271" width="281" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="ljU-xh-BcG"/>

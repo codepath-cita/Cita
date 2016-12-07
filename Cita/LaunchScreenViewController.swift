@@ -63,7 +63,7 @@ class LaunchScreenViewController: UIViewController {
         buttonView.addSubview(loginButton)
         loginButton.layer.cornerRadius = 4
         loginButton.clipsToBounds = true
-        loginButton.isHidden = true
+        //loginButton.isHidden = false
         
         print("Current user \(User.currentUser)")
         
@@ -137,7 +137,8 @@ extension LaunchScreenViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print(#function)
         loadingSpinnerAIV.startAnimating()
-        loginButton.isHidden = true
+        //loginButton.isHidden = true
+        buttonView.isHidden = true
         citaLabel.isHidden = false
         
         if error != nil {
@@ -168,7 +169,8 @@ extension LaunchScreenViewController: FBSDKLoginButtonDelegate {
     func setLoginState(_ loggedIn: Bool, error: Error?) {
         print(#function)
         print("loggedIn: \(loggedIn)")
-        loginButton.isHidden = loggedIn
+        //loginButton.isHidden = loggedIn
+        buttonView.isHidden = loggedIn
         logoImageView.isHidden = loggedIn
         citaLabel.isHidden = !loggedIn
         loadingSpinnerAIV.stopAnimating()

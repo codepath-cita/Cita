@@ -65,7 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().shadowImage = UIColor.citaRed.as1ptImage()
         UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange.as1ptImage(), for: .default)
-
+        
+        if (User.currentUser != nil) {
+            FirebaseClient.sharedInstance.observeUserEventUpdates()
+        }
+        
         return true
     }
     
