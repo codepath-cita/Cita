@@ -1053,7 +1053,7 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lF-Mw-pr4">
-                                <rect key="frame" x="76" y="379" width="17" height="17"/>
+                                <rect key="frame" x="72" y="379" width="17" height="17"/>
                                 <color key="backgroundColor" red="1" green="0.00589031307" blue="0.060307260600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="qPX-Z3-xZB"/>
@@ -1073,7 +1073,7 @@
                             <constraint firstAttribute="bottom" secondItem="Ec9-W3-DrB" secondAttribute="bottom" constant="-8" id="Ubl-R0-UVQ"/>
                             <constraint firstItem="Tdy-u0-fi9" firstAttribute="centerX" secondItem="7Fy-jL-sAI" secondAttribute="centerX" id="VCS-nR-hnz"/>
                             <constraint firstItem="Tdy-u0-fi9" firstAttribute="top" secondItem="XMc-j5-w0H" secondAttribute="bottom" id="ZvF-no-6lm"/>
-                            <constraint firstItem="0lF-Mw-pr4" firstAttribute="leading" secondItem="w8R-qj-uda" secondAttribute="trailing" constant="11" id="rNR-fJ-DnH"/>
+                            <constraint firstItem="0lF-Mw-pr4" firstAttribute="leading" secondItem="w8R-qj-uda" secondAttribute="trailing" constant="7" id="rNR-fJ-DnH"/>
                             <constraint firstItem="Ec9-W3-DrB" firstAttribute="centerX" secondItem="7Fy-jL-sAI" secondAttribute="centerX" constant="-1" id="sA7-pf-E6R"/>
                             <constraint firstItem="Tdy-u0-fi9" firstAttribute="width" secondItem="7Fy-jL-sAI" secondAttribute="width" id="uHU-fY-5Om"/>
                             <constraint firstItem="Wyn-rT-Yys" firstAttribute="top" secondItem="aBn-4Z-WLL" secondAttribute="bottom" id="vaj-oU-c0A"/>
