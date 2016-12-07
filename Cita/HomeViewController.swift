@@ -33,7 +33,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     var nothingFoundView: UILabel?
     var activities: [Activity]?
     var currentSearchFilter = Filter()
-    var myActivityCount: Int?
+    var myActivityCount = 0
     var searchBar = UISearchBar()
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
@@ -134,7 +134,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             forName: NSNotification.Name(rawValue: User.eventsUpdated),
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
-                self.myActivityCount = User.currentUser?.eventUpdates?.count
+                self.myActivityCount = (User.currentUser?.eventUpdates?.count)!
                 print("My count \(self.myActivityCount)")
                 if (self.myActivityCount == 0) {
                     self.updatedActivitiesCountBadge.isHidden = true
