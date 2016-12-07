@@ -25,13 +25,13 @@ extension UIColor {
     }
 
     class var citaBrightRed: UIColor {
-        return UIColor(red: (179/255), green: (179/255), blue: (179/255), alpha: 1.0)
+        return UIColor(red: (218/255), green: (31/255), blue: (16/255), alpha: 1.0)
     }
     
     
-    // 51 delta?
+    // 51 delta? 50 shades of gray...
     class var citaLightLightGray: UIColor {
-        return UIColor(red: (218/255), green: (31/255), blue: (16/255), alpha: 1.0)
+        return UIColor(red: (230/255), green: (230/255), blue: (230/255), alpha: 1.0)
     }
 
     class var citaLightGray: UIColor {
@@ -49,7 +49,7 @@ extension UIColor {
     class var citaDarkDarkGray: UIColor {
         return UIColor(red: (51/255), green: (51/255), blue: (51/255), alpha: 1.0)
     }
-    
+    // end of grays
     
     class var citaOrange: UIColor {
         return UIColor(red: (255/255), green: (131/255), blue: (85/255), alpha: 1.0)
