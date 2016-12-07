@@ -66,6 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "HomeNavigationController")
             //"LaunchViewController")
         if (User.currentUser != nil) {
+            FirebaseClient.sharedInstance.observeUserEventUpdates()
             window?.rootViewController = rootNavController
         }
         
