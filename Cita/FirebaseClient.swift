@@ -125,13 +125,29 @@ class FirebaseClient: NSObject {
         creatorEvents.observeSingleEvent(of: .value, with: { snapshot in
             var events: [String] = []
             for child in snapshot.children {
-                let key = child as! String
-                events.append(key)
+                if let key = (child as! FIRDataSnapshot).value as? String {
+                    events.append(key)
+                }
             }
             if events.index(of: activity.userActivityKey)==nil {
                 events.append(activity.userActivityKey)
                 creatorEvents.setValue(events)
             }
+        })
+    }
+    
+    func removeCreatorEventUpdate(activity: Activity) {
+        let eventsRef = ref.child(User.dbRoot).child(activity.creatorID!).child("event_updates")
+        eventsRef.observeSingleEvent(of: .value, with: { snapshot in
+            var events: [String] = []
+            for child in snapshot.children {
+                // create a new list without the given event
+                if let key = (child as! FIRDataSnapshot).value as? String, key != activity.userActivityKey {
+                    events.append(key)
+                }
+
+            }
+            eventsRef.setValue(events)
         })
     }
 }
