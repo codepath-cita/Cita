@@ -20,6 +20,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var tabBarView: UIView!
     @IBOutlet weak var toggleViewButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var updatedActivitiesCountBadge: UILabel!
     
     @IBOutlet weak var newActivityView: UIView!
     @IBOutlet weak var myActivitiesView: UIView!
@@ -45,6 +46,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updatedActivitiesCountBadge.isHidden = true
+        updatedActivitiesCountBadge.layer.cornerRadius = updatedActivitiesCountBadge.frame.size.width/2
+        updatedActivitiesCountBadge.clipsToBounds = true
+        updatedActivitiesCountBadge.layer.borderColor = UIColor.white.cgColor
+        updatedActivitiesCountBadge.layer.borderWidth = 1.0
         
         nothingFoundView = UILabel(frame: CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.height)! +
             UIApplication.shared.statusBarFrame.height
@@ -128,6 +135,13 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
                 self.myActivityCount = User.currentUser?.eventUpdates?.count
+                print("My count \(self.myActivityCount)")
+                if (self.myActivityCount == 0) {
+                    self.updatedActivitiesCountBadge.isHidden = true
+                } else {
+                    self.updatedActivitiesCountBadge.text = "\(self.myActivityCount)"
+                    self.updatedActivitiesCountBadge.isHidden = false
+                }
                 self.updateActivities()
         }
     }
