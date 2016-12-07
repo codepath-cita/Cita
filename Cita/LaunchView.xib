@@ -27,14 +27,17 @@
                     <rect key="frame" x="-0.5" y="-0.5" width="375" height="667"/>
                 </view>
                 <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bA-P0-2Tj" userLabel="containerView">
-                    <rect key="frame" x="0.0" y="153.5" width="375" height="360"/>
+                    <rect key="frame" x="0.0" y="154" width="375" height="360"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="chB-jl-UJs" userLabel="logoTransparent">
-                            <rect key="frame" x="87.5" y="20" width="200" height="200"/>
+                            <rect key="frame" x="88" y="20" width="200" height="200"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="AQQ-yS-G4F"/>
                                 <constraint firstAttribute="width" constant="200" id="aIv-ka-Spf"/>
                             </constraints>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_no_face" translatesAutoresizingMaskIntoConstraints="NO" id="5RN-1K-p7u" userLabel="logoNoFace">
+                            <rect key="frame" x="88" y="20" width="200" height="200"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cita" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="HIG-sP-YZX">
                             <rect key="frame" x="116" y="220" width="143" height="120"/>
@@ -51,7 +54,7 @@
                             <color key="color" red="1" green="0.51296293739999999" blue="0.33299261330000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </activityIndicatorView>
                         <view hidden="YES" tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k3O-Wq-mxl" userLabel="buttonView">
-                            <rect key="frame" x="46.5" y="271" width="281" height="50"/>
+                            <rect key="frame" x="47" y="271" width="281" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="ljU-xh-BcG"/>
                             </constraints>
@@ -67,12 +70,18 @@
                         <constraint firstItem="k3O-Wq-mxl" firstAttribute="top" secondItem="JA3-Vr-DN2" secondAttribute="bottom" constant="8" id="DtB-TZ-9Sy"/>
                         <constraint firstItem="bbt-Ya-hrO" firstAttribute="top" secondItem="k3O-Wq-mxl" secondAttribute="bottom" constant="8" id="Iug-Y0-27s"/>
                         <constraint firstItem="JA3-Vr-DN2" firstAttribute="top" secondItem="chB-jl-UJs" secondAttribute="bottom" constant="8" id="J52-cn-RbE"/>
+                        <constraint firstItem="5RN-1K-p7u" firstAttribute="top" secondItem="chB-jl-UJs" secondAttribute="top" id="MlD-ub-Vnh"/>
+                        <constraint firstItem="5RN-1K-p7u" firstAttribute="bottom" secondItem="chB-jl-UJs" secondAttribute="bottom" id="N4e-De-TmV"/>
+                        <constraint firstItem="5RN-1K-p7u" firstAttribute="width" secondItem="chB-jl-UJs" secondAttribute="width" id="OcD-Ky-KqL"/>
+                        <constraint firstItem="5RN-1K-p7u" firstAttribute="leading" secondItem="chB-jl-UJs" secondAttribute="leading" id="S2l-IQ-3aW"/>
                         <constraint firstItem="chB-jl-UJs" firstAttribute="centerX" secondItem="1bA-P0-2Tj" secondAttribute="centerX" id="SoY-LS-XG3"/>
                         <constraint firstAttribute="bottom" secondItem="HIG-sP-YZX" secondAttribute="bottom" constant="20" symbolic="YES" id="UYg-fz-Dh3"/>
                         <constraint firstItem="chB-jl-UJs" firstAttribute="top" secondItem="1bA-P0-2Tj" secondAttribute="top" constant="20" symbolic="YES" id="eqm-Ek-w0d" userLabel="logoTransparent.top = top "/>
+                        <constraint firstItem="5RN-1K-p7u" firstAttribute="trailing" secondItem="chB-jl-UJs" secondAttribute="trailing" id="g5x-Ju-s5E"/>
                         <constraint firstItem="HIG-sP-YZX" firstAttribute="top" secondItem="chB-jl-UJs" secondAttribute="bottom" id="m2m-bf-8D0"/>
                         <constraint firstItem="k3O-Wq-mxl" firstAttribute="centerX" secondItem="1bA-P0-2Tj" secondAttribute="centerX" id="u7Y-Wn-4bZ"/>
                         <constraint firstItem="HIG-sP-YZX" firstAttribute="centerX" secondItem="1bA-P0-2Tj" secondAttribute="centerX" id="uv9-Nn-OeM"/>
+                        <constraint firstItem="5RN-1K-p7u" firstAttribute="height" secondItem="chB-jl-UJs" secondAttribute="height" id="xlC-8C-VTU"/>
                         <constraint firstItem="bbt-Ya-hrO" firstAttribute="centerX" secondItem="1bA-P0-2Tj" secondAttribute="centerX" id="yps-hS-H41"/>
                     </constraints>
                 </view>
@@ -105,6 +114,7 @@
     </objects>
     <resources>
         <image name="introBackground" width="640" height="1140"/>
+        <image name="logo_no_face" width="256" height="256"/>
         <image name="logo_transparent" width="512" height="512"/>
     </resources>
 </document>

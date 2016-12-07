@@ -41,7 +41,7 @@ class ActivityCell: UITableViewCell {
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
                 iconImageView.image = iconImageView.image!.withRenderingMode(.alwaysTemplate)
-                iconImageView.tintColor = UIColor.citaYellow
+                iconImageView.tintColor = UIColor.citaDarkYellow
                 
             } else {
                 iconImageView.image = nil

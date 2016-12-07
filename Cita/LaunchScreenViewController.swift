@@ -21,6 +21,8 @@ class LaunchScreenViewController: UIViewController {
     var backgroundFilterView: UIView! {get {return launchView.viewWithTag(2)!}}
     var containerView: UIView! {get {return launchView.viewWithTag(3)!}}
     var logoImageView: UIImageView! {get {return launchView.viewWithTag(4) as! UIImageView}}
+    var logoNoFaceImageView: UIImageView! {get {return launchView.viewWithTag(10) as! UIImageView}}
+    
     var citaLabel: UILabel! {get {return launchView.viewWithTag(5) as! UILabel}}
     var twinkleView: UIView! {get {return launchView.viewWithTag(6)!}}
 
@@ -56,6 +58,9 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        logoNoFaceImageView.image = logoNoFaceImageView.image!.withRenderingMode(.alwaysTemplate)
+        self.logoNoFaceImageView.alpha = 0.0
+        
         print(#function)
         var views:[Any] = Bundle.main.loadNibNamed("LoginButton", owner: self, options: nil)!
         loginButton = views[0] as! FBSDKLoginButton
@@ -137,9 +142,18 @@ extension LaunchScreenViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print(#function)
         loadingSpinnerAIV.startAnimating()
-        //loginButton.isHidden = true
-        buttonView.isHidden = true
-        citaLabel.isHidden = false
+
+        self.logoNoFaceImageView.tintColor = UIColor.citaOrange
+        self.buttonView.alpha = 1
+        self.citaLabel.alpha = 0
+        UIView.animate(withDuration: 1.0, animations: {
+            self.buttonView.alpha = 0
+            self.citaLabel.alpha = 1
+        })
+        self.buttonView.alpha = 0
+        self.citaLabel.alpha = 1
+        self.buttonView.isHidden = true
+        self.citaLabel.isHidden = false
         
         if error != nil {
             setLoginState(false, error: error)
@@ -169,12 +183,22 @@ extension LaunchScreenViewController: FBSDKLoginButtonDelegate {
     func setLoginState(_ loggedIn: Bool, error: Error?) {
         print(#function)
         print("loggedIn: \(loggedIn)")
-        //loginButton.isHidden = loggedIn
-        buttonView.isHidden = loggedIn
-        logoImageView.isHidden = loggedIn
-        citaLabel.isHidden = !loggedIn
+
         loadingSpinnerAIV.stopAnimating()
         loginErrorLabel.isHidden = true
+        self.buttonView.isHidden = loggedIn
+        //self.logoImageView.isHidden = loggedIn
+        self.citaLabel.isHidden = !loggedIn
+        
+        self.logoNoFaceImageView.alpha = 0.0
+        self.buttonView.alpha = 0
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            self.logoNoFaceImageView.alpha = 1.0
+            self.logoNoFaceImageView.tintColor = UIColor.facebookBlue
+
+            self.buttonView.alpha = 1
+        })
         
         if let error = error {
             loginErrorLabel.text = "Login failed: \(error.localizedDescription)"
