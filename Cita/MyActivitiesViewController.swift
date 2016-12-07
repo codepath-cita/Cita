@@ -43,6 +43,7 @@ class MyActivitiesViewController: UIViewController {
         
         observeUserActivities()
         observeOwnedActivities()
+        observeActivityUpdates()
     }
     
     func organizeActivities() {
@@ -69,9 +70,6 @@ class MyActivitiesViewController: UIViewController {
                 activities.append(activity)
             }
         }
-        
-        //print( activities[0].startTime! < Date.init(timeIntervalSinceNow: 0))
-        //print(Date.init(timeIntervalSinceNow: 0))
     }
     
     func observeUserActivities() {
@@ -82,8 +80,7 @@ class MyActivitiesViewController: UIViewController {
                 let item = child as! FIRDataSnapshot
                 let key = item.value as! String
                 self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let dictionary = snapshot.value as! NSDictionary
-                    let activity = Activity(dictionary: dictionary)
+                    let activity = Activity(snapshot: snapshot)
                     self.attendingActivities[key] = activity
                     self.organizeActivities()
                     self.tableView.reloadData()
@@ -100,8 +97,7 @@ class MyActivitiesViewController: UIViewController {
                 let item = child as! FIRDataSnapshot
                 let key = item.value as! String
                 self.activityRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let dictionary = snapshot.value as! NSDictionary
-                    let activity = Activity(dictionary: dictionary)
+                    let activity = Activity(snapshot: snapshot)
                     activity.owner = true
                     self.ownedActivities[key] = activity
                     self.organizeActivities()
@@ -109,6 +105,15 @@ class MyActivitiesViewController: UIViewController {
                 })
             }
         })
+    }
+    
+    func observeActivityUpdates() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name(rawValue: User.eventsUpdated),
+            object: nil, queue: OperationQueue.main) {
+                (notification: Notification) in
+                self.tableView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -32,6 +32,9 @@ class Activity: NSObject {
     
     var ref: FIRDatabaseReference?
     var key: String?
+    var userActivityKey: String { // requires a startTime and key!
+        return "\(startTime!.iso8601DatePart)/\(key!)"
+    }
     var name: String?
     var category: String?
     var fullDescription: String?
@@ -49,6 +52,9 @@ class Activity: NSObject {
     var creatorID: String?
     var creator: User?
     var attendeeIDs: [String]?
+    var attendeeCount: Int {
+        return (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
+    }
     var attendees: [User]?
     var owner: Bool = false
     
@@ -130,8 +136,7 @@ class Activity: NSObject {
             print("Error: can't registerUser with nil ID!")
             return
         }
-        guard let startTime = startTime,
-              let key = key else {
+        guard startTime != nil, key != nil else {
                 print("Error: invalid activity missing start time or key: \(name)")
                 return
         }
@@ -139,9 +144,10 @@ class Activity: NSObject {
         self.attendeeIDs!.append(userID)
         save()
 
-        let activityKey = "\(startTime.iso8601DatePart)/\(key)"
-        user.activityKeys!.append(activityKey)
+        user.activityKeys!.append(userActivityKey)
         user.save()
+        
+        FirebaseClient.sharedInstance.notifyActivityCreator(activity: self)
     }
     
     func removeUser(user: User) {
@@ -149,8 +155,7 @@ class Activity: NSObject {
             print("Error: can't removeUser with nil ID!")
             return
         }
-        guard let startTime = startTime,
-              let key = key else {
+        guard startTime != nil, key != nil else {
             print("Error: invalid activity missing start time  or key: \(name)")
                 return
         }
@@ -160,8 +165,7 @@ class Activity: NSObject {
             save()
         }
         
-        let activityKey = "\(startTime.iso8601DatePart)/\(key)"
-        if let index = user.activityKeys?.index(of: activityKey) {
+        if let index = user.activityKeys?.index(of: userActivityKey) {
             user.activityKeys?.remove(at: index)
             user.save()
         }
@@ -178,13 +182,7 @@ class Activity: NSObject {
     }
     
     func attendeeCountText() -> String {
-        let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
         return "\(attendeeCount) of \(groupSize ?? -1) spots taken"
-    }
-
-    func attendeeCount() -> String {
-        let attendeeCount = (attendeeIDs?.count ?? 0) + 1 // include the creator in the count
-        return "\(attendeeCount)"
     }
     
     func durationText() -> String {

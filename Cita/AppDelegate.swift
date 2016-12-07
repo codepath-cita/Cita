@@ -61,28 +61,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey("AIzaSyDAMvPjmoWiADSIyzkH1TqL62In0kN8qTc")
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
-   /*
-//        self.window = UIWindow(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        let viewController: LaunchScreenViewController = LaunchScreenViewController()
-        self.window!.rootViewController = viewController
-        rootNavController = viewController
-//        self.window?.makeKeyAndVisible()
-    */
         self.registerNotificationObservers()
         
         UINavigationBar.appearance().shadowImage = UIColor.citaRed.as1ptImage()
         UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange.as1ptImage(), for: .default)
-        /*
-        {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            self.rootNavController = storyboard.instantiateViewController(withIdentifier:
-                "HomeNavigationController")
-                //"LaunchViewController")
-            if (User.currentUser != nil) {
-                self.window?.rootViewController = self.rootNavController
-            }
-        }
-*/
+
         return true
     }
     

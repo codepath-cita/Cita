@@ -51,6 +51,9 @@ class ActivityDetailViewController: UIViewController {
         
         if let creatorID = activity.creatorID {
             activity.creator = User.userCache[creatorID]
+            if creatorID == User.currentUser!.uid {
+                FirebaseClient.sharedInstance.removeCreatorEventUpdate(activity: activity)
+            }
         }
         if activity.attendeeIDs != nil {
             activity.attendees = []

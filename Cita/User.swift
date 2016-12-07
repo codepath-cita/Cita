@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class User: NSObject {
+    static let eventsUpdated = "user:events:updated"
     static let dbRoot = "users"
     static let currentUserKey = "currentUserData"
     static let userDidLoginNotification = "UserDidLogin"
@@ -17,6 +18,9 @@ class User: NSObject {
     static let facebookProfileKeys = ["public_profile", "email", "user_friends"]
     
     var uid: String?
+    var dataKey: String {
+        return "\(User.dbRoot)/\(uid!)"
+    }
     var providerID: String?
     var displayName: String?
     var email: String?
@@ -25,6 +29,7 @@ class User: NSObject {
     var activityKeys: [String]?
     var activities: [Activity]?
     var creatorKeys: [String]?
+    var eventUpdates: [String]?
     var lastLogin: String?
     
     init(dictionary: [String: AnyObject]) {
@@ -43,12 +48,11 @@ class User: NSObject {
         if creatorKeys == nil {
             creatorKeys = []
         }
+        eventUpdates = dictionary["event_updates"] as? [String]
+        if eventUpdates == nil {
+            eventUpdates = []
+        }
         lastLogin = dictionary["last_login"] as? String
-    }
-    
-    // store users as a large list
-    func dataKey() -> String {
-        return "\(User.dbRoot)/\(uid!)"
     }
     
     func toDictionary() -> [String: Any] {
@@ -60,6 +64,7 @@ class User: NSObject {
             "photo_url": photoURL?.absoluteString as Any,
             "activity_keys": activityKeys as Any,
             "creator_keys": creatorKeys as Any,
+            "event_updates": eventUpdates as Any,
             "last_login": lastLogin as Any
         ]
     }
@@ -67,7 +72,7 @@ class User: NSObject {
     // save to Firebase DB
     func save() {
         if uid != nil {
-            let myRef = FirebaseClient.sharedInstance.ref.child(dataKey())
+            let myRef = FirebaseClient.sharedInstance.ref.child(dataKey)
             print(self.toDictionary())
             myRef.setValue(self.toDictionary())
         }
