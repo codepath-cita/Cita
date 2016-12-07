@@ -107,9 +107,12 @@ class FirebaseClient: NSObject {
             return
         }
         
+        print("Observer update objects")
+        
         let myEventsRef = ref.child(user.dataKey).child("event_updates")
         myEventsRef.observe(.value, with: { snapshot in
             var newEvents: [String] = []
+            print("Got event update")
             for child in snapshot.children {
                 if let key = (child as! FIRDataSnapshot).value as? String {
                     newEvents.append(key)
