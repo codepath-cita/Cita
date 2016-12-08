@@ -15,6 +15,7 @@ class FirebaseClient: NSObject {
 
     let ref: FIRDatabaseReference!
     var currentQuery: FIRDatabaseHandle?
+    var currentEventsQuery: FIRDatabaseHandle?
     
     override init() {
         ref = FIRDatabase.database().reference()
@@ -92,8 +93,13 @@ class FirebaseClient: NSObject {
             //print("\(snapshot.childrenCount) users found!")
             for child in snapshot.children {
                 if let userDictionary = (child as! FIRDataSnapshot).value as? [String : AnyObject] {
-                    let uid = userDictionary["uid"] as! String
-                    User.userCache[uid] =  User(dictionary: userDictionary)
+                    let user = User(dictionary: userDictionary)
+                    let uid = user.uid!
+                    User.userCache[uid] = user
+                    if uid == User.currentUser?.uid {
+                        print("observeUser: observing currentUser events")
+                        self.observeUserEventUpdates()
+                    }
                 }
             }
         })
@@ -101,19 +107,23 @@ class FirebaseClient: NSObject {
     
     // notify user when their activities are updated (user registers)
     func observeUserEventUpdates() {
-        guard let user = User.currentUser else {
-            print("no current user for event updates!")
-            return
+        print("observeUserEventUpdates \(User.currentUser!.uid)")
+        if let query = currentEventsQuery {
+            print("observeUserEventUpdates remove stale query")
+            ref.removeObserver(withHandle: query)
         }
         
+        let user = User.currentUser!
         let myEventsRef = ref.child(user.dataKey).child("event_updates")
         myEventsRef.observe(.value, with: { snapshot in
             var newEvents: [String] = []
+            
             for child in snapshot.children {
                 if let key = (child as! FIRDataSnapshot).value as? String {
                     newEvents.append(key)
                 }
             }
+            print("Got \(newEvents.count) newEvents updates")
             user.eventUpdates = newEvents
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.eventsUpdated), object: nil)
         })

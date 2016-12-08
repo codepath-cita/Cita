@@ -19,8 +19,17 @@ extension UIColor {
         UIGraphicsEndImageContext()
         return image!
     }
+
+    class var facebookBlue: UIColor {
+        return UIColor(red: (59/255), green: (89/255), blue: (152/255), alpha: 1.0)
+    }
+
+    class var citaBrightRed: UIColor {
+        return UIColor(red: (218/255), green: (31/255), blue: (16/255), alpha: 1.0)
+    }
     
-    // 51 delta?
+    
+    // 51 delta? 50 shades of gray...
     class var citaLightLightGray: UIColor {
         return UIColor(red: (230/255), green: (230/255), blue: (230/255), alpha: 1.0)
     }
@@ -40,10 +49,10 @@ extension UIColor {
     class var citaDarkDarkGray: UIColor {
         return UIColor(red: (51/255), green: (51/255), blue: (51/255), alpha: 1.0)
     }
-    
+    // end of grays
     
     class var citaOrange: UIColor {
-        return UIColor(red: (255/255), green: (117/255), blue: (11/255), alpha: 1.0)
+        return UIColor(red: (255/255), green: (131/255), blue: (85/255), alpha: 1.0)
     }
     
     class var citaRed: UIColor {
@@ -51,7 +60,7 @@ extension UIColor {
     }
     
     class var citaYellow: UIColor {
-        return UIColor(red: (245/255), green: (187/255), blue: (0/255), alpha: 1.0)
+        return UIColor(red: (250/255), green: (224/255), blue: (12/255), alpha: 1.0)
     }
     
     class var citaDarkYellow: UIColor {
@@ -59,6 +68,10 @@ extension UIColor {
     }
     
     class var citaGreen: UIColor {
-        return UIColor(red: (142/255), green: (166/255), blue: (4/255), alpha: 1.0)
+        return UIColor(red: (87/255), green: (178/255), blue: (30/255), alpha: 1.0)
+    }
+    
+    class var citaBlue: UIColor {
+        return UIColor(red: (89/255), green: (155/255), blue: (244/255), alpha: 1.0)
     }
 }

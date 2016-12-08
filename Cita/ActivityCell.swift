@@ -24,9 +24,10 @@ class ActivityCell: UITableViewCell {
         didSet {
             // Displays update label only if activity contained in eventUpdates array
             updatesLabel.isHidden = true
-            let eventUpdates = User.currentUser?.eventUpdates
-            if eventUpdates?.contains(activity.userActivityKey) == true {
-                updatesLabel.isHidden = false
+            if let updates = User.currentUser?.eventUpdates {
+                if updates.contains(activity.userActivityKey) {
+                    updatesLabel.isHidden = false
+                }
             }
 
             nameLabel.text = activity.name
@@ -41,7 +42,7 @@ class ActivityCell: UITableViewCell {
             if activity.owner {
                 iconImageView.image = UIImage(named: "key")
                 iconImageView.image = iconImageView.image!.withRenderingMode(.alwaysTemplate)
-                iconImageView.tintColor = UIColor.citaYellow
+                iconImageView.tintColor = UIColor.citaDarkYellow
                 
             } else {
                 iconImageView.image = nil

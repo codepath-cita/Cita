@@ -25,7 +25,7 @@ class CategoryCell: UICollectionViewCell {
             self.layer.shadowColor = UIColor.citaGreen.cgColor
             self.layer.shadowOffset = CGSize(width: 0, height: 0)
             self.layer.shadowOpacity = 1
-            self.layer.shadowRadius = 1.0
+            self.layer.shadowRadius = 2.0
             self.clipsToBounds = false
             self.layer.masksToBounds = false
             self.bgView.backgroundColor = UIColor.citaLightLightGray
