@@ -309,10 +309,7 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
                 let activityKey = "\(self.startDate!.iso8601DatePart)/\(activity.key!)"
                 
                 User.currentUser!.creatorKeys!.append(activityKey)
-
-                if User.currentUser!.interests?.index(of: self.category!) == nil {
-                    User.currentUser!.interests?.append(self.category!)
-                }
+                User.currentUser!.interests?.insert(self.category!)
                 User.currentUser!.save()
                 
                 print("trying to dismiss")

@@ -62,8 +62,8 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         
         activitiesCreatedCountLabel.text = String(describing: user.creatorKeys!.count)
         activitiesCountLabel.text = String(describing: user.activityKeys!.count)
-        user.fetchInterests() {
-            collectionView.reloadData()
+        FirebaseClient.sharedInstance.fetchInterestsFor(user) {
+            self.collectionView.reloadData()
         }
     }
     
@@ -130,9 +130,11 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InterestCell", for: indexPath) as! InterestCell
+        print("got \(user.interests?.count) interests")
+        let interests = Array(user.interests!)
         
         // Configure the cell
-        let name = user.interests![indexPath.row] as! String
+        let name = interests[indexPath.row]
         cell.nameLabel.text = name
         cell.iconImageView.image = Activity.categoryIcons[name]
         

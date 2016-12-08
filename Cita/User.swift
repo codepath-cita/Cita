@@ -25,7 +25,7 @@ class User: NSObject {
     var displayName: String?
     var email: String?
     var photoURL: URL?
-    var interests: [String]?
+    var interests: Set<String>?
     var activityKeys: [String]?
     var activities: [Activity]?
     var creatorKeys: [String]?
@@ -52,9 +52,10 @@ class User: NSObject {
         if eventUpdates == nil {
             eventUpdates = []
         }
-        interests = dictionary["interests"] as? [String]
-        if interests == nil {
-            interests = []
+        if let interestArray = dictionary["interests"] as? [String] {
+            interests = Set(interestArray)
+        } else {
+            interests = Set()
         }
         lastLogin = dictionary["last_login"] as? String
     }
@@ -66,17 +67,12 @@ class User: NSObject {
             "display_name": displayName as Any,
             "email": email as Any,
             "photo_url": photoURL?.absoluteString as Any,
-            "interests": interests as Any,
+            "interests": Array(interests!) as Any,
             "activity_keys": activityKeys as Any,
             "creator_keys": creatorKeys as Any,
             "event_updates": eventUpdates as Any,
             "last_login": lastLogin as Any
         ]
-    }
-    
-    func fetchInterests(success: ()->()) {
-        interests = Activity.categoryNames
-        success()
     }
     
 //    func doStuffonObjectsProcessAndComplete(arrayOfObjectsToProcess: Array) -> Void){

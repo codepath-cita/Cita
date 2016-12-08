@@ -115,7 +115,7 @@ class FirebaseClient: NSObject {
         
         let user = User.currentUser!
         let myEventsRef = ref.child(user.dataKey).child("event_updates")
-        myEventsRef.observe(.value, with: { snapshot in
+        currentEventsQuery = myEventsRef.observe(.value, with: { snapshot in
             var newEvents: [String] = []
             
             for child in snapshot.children {
@@ -126,6 +126,19 @@ class FirebaseClient: NSObject {
             print("Got \(newEvents.count) newEvents updates")
             user.eventUpdates = newEvents
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.eventsUpdated), object: nil)
+        })
+    }
+    
+    func fetchInterestsFor(_ user: User, callback: @escaping () -> ()) {
+        ref.child(user.dataKey).child("interests").observeSingleEvent(of: .value, with: { snapshot in
+            var interests: Set<String> = Set()
+            for child in snapshot.children {
+                if let name = (child as! FIRDataSnapshot).value as? String {
+                    interests.insert(name)
+                }
+            }
+            user.interests = interests
+            callback()
         })
     }
 

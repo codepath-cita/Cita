@@ -145,9 +145,7 @@ class Activity: NSObject {
         save()
 
         user.activityKeys!.append(userActivityKey)
-        if user.interests?.index(of: category!) == nil {
-            user.interests?.append(category!)
-        }
+        user.interests?.insert(category!)
         user.save()
         
         FirebaseClient.sharedInstance.notifyActivityCreator(activity: self)
