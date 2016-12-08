@@ -634,7 +634,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cita/Cita.entitlements;
-				DEVELOPMENT_TEAM = BXSQWA9MVY;
+				DEVELOPMENT_TEAM = VWPTHC52L3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -653,7 +653,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cita/Cita.entitlements;
-				DEVELOPMENT_TEAM = BXSQWA9MVY;
+				DEVELOPMENT_TEAM = VWPTHC52L3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
