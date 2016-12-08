@@ -290,30 +290,33 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
         print(#function)
         createButton.animate {
              if self.validateFields() {
-             self.endDate = self.startDate! + self.countdownDuration!
-             let activity = Activity(dictionary: [:])
-             activity.name = self.nameTextField.text!
-             activity.category = Activity.categoryNames[self.selectedIndex!]
-             activity.fullDescription = self.descriptionTextView.text!
-             activity.groupSize = Int(self.groupSizeField.text!)
-             activity.startTime = self.startDate!
-             activity.endTime = self.endDate!
-             activity.countdownDuration = self.countdownDuration!
-             activity.location = self.location!
-             activity.address = self.locationTextField.text!
-             activity.creator = User.currentUser
-             activity.attendees = []
-             activity.attendeeIDs = []
-             activity.save()
-             
-             let activityKey = "\(self.startDate!.iso8601DatePart)/\(activity.key!)"
-             
-             User.currentUser!.creatorKeys!.append(activityKey)
-             User.currentUser!.save()
-             
-             print("trying to dismiss")
-             
-             let _ = self.navigationController?.popViewController(animated: true)
+                self.endDate = self.startDate! + self.countdownDuration!
+                let activity = Activity(dictionary: [:])
+                activity.name = self.nameTextField.text!
+                activity.category = Activity.categoryNames[self.selectedIndex!]
+                activity.fullDescription = self.descriptionTextView.text!
+                activity.groupSize = Int(self.groupSizeField.text!)
+                activity.startTime = self.startDate!
+                activity.endTime = self.endDate!
+                activity.countdownDuration = self.countdownDuration!
+                activity.location = self.location!
+                activity.address = self.locationTextField.text!
+                activity.creator = User.currentUser
+                activity.attendees = []
+                activity.attendeeIDs = []
+                activity.save()
+                
+                let activityKey = "\(self.startDate!.iso8601DatePart)/\(activity.key!)"
+                
+                User.currentUser!.creatorKeys!.append(activityKey)
+                if User.currentUser!.interests?.index(of: self.category!) == nil {
+                    User.currentUser!.interests?.append(self.category!)
+                }
+                User.currentUser!.save()
+                
+                print("trying to dismiss")
+                
+                let _ = self.navigationController?.popViewController(animated: true)
              }
         }
     }

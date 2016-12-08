@@ -21,12 +21,16 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
     @IBOutlet weak var lastLoginLabel: UILabel!
     @IBOutlet weak var activitiesCreatedCountLabel: UILabel!
     @IBOutlet weak var activitiesCountLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var user: User!
     var profileCurrentUser: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         avatarImageView.layer.cornerRadius = avatarImageView.layer.frame.size.width / 2
         avatarImageView.clipsToBounds = true
@@ -58,6 +62,9 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         
         activitiesCreatedCountLabel.text = String(describing: user.creatorKeys!.count)
         activitiesCountLabel.text = String(describing: user.activityKeys!.count)
+        user.fetchInterests() {
+            collectionView.reloadData()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,14 +112,28 @@ class ProfileViewController: UIViewController, MFMailComposeViewControllerDelega
         controller.dismiss(animated: true, completion: nil)
         
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
+}
+
+
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return user.interests?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InterestCell", for: indexPath) as! InterestCell
+        
+        // Configure the cell
+        let name = user.interests![indexPath.row] as! String
+        cell.nameLabel.text = name
+        cell.iconImageView.image = Activity.categoryIcons[name]
+        
+        return cell
+    }
+
 }

@@ -92,7 +92,6 @@ class FirebaseClient: NSObject {
             //print("\(snapshot.childrenCount) users found!")
             for child in snapshot.children {
                 if let userDictionary = (child as! FIRDataSnapshot).value as? [String : AnyObject] {
-                    //print("user data=\(userDictionary)")
                     let uid = userDictionary["uid"] as! String
                     User.userCache[uid] =  User(dictionary: userDictionary)
                 }

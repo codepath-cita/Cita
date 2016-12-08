@@ -25,7 +25,7 @@ class User: NSObject {
     var displayName: String?
     var email: String?
     var photoURL: URL?
-    var interests: [Tag]?
+    var interests: [String]?
     var activityKeys: [String]?
     var activities: [Activity]?
     var creatorKeys: [String]?
@@ -52,6 +52,10 @@ class User: NSObject {
         if eventUpdates == nil {
             eventUpdates = []
         }
+        interests = dictionary["interests"] as? [String]
+        if interests == nil {
+            interests = []
+        }
         lastLogin = dictionary["last_login"] as? String
     }
     
@@ -62,6 +66,7 @@ class User: NSObject {
             "display_name": displayName as Any,
             "email": email as Any,
             "photo_url": photoURL?.absoluteString as Any,
+            "interests": interests as Any,
             "activity_keys": activityKeys as Any,
             "creator_keys": creatorKeys as Any,
             "event_updates": eventUpdates as Any,
@@ -69,11 +74,63 @@ class User: NSObject {
         ]
     }
     
+    func fetchInterests(success: ()->()) {
+        interests = Activity.categoryNames
+        success()
+    }
+    
+//    func doStuffonObjectsProcessAndComplete(arrayOfObjectsToProcess: Array) -> Void){
+//    
+//    let firstGroup = dispatch_group_create()
+//    
+//    for object in arrayOfObjectsToProcess {
+//    
+//    dispatch_group_enter(firstGroup)
+//    
+//    doStuffToObject(object, completion:{ (success) in
+//    if(success){
+//    // doing stuff success
+//    }
+//    else {
+//    // doing stuff fail
+//    }
+//    // regardless, we leave the group letting GCD know we finished this bit of work
+//    dispatch_group_leave(firstGroup)
+//    })
+//    }
+//    
+//    // called once all code blocks entered into group have left
+//    dispatch_group_notify(firstGroup, dispatch_get_main_queue()) {
+//    
+//    let processGroup = dispatch_group_create()
+//    
+//    for object in arrayOfObjectsToProcess {
+//    
+//    dispatch_group_enter(processGroup)
+//    
+//    processObject(object, completion:{ (success) in
+//    if(success){
+//    // processing stuff success
+//    }
+//    else {
+//    // processing stuff fail
+//    }
+//    // regardless, we leave the group letting GCD know we finished this bit of work
+//    dispatch_group_leave(processGroup)
+//    })
+//    }
+//    
+//    dispatch_group_notify(processGroup, dispatch_get_main_queue()) {
+//    print("All Done and Processed, so load data now")
+//    }
+//    }
+//    }
+    
     // save to Firebase DB
     func save() {
         if uid != nil {
             let myRef = FirebaseClient.sharedInstance.ref.child(dataKey)
-            print(self.toDictionary())
+            // print("user=\(self.toDictionary())")
             myRef.setValue(self.toDictionary())
         }
     }
