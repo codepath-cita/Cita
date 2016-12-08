@@ -164,10 +164,13 @@ extension LaunchScreenViewController: FBSDKLoginButtonDelegate {
             FIRAuth.auth()?.signIn(with: credential) { (firUser, error) in
                 if let firUser = firUser {
                     // we need to fetch the firebase user
-                    User.currentUser = User.userCache[firUser.uid]
-                    User.currentUser?.lastLogin = Date(timeIntervalSinceNow: 0).string()
-                    User.currentUser?.save()
-                    print(User.currentUser as Any)
+                    if let user = User.userCache[firUser.uid] {
+                        User.currentUser = user
+                        User.currentUser?.lastLogin = Date(timeIntervalSinceNow: 0).string()
+                        User.currentUser?.save()
+                    } else {
+                        print("logged in but userCache missing")
+                    }
                 } else {
                     self.setLoginState(false, error: error)
                 }

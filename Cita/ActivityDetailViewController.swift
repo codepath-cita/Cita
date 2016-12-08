@@ -51,7 +51,7 @@ class ActivityDetailViewController: UIViewController {
         
         if let creatorID = activity.creatorID {
             activity.creator = User.userCache[creatorID]
-            if creatorID == User.currentUser!.uid {
+            if creatorID == User.currentUser!.uid { // user viewing their own activity, dismiss 'event updated notif'
                 FirebaseClient.sharedInstance.removeCreatorEventUpdate(activity: activity)
             }
         }

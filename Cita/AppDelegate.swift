@@ -66,10 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().shadowImage = UIColor.citaRed.as1ptImage()
         UINavigationBar.appearance().setBackgroundImage(UIColor.citaOrange.as1ptImage(), for: .default)
         
-        if (User.currentUser != nil) {
-            FirebaseClient.sharedInstance.observeUserEventUpdates()
-        }
-        
         return true
     }
     
@@ -175,7 +171,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             object: nil, queue: OperationQueue.main) {
                 (notification: Notification) in
                 print("registerNotificationObservers for User.userDidLoginNotification")
-                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let controller = storyboard.instantiateViewController(withIdentifier: "HomeNavigationController") as! UINavigationController
                 self.window?.rootViewController?.present(controller, animated: true, completion: nil)
