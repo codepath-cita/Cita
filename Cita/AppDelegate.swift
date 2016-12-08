@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
+//        try! FIRAuth.auth()!.signOut()
+//        //Signs user out of Facebook
+//        FBSDKAccessToken.setCurrent(nil)
+        
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotification), name: .firInstanceIDTokenRefresh, object: nil)
         
