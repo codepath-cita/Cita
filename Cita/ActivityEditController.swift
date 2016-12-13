@@ -45,7 +45,6 @@ class ActivityEditController: UIViewController, UITextFieldDelegate, UITextViewD
     var endDate: Date?
     var countdownDuration: Double?
     var durationText: String?
-    var category: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
